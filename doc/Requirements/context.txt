@@ -1,0 +1,20 @@
+Sinh viên, giảng viên cùng với các cán bộ làm việc tại trường Đại học Bách Khoa thường xuyên có nhu cầu in ấn tài liệu. Các sinh viên thường in các tài liệu phục vụ cho quá trình học tập như slide bài giảng, bài ghi trong tập, một số sách, giáo trình hay các tài liệu mà sinh viên nộp cho giảng viên để đánh giá môn học như tiểu luận, luận văn... Các giảng viên cũng có nhu cầu in bài giảng, báo cáo, bảng biểu...
+
+Nhận thấy nhu cầu cao của sinh viên, giảng viên trường, không chỉ là nhu cầu in ấn mà còn photo, scan tài liệu, nhà trường đã xây dựng một số phòng photocopy tại 2 cơ sở. Tuy nhiên, hiện nay vẫn còn một số bất cập trong việc cung cấp dịch vụ in ấn. Cụ thể, người đi in phải mang tài liệu cần in đến phòng photocopy thông qua USB hoặc gửi tài liệu qua Zalo cho người in. Đối với USB, nhiều người đã không còn sử dụng loại thiết bị này cho việc lưu trữ file. Họ đang dần ưu tiên sử dụng các dịch vụ lưu trữ đám mây như Google Drive, OneDrive... Nguy cơ khác đối với USB có thể kể đến như thất lạc USB, nguy cơ dính mã độc... Đối với việc gửi qua Zalo, người dùng có thể không dùng Zalo hoặc lo sợ về vấn đề bảo mật dữ liệu... Ngoài ra, việc xếp hàng chờ in tài liệu tại phòng photo cũng không mang lại cảm giác hài lòng cho người đi in.
+
+Vì vậy, cần có một hệ thống phần mềm cung cấp dịch vụ in thông minh cho người dùng. Hệ thống này sẽ khắc phục các nhược điểm so với việc in truyền thống cũng như mang lại nhiều tiện ích cho sinh viên, giảng viên trường. Hệ thống này có tên là Student Smart Printing Service (HCMUT_SSPS). Hệ thống có thể tích hợp với các phòng in hiện tại của nhà trường hoặc các phòng in mới, tùy thuộc vào ý định của nhà trường.
+
+Hệ thống này cho phép người dùng tải tài liệu lên hệ thống. Người dùng có thể chọn các tùy chỉnh cho tài liệu được in như cỡ giấy, số lượng bản sao, in một hay hai mặt và nhiều thuộc tính khác. Sau khi tài liệu được in, hệ thống sẽ thay đổi trạng thái in của tài liệu và thông báo cho người dùng. Lúc này, người dùng có thể đến lấy tài liệu mà không cần đứng xếp hàng tại phòng photo. Người dùng sẽ thanh toán trước số trang họ sẽ in bằng phương pháp thanh toán trực tuyến.
+
+Để quản lý dịch vụ in ấn một cách hiệu quả, hệ thống sẽ được giao cho Student Printing Service Officer (SPSO). SPSO có nhiệm vụ chỉnh cấu hình của hệ thống như các loại file mà hệ thống chấp nhận, quản lý thông tin về tài nguyên (các máy in), thêm bớt, kích hoạt hoặc vô hiệu hóa máy in, cũng như theo dõi lịch sử in của người dùng và xem báo cáo sử dụng hệ thống.
+
+Nhằm thuận tiện cho công tác quản lý, hệ thống sẽ được tích hợp với các hệ thống dịch vụ đã có của trường Đại học Bách Khoa, bao gồm hệ thống xác thực đăng nhập HCMUT_SSO, cũng như hệ thống thanh toán trực tuyến BKPay. Nhờ vậy, việc quản lý các dịch vụ cho sinh viên, giảng viên trường vừa dễ dàng, thuận tiện, vừa đồng nhất.
+
+Một số thông tin của hệ thống có thể được tóm tắt như sau:
+- Vị trí: Đặt ở các vị trí rộng rãi, thuận tiện (VD: sảnh chính tại các tòa, thư viện...).
+- Cơ sở vật chất: Bao gồm nhiều máy in, có thêm các máy photo đa chức năng, scan... có kết nối mạng.
+- Thời gian hoạt động: Từ 6h30-18h (đối với từ thứ 2 đến thứ 6) và 7h30-16h (thứ 7, chủ nhật).
+- Chi phí: Mỗi năm, mỗi sinh viên, giảng viên được cấp một lượng trang in nhất định (in 2 mặt hoặc 1 mặt A3 ứng với 2 trang A4) để phục vụ việc in ấn tại trường, có thể mua thêm số lượng trang in bằng phương thức online thông qua trang thanh toán trực tuyến BKPay.
+- Hệ thống thông tin: Lưu thông tin người dùng cuối (sinh viên, giảng viên) bao gồm ID, máy in, tên file, thời gian in, số trang in, khổ giấy), lưu lịch sử sử dụng của người dùng bao gồm thông tin in ấn của họ tại mỗi lần sử dụng.
+- Hệ thống quản lý dành cho SPSO: Quản lý máy in như bật/tắt, hướng dẫn sử dụng, bảo trì, thêm giấy in, thêm mực in, thay đổi số trang mặc định, ngày tháng mà hệ thống cấp số trang mặc định, định dạng file được hệ thống chấp nhận.
+- Hệ thống bảo mật: Tất cả đối tượng sử dụng phải xác thực thông qua hệ thống HCMUT_SSO.
