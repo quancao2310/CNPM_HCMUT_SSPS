@@ -1,0 +1,18 @@
+{
+  "name": "hcmut_ssps",
+  "version": "1.0.0",
+  "description": "Welcome to our HCMUT_SSPS - A smart printing service for HCMUT students",
+  "scripts": {
+    "server": "cd server && npm start",
+    "client": "cd client && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server-dev": "cd server && npm run dev",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
