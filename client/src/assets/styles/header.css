@@ -1,0 +1,27 @@
+.my-brand {
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-bk2);
+    /* text-shadow: 3px 3px 0 #fff, -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff; */
+}
+
+.my-brand:hover {
+    color: var(--color-bk2);
+    text-shadow: 0 0 1rem var(--color-bk1);
+    transition: all 200ms linear;
+}
+
+.nav-item:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+    box-shadow: 0 0 1rem var(--color-bk1);
+    transition: all 200ms ease-out;
+}
+
+.my-dropdown {
+    min-width: 12rem;
+}
