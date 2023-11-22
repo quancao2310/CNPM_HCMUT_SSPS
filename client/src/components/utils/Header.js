@@ -18,7 +18,7 @@ export default function Header() {
     else {
       setPageLinks(customerLinks);
     }
-  }, [user]);
+  }, []);
   
   return (
     <header className="sticky-xl-top">

@@ -18,7 +18,7 @@ function Footer() {
     else {
       setPageLinks(customerLinks);
     }
-  }, [user]);
+  }, []);
   
   return (
     <footer className="py-2 mt-4 text-lg-start bg-dark text-white">
