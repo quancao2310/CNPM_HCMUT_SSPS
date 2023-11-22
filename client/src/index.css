@@ -4,15 +4,13 @@
 }
 
 body {
-    margin: 0;
-    
     font-family: 'Segoe UI', 'Roboto',
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
+/* #root {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,7 +22,7 @@ body {
 
 #root > header, #root > footer {
     flex: 0 0;
-}
+} */
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

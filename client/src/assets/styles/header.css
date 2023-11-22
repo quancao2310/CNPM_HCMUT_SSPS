@@ -3,7 +3,6 @@
     text-align: center;
     font-weight: 600;
     color: var(--color-bk2);
-    /* text-shadow: 3px 3px 0 #fff, -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff; */
 }
 
 .my-brand:hover {
@@ -12,7 +11,7 @@
     transition: all 200ms linear;
 }
 
-.nav-item:hover {
+header .nav-item:hover {
     transform: scale(1.05);
     transition: all 0.3s ease-in-out;
 }
