@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import FileUpload from "../components/FileUpload";
 
 function Home() {
   const [state, setState] = useState(null);
@@ -17,15 +18,7 @@ function Home() {
   
   return (
     <div>
-      <h1>Home</h1>
-      <p>Test CORS and Axios: {state}</p>
-      <p>Test CORS and Axios: {state}</p>
-      <p>Test CORS and Axios: {state}</p>
-      <p>Test CORS and Axios: {state}</p>
-      <p>Test CORS and Axios: {state}</p>
-      <p>Test CORS and Axios: {state}</p>
-      <p>Test CORS and Axios: {state}</p>
-      <p>Test CORS and Axios: {state}</p>
+      <FileUpload />
     </div>
   );
 }
