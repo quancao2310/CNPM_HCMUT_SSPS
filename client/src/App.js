@@ -25,7 +25,6 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path='*' element={ user.isSPSO ? <SPSORoutes /> : <CustomerRoutes /> } />
           </Route>
-          <Route path='*' element={<NotFound />}/>
         </Routes>
         <Footer />
       </BrowserRouter>

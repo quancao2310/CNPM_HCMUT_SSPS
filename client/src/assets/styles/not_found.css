@@ -1,0 +1,58 @@
+#not-found {
+  background-color: #313942;
+  font-family: 'Montserrat', sans-serif;
+  height: 65vh;
+}
+
+#not-found h1 {
+  font-size: 12rem;
+  letter-spacing: .10em;
+  text-shadow: .05em .05em 0 rgba(0, 0, 0, .25);
+  white-space: nowrap;
+}
+
+#not-found h1 > span {
+  color: #528cce;
+  display: inline-block;
+  animation: spooky 2s alternate infinite ease-in-out;
+}
+
+#not-found h2 {
+  font-size: 2rem;
+}
+
+@media (max-width: 1024px) {
+  #not-found {
+    height: 60vh;
+  }
+  #not-found h1 {
+    font-size: 10rem;
+  }
+  #not-found h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #not-found {
+    height: 56vh;
+  }
+  #not-found h1 {
+    font-size: 7rem;
+  }
+  #not-found h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@keyframes spooky {
+  0% {
+    transform: translateY(-2rem);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-2rem);
+  }
+}

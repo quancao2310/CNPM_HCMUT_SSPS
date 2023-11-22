@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import PrintService from "../pages/PrintService";
+import NotFound from "../pages/NotFound";
 
 // This is just a sample, can be changed later
 function CustomerRoutes() {
@@ -22,6 +23,7 @@ function CustomerRoutes() {
       <Route path='support'>
         <Route index element={<h1>mnp</h1>} />
       </Route>
+      <Route path='*' element={<NotFound />}/>
     </Routes>
   );
 }
