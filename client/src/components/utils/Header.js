@@ -25,7 +25,7 @@ export default function Header() {
       <nav className="navbar navbar-expand-lg p-1 navbar-light bg-light sticky-top">
         <div className="container">
           <ToggleBtnSmallScreen />
-          <NavLink className="navbar-brand my-brand" to="/">SSPS</NavLink>
+          <NavLink className="me-0 me-lg-3 navbar-brand my-brand" to="/">SSPS</NavLink>
           { isLogin ?
             <DropdownAvatar />
           :
