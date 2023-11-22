@@ -14,7 +14,7 @@ function Home() {
         setState('Error');
         console.error(err);
       });
-  }, []);
+  }, [state]);
   
   return (
     <div>
