@@ -1,26 +1,33 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import FileUpload from "../components/FileUpload";
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { UserContext } from './context/UserContext';
+import Header from './components/utils/Header';
+import Footer from './components/utils/Footer';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import SPSORoutes from './routes/SPSORoutes';
+import CustomerRoutes from './routes/CustomerRoutes';
 
-function Home() {
-  const [state, setState] = useState(null);
+export default function App() {
+  const [user, setUser] = useState({ token: 'user1', isSPSO: false });
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/test')
-      .then((response) => {
-        setState(response.data);
-      })
-      .catch((err) => {
-        setState('Error');
-        console.error(err);
-      });
-  }, [state]);
+    // Log in/out signal
+    // Take user credentials from cookies
+    setUser({...user});
+  }, []);
   
   return (
-    <div>
-      <FileUpload />
-    </div>
+    <UserContext.Provider value={user}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/'>
+            <Route index element={<Home />} />
+            <Route path='*' element={ user.isSPSO ? <SPSORoutes /> : <CustomerRoutes /> } />
+          </Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </UserContext.Provider>
   );
 }
-
-export default Home;

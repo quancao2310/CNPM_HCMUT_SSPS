@@ -21,7 +21,7 @@ function Footer() {
   }, []);
   
   return (
-    <footer className="py-2 mt-4 text-lg-start bg-dark text-white">
+    <footer className="py-2 bg-dark text-white">
       <div className="container mt-5 px-3 px-md-0">
         <div className="row mt-3">
           <div className="col-md-3 col-lg-2 mx-auto mb-4">

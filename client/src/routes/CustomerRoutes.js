@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Print from "../components/print/Print";
+import FileUpload from "../components/FileUpload.js";
 
 // This is just a sample, can be changed later
 function CustomerRoutes() {
   return (
     <Routes>
       <Route path='print'>
-        <Route index element={<Print />} /> {/* Route dich vu dat in */}
+        <Route index element={<FileUpload />} /> {/* Route dich vu dat in */}
         <Route path='log'> {/* Route lich su in */}
           <Route index element={<h1>def</h1>} /> {/* Route trang tong hop lich su */}
           <Route path=':id' element={<h1>ghi</h1>} /> {/* Route xem tung lich su */}
