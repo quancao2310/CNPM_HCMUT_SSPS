@@ -9,8 +9,6 @@ export default function Header() {
   const user = useContext(UserContext);
   const [pageLinks, setPageLinks] = useState([]);
   
-  const isLogin = (user.token !== null);
-  
   useEffect(() => {
     if (user.isSPSO) {
       setPageLinks(spsoLinks);
@@ -26,7 +24,7 @@ export default function Header() {
         <div className="container">
           <ToggleBtnSmallScreen />
           <NavLink className="me-0 me-lg-3 navbar-brand my-brand" to="/">SSPS</NavLink>
-          { isLogin ?
+          { user.token !== null ?
             <DropdownAvatar />
           :
             <NavLink to="/" role="button" className="btn btn-primary fw-medium text-white order-lg-last login-btn">Đăng nhập</NavLink>
