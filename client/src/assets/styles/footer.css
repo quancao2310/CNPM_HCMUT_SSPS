@@ -1,11 +1,11 @@
 .hover-foot {
-    color: white;
+  color: white;
 }
 
 .hover-foot:hover {
-    color: var(--color-bk1);
+  color: var(--color-bk1);
 }
 
 #cp-write {
-    background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }

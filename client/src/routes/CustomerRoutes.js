@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import PrintService from "../pages/PrintService";
+import PrintHistory from "../pages/PrintHistory";
 import NotFound from "../pages/NotFound";
 
 // This is just a sample, can be changed later
@@ -9,7 +10,7 @@ function CustomerRoutes() {
       <Route path='print'>
         <Route index element={<PrintService />} /> {/* Route dich vu dat in */}
         <Route path='log'> {/* Route lich su in */}
-          <Route index element={<h1>def</h1>} /> {/* Route trang tong hop lich su */}
+          <Route index element={<PrintHistory />} /> {/* Route trang tong hop lich su */}
           <Route path=':id' element={<h1>ghi</h1>} /> {/* Route xem tung lich su */}
         </Route>
       </Route>
