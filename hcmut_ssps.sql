@@ -97,9 +97,12 @@ CREATE TABLE `print_order` (
   `time_end` datetime DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(45) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pending',
   `pages_to_be_printed` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `document_id` int unsigned NOT NULL,
   `user_id` int unsigned NOT NULL,
   PRIMARY KEY (`print_id`),
   UNIQUE KEY `print_id_UNIQUE` (`print_id`),
+  KEY `fk_doc_printed_idx` (`document_id`),
+  CONSTRAINT `fk_doc_printed` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`),
   KEY `fk_user_print_idx` (`user_id`),
   CONSTRAINT `fk_user_print` FOREIGN KEY (`user_id`) REFERENCES `customer` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -160,12 +163,9 @@ CREATE TABLE `purchase_order` (
   `price` float NOT NULL DEFAULT '0',
   `status` varchar(45) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pending',
   `user_id` int unsigned NOT NULL,
-  `document_id` int unsigned NOT NULL,
   PRIMARY KEY (`purchase_id`),
   UNIQUE KEY `purchase_id_UNIQUE` (`purchase_id`),
-  KEY `fk_doc_printed_idx` (`document_id`),
   KEY `fk_user_prchse_idx` (`user_id`),
-  CONSTRAINT `fk_doc_printed` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`),
   CONSTRAINT `fk_user_prchse` FOREIGN KEY (`user_id`) REFERENCES `customer` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
