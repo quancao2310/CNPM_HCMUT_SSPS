@@ -1,26 +1,26 @@
 .my-brand {
-    font-size: 2.5rem;
-    text-align: center;
-    font-weight: 600;
-    color: var(--color-bk2);
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-bk2);
 }
 
 .my-brand:hover {
-    color: var(--color-bk2);
-    text-shadow: 0 0 1rem var(--color-bk1);
-    transition: all 200ms linear;
+  color: var(--color-bk2);
+  text-shadow: 0 0 1rem var(--color-bk1);
+  transition: all 200ms linear;
 }
 
 header .nav-item:hover {
-    transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
 }
 
 .login-btn:hover {
-    box-shadow: 0 0 1rem var(--color-bk1);
-    transition: all 200ms ease-out;
+  box-shadow: 0 0 1rem var(--color-bk1);
+  transition: all 200ms ease-out;
 }
 
 .my-dropdown {
-    min-width: 12rem;
+  min-width: 12rem;
 }

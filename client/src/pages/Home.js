@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from '../context/UserContext';
 import homeBG from "../assets/img/home_bg.png";
 
 function Home() {
-  const [state, setState] = useState(null);
+  const user = useContext(UserContext);
+  const [state, setState] = useState(null); // To be deleted
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/test")
@@ -53,7 +55,7 @@ function Home() {
                   fontSize: "5vw",
                 }}
               >
-                Chào mừng đến với SSPS
+                { user.isSPSO ? 'Xin chào SPSO' : 'Chào mừng đến với SSPS' }
               </p>
             </div>
           </div>
