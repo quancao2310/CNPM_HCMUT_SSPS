@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import homeBG from "../assets/img/home_bg.png";
 
-export default function App() {
-  const [user, setUser] = useState({ token: 'user1', isSPSO: false });
+function Home() {
+  const [state, setState] = useState(null);
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/test")
@@ -62,3 +62,5 @@ export default function App() {
     </>
   );
 }
+
+export default Home;
