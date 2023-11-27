@@ -4,10 +4,12 @@ import { UserContext } from '../../context/UserContext';
 import { customerLinks, spsoLinks, profileLinks } from './page_links';
 import '../../assets/styles/header.css';
 import sampleAvt from '../../assets/img/standard_avt.jpg';
+import { useCookies } from 'react-cookie';
 
 export default function Header() {
   const user = useContext(UserContext);
   const [pageLinks, setPageLinks] = useState([]);
+  const [cookies, setCookie, removeCookie] = useCookies();
   
   useEffect(() => {
     if (user.isSPSO) {
@@ -18,6 +20,10 @@ export default function Header() {
     }
   }, []);
   
+  const handleLogout = (e) => {
+    console.log('Logout');
+  }
+  
   return (
     <header className="sticky-xl-top">
       <nav className="navbar navbar-expand-lg p-1 navbar-light bg-light sticky-top">
@@ -25,9 +31,16 @@ export default function Header() {
           <ToggleBtnSmallScreen />
           <NavLink className="me-0 me-lg-3 navbar-brand my-brand" to="/">SSPS</NavLink>
           { user.token !== null ?
-            <DropdownAvatar />
+            <DropdownAvatar handleLogout={handleLogout} />
           :
-            <NavLink to="/" role="button" className="btn btn-primary fw-medium text-white order-lg-last login-btn">Đăng nhập</NavLink>
+            <Link 
+              to="/login" 
+              role="button" 
+              className="btn fw-medium text-white order-lg-last login-btn"
+              style={{ backgroundColor: 'var(--color-bk1)' }}
+            >
+              Đăng nhập
+            </Link>
           }
           <div className="collapse navbar-collapse" id="ssps-nav">
             <NavbarMenu pageLinks={pageLinks} />
@@ -55,7 +68,7 @@ function ToggleBtnSmallScreen() {
   );
 }
 
-function DropdownAvatar() {
+function DropdownAvatar({ handleLogout }) {
   const links = profileLinks;
   
   return (
@@ -76,7 +89,13 @@ function DropdownAvatar() {
         )}
         <li><hr className="dropdown-divider" /></li>
         <li>
-          <Link className="dropdown-item" to="/">Đăng xuất</Link>
+          <button 
+            type='button' 
+            className="dropdown-item"
+            onClick={handleLogout}
+          >
+            Đăng xuất
+          </button>
         </li>
       </ul>
     </div>
