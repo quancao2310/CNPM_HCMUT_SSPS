@@ -194,6 +194,8 @@ CREATE TABLE `spso` (
   `dob` date NOT NULL DEFAULT (curdate()),
   `email` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `phone` int NOT NULL,
+  `type` enum('student','admin') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'admin',
+  `last_used` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`spso_id`),
   UNIQUE KEY `spso_id_UNIQUE` (`spso_id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
