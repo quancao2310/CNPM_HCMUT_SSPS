@@ -1,30 +1,30 @@
 :root {
-    --color-bk1: #1488db;
-    --color-bk2: #042b92;
+  --color-bk1: #1488db;
+  --color-bk2: #042b92;
 }
 
 body {
-    font-family: 'Segoe UI', 'Roboto',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: 'Segoe UI', 'Roboto',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* #root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 #root > * {
-    flex: 1 0;
+  flex: 1 0;
 }
 
 #root > header, #root > footer {
-    flex: 0 0;
-} */
+  flex: 0 0;
+}
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }

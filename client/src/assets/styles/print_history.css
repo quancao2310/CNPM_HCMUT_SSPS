@@ -1,0 +1,45 @@
+/* ---------------- Dashboard Page ---------------- */
+#history-table {
+  line-height: 1.8rem;
+}
+
+#history-table th {
+  background-color: var(--color-bk2);
+  color: white;
+  text-align: center;
+}
+
+#history-table th:nth-child(1) {
+  width: 8%;
+}
+
+/* #history-table th:nth-child(2) {
+  width: 30%;
+} */
+
+#history-table th:nth-child(3) {
+  width: 18%;
+}
+
+#history-table th:nth-child(4) {
+  width: 18%;
+}
+
+#history-table th:nth-child(5) {
+  width: 16%;
+}
+
+#history-table th:nth-child(6) {
+  width: 10%;
+}
+
+/* ---------------- Detail Page ---------------- */
+#print-order-detail th {
+  width: 50%;
+}
+
+@media screen and (min-width: 768px) {
+  #print-order-detail th {
+    width: 40%;
+  }
+}

@@ -21,6 +21,10 @@
   font-size: 2rem;
 }
 
+#return-homepage {
+  background-color: var(--color-bk1);
+}
+
 @media (max-width: 1024px) {
   #not-found {
     height: 60vh;
