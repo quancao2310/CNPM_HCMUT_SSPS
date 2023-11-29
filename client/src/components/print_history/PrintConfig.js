@@ -36,7 +36,7 @@ function PrintConfig({ id }) {
   
   return (
     <section>
-      <h3 className='ps-2'>Thông tin tài liệu</h3>
+      <h3 className='ps-2'>Cấu hình trang in</h3>
       <GeneralDetailTable data={printConfigData} />
     </section>
   );

@@ -50,7 +50,7 @@ function LoginForm({ role }) {
       });
       console.log(validation);
       const d = new Date();
-      setCookie('token', validation.data, { expires: d.getTime() + 3600 * 1000 });
+      // setCookie('token', validation.data, { expires: d.getTime() + 3600 * 1000 });
       navigate('/');
     }
     catch (error) {
