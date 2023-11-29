@@ -1,9 +1,13 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
 function PrintConfig(){
     const [customEntries, setCustomEntries] = useState({});
     const [modalState, setModalState] = useState(false);
     const [submitState, setSubmitState] = useState(false);  
+
+    const [data, setData] = useState([]);
 
     const example = {
         'numpages': 'VD. 1-3, 7, 9-15',
@@ -36,7 +40,11 @@ function PrintConfig(){
         }
     }
 
-    const handleConfig = () => {
+    const handleHideModal = () => {
+        setModalState(false);
+    };
+
+    const handleSubmission = () => {
         const config = {
             device: document.getElementById('device-select').value,
             numpages: document.getElementById('numpages-select').value,
@@ -46,16 +54,34 @@ function PrintConfig(){
             numperpage: document.getElementById('numperpage-select').value,
             proportion: document.getElementById('proportion-select').value,
         };
-        alert(!"");
-        const hasEmptyValue = Object.values(config).some(value => !value);
+    
+        for (let i of Object.keys(example)){
+            if (config[i] === 'custom'){
+                config[i] = document.getElementById(`${i}-entry`).value;
+            }
+        }
+
+        const hasEmptyValue = Object.values(config).some(value => (value === ""));
 
         if (hasEmptyValue){
-            alert("Vui lòng điền đầy đủ thông tin");
-            setModalState('show');
+            setSubmitState(false);
         }
         else{
-            
+            /**********
+             * Handling user's inputs (if needed)
+             **********/
+            const baseURL = "https://localhost:3000";
+            axios
+            .post(baseURL, config)
+            .then((response) => {
+                setData(response.data);
+            })
+            .catch((error) => {
+                console.error('Error making post request:', error);
+            });
+            setSubmitState(true);
         }
+        setModalState(true);
     }
 
     return (
@@ -78,7 +104,7 @@ function PrintConfig(){
             <div className="row p-3">
                 <div className="col-12 col-md-6">
                     <div className="d-flex justify-content-between">
-                        <div className="col-9 fw-bold fs-5">Xem trước khi in</div>
+                        <div className="col-8 fw-bold fs-5">Xem trước khi in</div>
                         <button 
                             className = "btn"
                             style = {{
@@ -94,12 +120,13 @@ function PrintConfig(){
                 </div>
                 <div className="col-12 col-md-6 border-right border-dark">
                     <div className = "d-flex justify-content-center p-2">
-                        <button type="button" 
-                                className = "btn" 
-                                onclick = {() => handleConfig()}
-                                style = {{ 
-                                    backgroundColor: 'rgba(100, 168, 231, 1)',
-                                }}
+                        <button 
+                            type="button" 
+                            className = "btn" 
+                            onClick = {handleSubmission}
+                            style = {{ 
+                                backgroundColor: 'rgba(100, 168, 231, 1)',
+                            }}
                         >
                             Xác nhận thông số in
                         </button>
@@ -110,6 +137,7 @@ function PrintConfig(){
                         </div>
                         <select class="col form-select" id = "device-select">
                             <option value="" disabled selected hidden>Chọn máy in</option>
+                            <option value="1">Máy in 1</option>
                         </select>
                     </div>
                     <div className = "row p-2">
@@ -183,24 +211,23 @@ function PrintConfig(){
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="submit-modal" tabindex="-1" role="dialog" aria-labelledby="submit-modal-title" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="submit-modal-title">Chú ý</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Vui lòng điền đầy đủ thông tin!
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Modal show={modalState} onHide={handleHideModal}>
+            <Modal.Header closeButton>
+                <Modal.Title>
+                    {!submitState && (<>Chú ý</>)}
+                    {submitState && (<>Thông báo</>)}
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {!submitState && (<>Vui lòng điền đầy đủ thông tin!</>)}
+                {submitState && (<>Đăng nhập thành công!</>)}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="primary" onClick={handleHideModal}>
+                    OK
+                </Button>
+            </Modal.Footer>
+        </Modal>
         </>
     );
 }
