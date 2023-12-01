@@ -1,10 +1,15 @@
+import { Link, useLocation } from "react-router-dom";
+
 function PrintConfirm(){
+
+    const { state } = useLocation();
+
     return (
         <div
-            className = "d-flex justify-content-center align-items-center p-2"
+            className = "d-flex justify-content-center align-items-center p-5"
             style = {{
                 background: 'linear-gradient(180deg, #70D2E5 0%, #FFFFFF 100%)',
-                height: "85vh",
+                height: "",
             }}
         >
             <div 
@@ -18,13 +23,13 @@ function PrintConfirm(){
                     Xác nhận in
                 </div>
                 <div className = "mx-5">
-                    <p>Tài liệu in: </p>
+                    <p>Tài liệu in: {state.name}</p>
                     <p>Số trang in: </p>
                     <p>Số trang có sẵn: </p>
                 </div>
                 <div class = "d-flex justify-content-center">
                     <button className="col-3 btn btn-primary m-2">Xác nhận</button>
-                    <button className="col-3 btn btn-danger m-2">Hủy</button>
+                    <Link className="col-3 btn btn-danger m-2" to='/print/config' state={{ name: state.name }}>Hủy</Link>
                 </div>
             </div>
         </div>

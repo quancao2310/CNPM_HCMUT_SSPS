@@ -1,22 +1,69 @@
-@media only screen and (max-width: 720px) {
-    #upload-logo{
-        width: 60%;
-        height: 50%;
-    }
-    .text{
-        font-size: 1rem;
+.text, .text-2{
+    font-size: 1.4rem;
+    padding-bottom: 0.6rem;
+}
+
+.text-3{
+    font-size: 0.8rem;
+}
+
+.big-text{
+    color: var(--color-bk1);
+    font-size: 2.5rem;
+}
+
+#upload-logo{
+    width: 72%;
+    height: 62%;
+    padding: 5% 0%;
+}
+
+#list-files{
+    overflow: 'auto';
+    max-height: '75%';
+}
+
+#button{
+    background-color: var(--color-bk1);
+    font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 840px) {
+    .text, .text-2{
+        font-size: 1.1rem;
+        padding-bottom: 0.2rem;
     }
     .big-text{
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     } 
+    #upload-logo{
+        width: 65%;
+        height: 55%;
+        padding: 5% 0%;
+    }
+    #list-files{
+        max-height: '85%';
+    }
 }
 
 @media only screen and (max-width: 720px) {
     .text{
         display: none;
     }
+    .text-2{
+        font-size: 0.8rem;
+    }
     .big-text{
-        font-size: 1rem;
+        font-size: 1.25rem;
+        padding: 2%;
+    }
+    #button{
+        font-size: 0.6rem;
+    }
+    #upload-logo{
+        width: 100%;
+        height: 80%;
+        padding: 4%;
     }
 }
 

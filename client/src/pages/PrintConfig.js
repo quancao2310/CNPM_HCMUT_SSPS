@@ -1,14 +1,30 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
+
+
 
 function PrintConfig(){
+
+    const { state } = useLocation();
+
     const [customEntries, setCustomEntries] = useState({});
+
     const [modalState, setModalState] = useState(false);
-    const [submitState, setSubmitState] = useState(false);  
+    const [configSubmitState, setConfigSubmitState] = useState(false);  
 
     const [data, setData] = useState([]);
-
+    
+    const docs = [{
+        uri: require('../files/text.txt'),
+        fileType: 'txt'
+    },
+    {
+        uri: require('../files/GAIN.pdf'),
+        fileType: 'pdf'
+    }
+    ]
     const example = {
         'numpages': 'VD. 1-3, 7, 9-15',
         'numperpage': 'VD. 5, 7',
@@ -64,7 +80,7 @@ function PrintConfig(){
         const hasEmptyValue = Object.values(config).some(value => (value === ""));
 
         if (hasEmptyValue){
-            setSubmitState(false);
+            setConfigSubmitState(false);
         }
         else{
             /**********
@@ -79,7 +95,7 @@ function PrintConfig(){
             .catch((error) => {
                 console.error('Error making post request:', error);
             });
-            setSubmitState(true);
+            setConfigSubmitState(true);
         }
         setModalState(true);
     }
@@ -103,33 +119,34 @@ function PrintConfig(){
             </div>
             <div className="row p-3">
                 <div className="col-12 col-md-6">
-                    <div className="d-flex justify-content-between">
+                    <div className="row">
                         <div className="col-8 fw-bold fs-5">Xem trước khi in</div>
-                        <button 
-                            className = "btn"
-                            style = {{
-                                backgroundColor: 'rgba(100, 168, 231, 1)',
-                            }}
-                        >
-                            Xác nhận
-                        </button>
+                        <div className="col-8">{state.name}</div>
                     </div>
                     <div id = "document-preview">
-
                     </div>
                 </div>
                 <div className="col-12 col-md-6 border-right border-dark">
-                    <div className = "d-flex justify-content-center p-2">
-                        <button 
-                            type="button" 
+                    <div className = "d-flex justify-content-around p-2">
+                        <Link
                             className = "btn" 
                             onClick = {handleSubmission}
                             style = {{ 
                                 backgroundColor: 'rgba(100, 168, 231, 1)',
                             }}
+                            to='/print/confirm'
+                            state = {{
+                                name: state.name
+                            }}
                         >
                             Xác nhận thông số in
-                        </button>
+                        </Link>
+                        <Link
+                            className = "btn btn-danger"
+                            to='/print'
+                        >
+                            Quay lại
+                        </Link>
                     </div>
                     <div className = "row p-2">
                         <div className = "col">
@@ -214,13 +231,13 @@ function PrintConfig(){
         <Modal show={modalState} onHide={handleHideModal}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    {!submitState && (<>Chú ý</>)}
-                    {submitState && (<>Thông báo</>)}
+                    {!configSubmitState && (<>Chú ý</>)}
+                    {configSubmitState && (<>Thông báo</>)}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!submitState && (<>Vui lòng điền đầy đủ thông tin!</>)}
-                {submitState && (<>Đăng nhập thành công!</>)}
+                {!configSubmitState && (<>Vui lòng điền đầy đủ thông tin!</>)}
+                {configSubmitState && (<>Đăng nhập thành công!</>)}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={handleHideModal}>

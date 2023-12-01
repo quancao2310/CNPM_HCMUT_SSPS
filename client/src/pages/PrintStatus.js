@@ -1,10 +1,12 @@
+import { Link } from 'react-router-dom';
+
 function PrintStatus(){
     return (
         <div
-            className = "d-flex justify-content-center align-items-center"
+            className = "d-flex justify-content-center align-items-center p-5"
             style = {{
                 background: 'linear-gradient(180deg, #70D2E5 0%, #FFFFFF 100%)',
-                height: "85vh",
+                height: "100vh",
             }}
         >
             <div 
@@ -31,8 +33,8 @@ function PrintStatus(){
                         </tr>
                     </tbody>
                     </table>
-                <div class = "d-flex justify-content-center">
-                    <button className="btn btn-primary m-2">Thoát</button>
+                <div class = "d-flex justify-content-center p-2">
+                    <Link className = "btn btn-primary" to='/print'>Thoát</Link>
                 </div>
             </div>
         </div>

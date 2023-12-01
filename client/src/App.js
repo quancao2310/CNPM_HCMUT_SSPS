@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import { useCookies } from 'react-cookie';
 
 export default function App() {
-  const [user, setUser] = useState({ token: null, isSPSO: false });
+  const [user, setUser] = useState({ token: null, isSPSO: false, listFiles: [] });
   const [cookies, setCookie] = useCookies();
   
   useEffect(() => {
