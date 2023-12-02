@@ -125,6 +125,7 @@ CREATE TABLE `print_order` (
   `time_end` datetime DEFAULT current_timestamp(),
   `status` enum('success','progress','failed','pending') NOT NULL DEFAULT 'pending',
   `pages_to_be_printed` varchar(45) DEFAULT NULL,
+  `no_pages_printed` int UNSIGNED NOT NULL DEFAULT 0,
   `document_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`print_id`),
@@ -137,17 +138,17 @@ CREATE TABLE `print_order` (
 
 -- insert data for the print_order table
 LOCK TABLES `print_order` WRITE;
-INSERT INTO `print_order` (`print_id`, `side`, `page_size`, `orientation`, `pages_per_sheet`, `scale`, `time_start`, `time_end`, `status`, `pages_to_be_printed`, `document_id`, `user_id`) VALUES
-(1, '1', 'A4', 'portrait', 1, 100, '2022-10-01 10:00:00', '2022-10-01 11:00:00', 'progress', '8-15', 3, 2112333),
-(2, '1', 'A4', 'portrait', 1, 100, '2022-11-01 17:30:00', '2022-11-01 18:30:00', 'success', '5-15', 9, 2112333),
-(3, '1', 'A4', 'portrait', 1, 90, '2022-12-01 08:00:00', '2022-12-01 08:30:00', 'success', '5-10', 1, 1122334),
-(4, '1', 'A4', 'portrait', 1, 50, '2023-03-01 14:00:00', '2023-03-01 15:00:00', 'failed', '3-7', 6, 1122334),
-(5, '2', 'A3', 'landscape', 2, 150, '2023-05-01 18:00:00', '2023-05-01 19:30:00', 'failed', 'All', 10, 2114837),
-(6, '1', 'A4', 'portrait', 1, 100, '2023-05-01 15:30:00', '2023-05-01 16:30:00', 'progress', '10-20', 7, 2112111),
-(7, '1', 'A4', 'portrait', 1, 60, '2023-07-01 11:30:00', '2023-07-01 12:30:00', 'pending', 'All', 4, 2114837),
-(8, '2', 'A3', 'landscape', 2, 78, '2023-12-01 16:00:00', '2023-12-01 17:30:00', 'pending', 'All', 8, 2112222),
-(9, '2', 'A3', 'landscape', 2, 85, '2023-12-01 13:00:00', '2023-12-01 14:30:00', 'success', '1-6', 5, 2112111),
-(10, '2', 'A3', 'landscape', 2, 90, '2023-12-01 09:00:00', '2023-12-01 10:30:00', 'failed', '1-3', 2, 2112222);
+INSERT INTO `print_order` (`print_id`, `side`, `page_size`, `orientation`, `pages_per_sheet`, `scale`, `time_start`, `time_end`, `status`, `pages_to_be_printed`, `no_pages_printed`, `document_id`, `user_id`) VALUES
+(1, '1', 'A4', 'portrait', 1, 100, '2022-10-01 10:00:00', '2022-10-01 11:00:00', 'progress', '8-15', 8, 3, 2112333),
+(2, '1', 'A4', 'portrait', 1, 100, '2022-11-01 17:30:00', '2022-11-01 18:30:00', 'success', '5-15', 11, 9, 2112333),
+(3, '1', 'A4', 'portrait', 1, 90, '2022-12-01 08:00:00', '2022-12-01 08:30:00', 'success', '5-10', 6, 1, 1122334),
+(4, '1', 'A4', 'portrait', 1, 50, '2023-03-01 14:00:00', '2023-03-01 15:00:00', 'failed', '3-7', 5, 6, 1122334),
+(5, '2', 'A3', 'landscape', 2, 150, '2023-05-01 18:00:00', '2023-05-01 19:30:00', 'failed', 'All', 10, 10, 2114837),
+(6, '1', 'A4', 'portrait', 1, 100, '2023-05-01 15:30:00', '2023-05-01 16:30:00', 'progress', '10-20', 11, 7, 2112111),
+(7, '1', 'A4', 'portrait', 1, 60, '2023-07-01 11:30:00', '2023-07-01 12:30:00', 'pending', 'All', 20, 4, 2114837),
+(8, '2', 'A3', 'landscape', 2, 78, '2023-12-01 16:00:00', '2023-12-01 17:30:00', 'pending', 'All', 12, 8, 2112222),
+(9, '2', 'A3', 'landscape', 2, 85, '2023-12-01 13:00:00', '2023-12-01 14:30:00', 'success', '1-6', 6, 5, 2112111),
+(10, '2', 'A3', 'landscape', 2, 90, '2023-12-01 09:00:00', '2023-12-01 10:30:00', 'failed', '1-3', 3, 2, 2112222);
 UNLOCK TABLES;
 
 -- Purchase order table
