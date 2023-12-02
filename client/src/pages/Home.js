@@ -8,16 +8,17 @@ function Home() {
   const [state, setState] = useState(null); // To be deleted
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/test")
+      .get(`${process.env.REACT_APP_SERVER_URL}/test`)
       .then((response) => {
         setState(response.data);
+        console.log(state);
       })
       .catch((err) => {
         setState("Error");
         console.error(err);
       });
   }, [state]);
-  
+  console.log(process.env);
   return (
     <div
       className='position-relative'

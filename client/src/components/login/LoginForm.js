@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function LoginForm({ role }) {
-  const url = `http://localhost:8080/api/login/${role}`;
+  const url = `${process.env.REACT_APP_SERVER_URL}/login/${role}`;
   const [formValue, setFormValue] = useState({
     bknetid: "",
     password: "",
