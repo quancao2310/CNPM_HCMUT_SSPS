@@ -1,4 +1,4 @@
-const {uploadDocument, addPrintOrder, ModifyBalance} = require("../models/Confirm");
+const {uploadDocument, addPrintOrder, ModifyBalance} = require("../models/PrintConfirm");
 const {showInfoPrintOder} = require("../models/PrintStatus");
 
 
@@ -16,7 +16,7 @@ async function addFileOrder(req, res, next) {
 async function showStatus(req, res, next) {
   try {
     const result = await showInfoPrintOder(
-      req.cookies.id
+      req.body.userInfo.id
     );
     res.json(result);
   } catch (err) {
@@ -28,7 +28,7 @@ async function MinusPages(req, res, next) {
   try {
     const result = await ModifyBalance(
       req.query.updatedBalance,
-      req.query.print_id
+      req.body.userInfo.id
     );
     res.json(result);
   } catch (err) {
