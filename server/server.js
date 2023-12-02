@@ -12,7 +12,7 @@ const port = process.env.PORT || 8080;
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 app.use(cookieParser());
 
 // Every route should start with /api
