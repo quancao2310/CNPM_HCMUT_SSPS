@@ -7,8 +7,9 @@ const {showAllPrinter} = require("../models/Printer");
 async function addFileOrder(req, res, next) {
   try {
     const result1 = await uploadDocument(req.body);
+    req.body.document_id=result1.insertId;
     const result2 = await addPrintOrder(req.body);
-    res.json((result1==result2)?result1:{status: "not success"});
+    res.json(result2);
   } catch (err) {
     next(err);
   }
@@ -28,7 +29,7 @@ async function showStatus(req, res, next) {
 async function MinusPages(req, res, next) {
   try {
     const result = await ModifyBalance(
-      req.query.updatedBalance,
+      req.body.updatedBalance,
       req.body.userInfo.id
     );
     res.json(result);
