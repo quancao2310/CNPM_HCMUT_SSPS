@@ -1,4 +1,4 @@
-import FileUpload from "../components/print/FileUpload";
+import FileUpload from "../components/file_upload/FileUpload";
 
 function PrintService() {
   return (

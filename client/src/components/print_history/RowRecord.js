@@ -1,4 +1,4 @@
-import StatusTag from './StatusTag';
+import StatusTag from '../utils/StatusTag';
 import { Link } from 'react-router-dom';
 import { BsBoxArrowInUpRight } from "react-icons/bs";
 
