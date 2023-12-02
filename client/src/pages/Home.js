@@ -11,13 +11,14 @@ function Home() {
       .get("http://localhost:8080/api/test")
       .then((response) => {
         setState(response.data);
+        if (state === 'OK') console.log(state);
       })
       .catch((err) => {
         setState("Error");
         console.error(err);
       });
   }, [state]);
-  
+  console.log(process.env);
   return (
     <div
       className='position-relative'

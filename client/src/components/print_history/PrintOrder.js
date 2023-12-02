@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import StatusTag from "./StatusTag";
+import StatusTag from "../utils/StatusTag";
 import GeneralDetailTable from "./GeneralDetailTable";
 
 function PrintOrder({ id }) {

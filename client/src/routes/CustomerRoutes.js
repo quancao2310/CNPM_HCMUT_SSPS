@@ -1,19 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import PrintService from "../pages/PrintService";
+// import PrintService from "../pages/PrintService";
 import PrintHistory from "../pages/PrintHistory";
 import PrintOrderHistory from "../pages/PrintOrderHistory";
 import NotFound from "../pages/NotFound";
-import PrintConfig from "../pages/PrintConfig";
-import PrintConfirm from "../pages/PrintConfirm";
-import PrintStatus from "../pages/PrintStatus";
+// import PrintConfig from "../pages/PrintConfig";
+// import PrintConfirm from "../pages/PrintConfirm";
+// import PrintStatus from "../pages/PrintStatus";
 
 // This is just a sample, can be changed later
 function CustomerRoutes() {
   return (
     <Routes>
       <Route path='print'>
-        <Route index element={<PrintService />} /> {/* Route dich vu dat in */}
-        <Route path='config'>
+        {/* <Route index element={<PrintService />} /> Route dich vu dat in */}
+        {/* <Route path='config'>
             <Route index element={<PrintConfig />} />
         </Route>
         <Route path='confirm'>
@@ -21,7 +21,7 @@ function CustomerRoutes() {
         </Route>
         <Route path='status'>
           <Route index element={<PrintStatus />} />
-        </Route>
+        </Route> */}
         <Route path='log'> {/* Route lich su in */}
           <Route index element={<PrintHistory />} /> {/* Route trang tong hop lich su */}
           <Route path=':id' element={<PrintOrderHistory />} /> {/* Route xem tung lich su */}
