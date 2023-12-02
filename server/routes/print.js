@@ -6,5 +6,6 @@ const authenticate = require('../middlewares/authenticate');
 router.post('/confirm',authenticate, printController.addFileOrder);
 router.get('/status',authenticate, printController.showStatus);
 router.put('/minusPages',authenticate,printController.MinusPages);
+router.get('/getInfoPrinter',authenticate,printController.showInfoPrinter);
 
 module.exports = router;

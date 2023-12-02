@@ -1,5 +1,6 @@
 const {uploadDocument, addPrintOrder, ModifyBalance} = require("../models/PrintConfirm");
 const {showInfoPrintOder} = require("../models/PrintStatus");
+const {showAllPrinter} = require("../models/Printer");
 
 
 
@@ -36,8 +37,18 @@ async function MinusPages(req, res, next) {
   }
 }
 
+async function showInfoPrinter(req, res, next) {
+  try {
+    const result = await showAllPrinter();
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   addFileOrder,
   MinusPages,
   showStatus,
+  showInfoPrinter
 };
