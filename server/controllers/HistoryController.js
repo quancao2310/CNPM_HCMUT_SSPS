@@ -3,7 +3,7 @@ const {getHistorySPSO, getHistorySPSOByUserId} = require('../models/SPSOHistory'
 
 async function historyCustomer(req, res, next) {
   try{
-    const result = await getHistoryByUserId(req.body.userInfo.id, req.body.printerName, req.body.timeStart, req.body.timeEnd);
+    const result = await getHistoryByUserId(req.userInfo.id, req.body.printerName, req.body.timeStart, req.body.timeEnd);
     res.json(result);
   }
   catch (err){

@@ -31,7 +31,7 @@ async function MinusPages(req, res, next) {
   try {
     const result = await ModifyBalance(
       req.body.updatedBalance,
-      req.body.userInfo.id
+      req.userInfo.id
     );
     res.json(result);
   } catch (err) {
