@@ -4,7 +4,7 @@ DROP DATABASE IF EXISTS hcmut_ssps;
 -- Create and use the database
 CREATE DATABASE hcmut_ssps
   DEFAULT CHARACTER SET utf8mb4
-  DEFAULT COLLATE utf8mb4_0900_ai_ci;
+  DEFAULT COLLATE utf8mb4_unicode_ci;
 USE hcmut_ssps;
 
 -- CREATE TABLES
