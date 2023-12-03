@@ -1,7 +1,7 @@
 import { Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function ConfigModal({ file_name, state, submit_state, support_function }){
+function ConfigModal({ file_name, file_num_pages, file_config, state, submit_state, support_function }){
     return (
         <Modal show={state} onHide={support_function}>
             <Modal.Header closeButton>
@@ -21,7 +21,11 @@ function ConfigModal({ file_name, state, submit_state, support_function }){
                     <Link 
                         className = "btn btn-primary"
                         to='/print/confirm' 
-                        state = {{ name: file_name }}
+                        state = {{ 
+                            name: file_name,
+                            num_pages: file_num_pages,
+                            config: file_config 
+                        }}
                     >
                         OK
                     </Link>

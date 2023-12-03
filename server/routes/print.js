@@ -13,7 +13,7 @@ let path = require("path");
 // router.get('/getInfoPrinter',authenticate,printController.showInfoPrinter);
 
 router.post('/confirm', printController.addFileOrder);
-router.get('/status', printController.showStatus);
+router.get('/status/:id', printController.showStatus);
 router.put('/minusPages',printController.MinusPages);
 router.get('/getInfoPrinter',printController.showInfoPrinter);
 router.post('/uploadTemporaryFile',SaveFileUpload.SaveTemporaryFile);

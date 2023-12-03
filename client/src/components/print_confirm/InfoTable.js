@@ -1,11 +1,11 @@
-function InfoTable({ name, num_pages = 0, num_remain_pages = 0 }){
+function InfoTable({ name, num_pages, num_remain_pages = 100 }){
     return(
         <div className="table-responsive mx-5 my-4">
             <table className="table">
                 <tbody>
                     <tr>
                         <th scope="row">Tài liệu in</th>
-                        <td>{name}</td>
+                        <td className="text-center">{name}</td>
                     </tr>
                     <tr>
                         <th scope="row">Số trang in</th>

@@ -13,7 +13,7 @@ function StatusTable({ data }){
                 <tbody id="file-status">
                     {
                         data.map((item, index) => (
-                            <tr className="row">
+                            <tr className="row" key={index}>
                                 <td className="text-center col-8">
                                     {item.name}
                                 </td>

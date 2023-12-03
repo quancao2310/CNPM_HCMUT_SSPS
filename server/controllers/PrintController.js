@@ -17,8 +17,9 @@ async function addFileOrder(req, res, next) {
 
 async function showStatus(req, res, next) {
   try {
+    const id = req.params.id;
     const result = await showInfoPrintOder(
-      req.body.userInfo.id
+      id
     );
     res.json(result);
   } catch (err) {
