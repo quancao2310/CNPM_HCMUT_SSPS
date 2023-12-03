@@ -1,5 +1,5 @@
 const express = require('express');
-const login = require('./login');
+const user = require('./user');
 const history = require('./history');
 const print = require('./print');
 const buy = require('./buy');
@@ -10,7 +10,7 @@ router.get('/test', (req, res) => { // initial testing
   res.send('OK');
 });
 
-router.use('/login', login);
+router.use('/user', user);
 router.use('/history', history);
 router.use('/print', print);
 router.use('/buy', buy);

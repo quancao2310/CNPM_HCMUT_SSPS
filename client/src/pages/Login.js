@@ -1,7 +1,18 @@
 import LoginRole from "../components/login/LoginRole";
 import LoginForm from "../components/login/LoginForm";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function Login({ role }) {
+  const user = useContext(UserContext);
+  const navigate = useNavigate();
+  
+  // User already logged in
+  if (user.token !== null) {
+    navigate('/');
+  }
+  
   return (
     <div className='container-sm'>
       <div className='row justify-content-center align-items-center py-4'>

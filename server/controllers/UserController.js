@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { getCustomerByEmail, setCustomerLastUsed } = require('../models/Customer');
-const { getSPSOByUsername, setSPSOLastUsed } = require('../models/SPSO');
+const { getCustomerByID, getCustomerByEmail, setCustomerLastUsed } = require('../models/Customer');
+const { getSPSOByID, getSPSOByUsername, setSPSOLastUsed } = require('../models/SPSO');
 
 async function loginCustomer(req, res, next) {
   try {
@@ -9,7 +9,7 @@ async function loginCustomer(req, res, next) {
     
     // user does not exists
     if (!result) {
-      return res.status(400).send('Email is incorrect!');
+      return res.status(400).send('Nhập sai email! Vui lòng thử lại.');
     }
     
     // check password
@@ -21,12 +21,13 @@ async function loginCustomer(req, res, next) {
       
       // if wrong password, deny login
       if (!bResult) {
-        return res.status(401).send('Password is incorrect!');
+        return res.status(401).send('Nhập sai mật khẩu! Vui lòng thử lại.');
       }
       
       const token = jwt.sign(
         {
           id: result.customer_id,
+          isSPSO: false,
           type: result.type
         }, 
         'the-super-strong-secret', 
@@ -37,8 +38,8 @@ async function loginCustomer(req, res, next) {
       await setCustomerLastUsed(result.email);
       
       res
-        .cookie('auth', token, { maxAge: 3600 * 1000, path: '/' })
-        .send('Logged in successfully!');
+        .cookie('auth', token, { maxAge: 3600 * 1000, path: '/' }) // Cookies valid for 1 hour
+        .send('Đăng nhập thành công!');
     });
   }
   catch (err) {
@@ -53,7 +54,7 @@ async function loginSPSO(req, res, next) {
     
     // user does not exists
     if (!result) {
-      return res.status(400).send('Email is incorrect!');
+      return res.status(400).send('Nhập sai email! Vui lòng thử lại.');
     }
     
     // check password
@@ -64,12 +65,13 @@ async function loginSPSO(req, res, next) {
       
       // if wrong password, deny login
       if (!bResult) {
-        return res.status(401).send('Password is incorrect!');
+        return res.status(401).send('Nhập sai mật khẩu! Vui lòng thử lại.');
       }
       
       const token = jwt.sign(
         {
           id: result.spso_id,
+          isSPSO: true,
           username: result.username,
         }, 
         'the-super-strong-secret', 
@@ -81,8 +83,34 @@ async function loginSPSO(req, res, next) {
       
       res
         .cookie('auth', token, { maxAge: 3600 * 1000, path: '/' })
-        .send('Logged in successfully!');
+        .send('Đăng nhập thành công!');
     });
+  }
+  catch (err) {
+    next(err);
+  }
+}
+
+async function getUserByID(req, res, next) {
+  try {
+    const id = req.userInfo.id, isSPSO = req.userInfo.isSPSO;
+    if (id === undefined || isSPSO === undefined) {
+      return res.status(404).send("Không có dữ liệu người dùng!");
+    }
+    let result;
+    if (isSPSO) {
+      result = await getSPSOByID(id);
+    }
+    else {
+      result = await getCustomerByID(id);
+    }
+    
+    // user does not exists, which should never occur but just in case...
+    if (!result) {
+      return res.status(400).send('Sao lại thế này????');
+    }
+    
+    res.json(result); // Access by using response.data in client
   }
   catch (err) {
     next(err);
@@ -91,5 +119,6 @@ async function loginSPSO(req, res, next) {
 
 module.exports = {
   loginCustomer,
-  loginSPSO
+  loginSPSO,
+  getUserByID
 };

@@ -6,19 +6,19 @@ import homeBG from "../assets/img/home_bg.png";
 function Home() {
   const user = useContext(UserContext);
   const [state, setState] = useState(null); // To be deleted
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/test`)
-      .then((response) => {
-        setState(response.data);
-        console.log(state);
-      })
-      .catch((err) => {
-        setState("Error");
-        console.error(err);
-      });
-  }, [state]);
-  console.log(process.env);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_SERVER_URL}/test`)
+  //     .then((response) => {
+  //       setState(response.data);
+  //       if (state != null) console.log(state);
+  //     })
+  //     .catch((err) => {
+  //       setState("Error");
+  //       console.error(err);
+  //     });
+  // }, [state]);
+  
   return (
     <div
       className='position-relative'

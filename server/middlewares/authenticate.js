@@ -3,15 +3,15 @@ const jwt = require('jsonwebtoken');
 function authenticate(req, res, next) {
   const token = req.header('authorization').split(' ')[1];
   if (!token) {
-    return res.status(401).send('Access Denied');
+    return res.status(401).send('Truy cập bị từ chối');
   }
   
-  jwt.verify(token, 'secret', (err, decoded) => {
+  jwt.verify(token, 'the-super-strong-secret', (err, decoded) => {
     if (err) {
-      return res.status(401).send('Access Denied');
+      return res.status(401).send('Truy cập bị từ chối');
     }
     
-    req.body.userInfo = decoded;
+    req.userInfo = decoded;
     next();
   });
 }

@@ -1,5 +1,14 @@
 const db = require('../config/db');
 
+async function getSPSOByID(id) {
+  try {
+    const [result, _] = await db.execute('SELECT * FROM spso WHERE spso_id = ?', [id]);
+    return result[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getSPSOByUsername(username) {
   try {
     const [result, _] = await db.execute('SELECT * FROM spso WHERE username = ?', [username]);
@@ -22,6 +31,7 @@ async function setSPSOLastUsed(username) {
 }
 
 module.exports = {
+  getSPSOByID,
   getSPSOByUsername,
   setSPSOLastUsed
 };
