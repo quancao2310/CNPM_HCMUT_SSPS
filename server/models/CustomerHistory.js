@@ -32,7 +32,7 @@ async function getHistoryByPrintId(print_id) {
     const startNumber = numbers[0];
     const endNumber = numbers[1];
     var count = Math.ceil((endNumber - startNumber + 1)/result[0].pages_per_sheet/result[0].side);
-    count = count % 2 == 0 ? count : count + 1;
+    count = Number.isInteger(count) ? count : Math.ceil(count);
     result[0].no_pages_printed=count;
     return result;
   } catch (err) {
