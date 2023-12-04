@@ -1,18 +1,49 @@
-function UploadArea(){
+import { useState, useEffect } from 'react';
+import axios from 'react';
+import ProgressiveImage from "react-progressive-graceful-image";
+import upload_button from '../../assets/img/upload_button.png';
+
+function UploadArea({ onUpload }){
+
+    const url = `${process.env.REACT_APP_SERVER_URL}/print/uploadTemporaryFile?id=0`;
+
+    const uploadFiles = async (file) => {
+        const formData = new FormData();
+    
+        formData.append('file', file);
+     
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('File upload response:', data);
+        })
+        .catch(error => {
+            console.error('Error uploading file:', error);
+        });
+    };
+    
 
     const handleDrop = (event) => {
         event.preventDefault();
-        const droppedFiles = Array.from(event.dataTransfer.files);
-        setFiles([...files, ...droppedFiles]);
-    };
-        
-    const handleDragOver = (event) => {
-        event.preventDefault();
+        const droppedFiles = event.dataTransfer.files[0];
+        uploadFiles(droppedFiles);
     };
     
     const handleFileUpload = (event) => {
-        const uploadedFiles = Array.from(event.target.files);
-        setFiles([...files, ...uploadedFiles]); 
+        event.preventDefault();
+        const uploadedFiles = event.target.files[0];
+        uploadFiles(uploadedFiles);
+    };
+    
+    
+    const handleDragOver = (event) => {
+        event.preventDefault();
     };
 
     return (
@@ -29,19 +60,21 @@ function UploadArea(){
                 className="text-center" 
                 style={{ height: '85%' }}
             >
-                <img
-                    src={upload_button} 
-                    className="d-block mx-auto" 
-                    alt="Upload Logo" 
-                    id = "upload-logo"
-                    draggable="false"
-                />
+                <ProgressiveImage src={upload_button}>
+                    {(src, loading) => (
+                    <img
+                        src={src} 
+                        className={`d-block mx-auto image${loading ? " loading" : " loaded"}`}
+                        alt="Upload Logo" 
+                        id = "upload-logo"
+                        draggable="false"
+                    />)}
+                </ProgressiveImage>
                 <div className="text">Kéo thả tài liệu tại đây</div>
                 <div className="text">-- Hoặc --</div>
                 <input
                     id = "fileInput"
-                    type = "file"
-                    multiple = "multiple"
+                    name="file" type = "file"
                     style={{ display: 'none' }} 
                     onChange={handleFileUpload}
                 />
@@ -52,3 +85,5 @@ function UploadArea(){
         </div>
     );
 }
+
+export default UploadArea;

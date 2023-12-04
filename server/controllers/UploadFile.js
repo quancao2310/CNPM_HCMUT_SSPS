@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 let multer = require("multer");
 let uploadPath;
 
@@ -33,6 +35,8 @@ async function SaveTemporaryFile(req, res){
     if (error) {
       return res.send(`Error when trying to upload: ${error}`);
     }
+    const newPath = `${uploadPath}/${req.file.filename}`;
+    fs.copyFileSync(req.file.path, newPath);
     return res.send(req.file);
   });
 }
@@ -44,6 +48,8 @@ async function SavePrintFile(req, res){
     if (error) {
       return res.send(`Error when trying to upload: ${error}`);
     }
+    const newPath = `${uploadPath}/${req.file.filename}`;
+    fs.copyFileSync(req.file.path, newPath);
     return res.send(req.file);
   });
 }

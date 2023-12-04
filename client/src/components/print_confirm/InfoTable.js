@@ -1,4 +1,4 @@
-function InfoTable({ name, num_pages, num_remain_pages = 100 }){
+function InfoTable({ name, num_pages, num_remain_pages }){
     return(
         <div className="table-responsive mx-5 my-4">
             <table className="table">

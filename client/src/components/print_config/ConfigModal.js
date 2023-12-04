@@ -10,7 +10,7 @@ function ConfigModal({ file_name, file_num_pages, file_config, state, submit_sta
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!submit_state ? 'Vui lòng điền đầy đủ thông tin!' : 'Đăng nhập thành công!'}
+                {!submit_state ? 'Vui lòng điền đầy đủ thông tin!' : 'Cấu hình in thành công!'}
             </Modal.Body>
             <Modal.Footer>
                 {!submit_state ? (
@@ -20,8 +20,8 @@ function ConfigModal({ file_name, file_num_pages, file_config, state, submit_sta
                 ) : (
                     <Link 
                         className = "btn btn-primary"
-                        to='/print/confirm' 
-                        state = {{ 
+                        to = '/print/confirm'
+                        state = {{
                             name: file_name,
                             num_pages: file_num_pages,
                             config: file_config 

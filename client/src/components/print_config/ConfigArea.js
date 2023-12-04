@@ -32,8 +32,8 @@ function ConfigArea({ support_function }){
 
     const validatePagesEntry = (input) => {
         // Update later
-        let sanitizedValue = input.value.replace(/[^0-9,\-]/g, '');
-        sanitizedValue = sanitizedValue.replace(/^[0,\-]+/, '');
+        let sanitizedValue = input.value.replace(/[^0-9,-]/g, '');
+        sanitizedValue = sanitizedValue.replace(/^[0,-]+/, '');
         sanitizedValue = sanitizedValue.replace(/-+/g, '-');
         sanitizedValue = sanitizedValue.replace(/,+/g, ',');
         sanitizedValue = sanitizedValue.replace(/^0+(-)/, '$1');
@@ -94,7 +94,7 @@ function ConfigArea({ support_function }){
             <div className = "col">
                 Số trang
             </div>
-            <select class="col form-select" id = "pages-select" onChange={() => customSelection('pages-select')}>
+            <select className="col form-select" id = "pages-select" onChange={() => customSelection('pages-select')}>
                 <option value="" disabled selected hidden>Chọn trang in</option>
                 <option value="All">Toàn bộ</option>
                 <option value="Odd">In trang lẻ</option>
@@ -116,7 +116,7 @@ function ConfigArea({ support_function }){
             <div className = "col">
                 Mặt in
             </div>
-            <select class="col form-select" id = "side-select">
+            <select className="col form-select" id = "side-select">
                 <option value="" disabled selected hidden>Mặt in</option>
                 <option value="1">Một mặt</option>
                 <option value="2">Hai mặt</option>
@@ -126,20 +126,20 @@ function ConfigArea({ support_function }){
             <div className = "col">
                 Khổ giấy
             </div>
-            <select class="col form-select" id = "page_size-select"> 
+            <select className="col form-select" id = "page_size-select"> 
                 <option value="" disabled selected hidden>Khổ giấy</option>
-                <option value="0">A0</option>
-                <option value="1">A1</option>
-                <option value="2">A2</option>
-                <option value="3">A3</option>
                 <option value="4">A4</option>
+                <option value="3">A3</option>
+                <option value="2">A2</option>
+                <option value="1">A1</option>
+                <option value="0">A0</option>
             </select>
         </div>
         <div className="row p-2">
             <div className='col'>
                 Hướng in
             </div>
-            <select class="col form-select" id = "orientation-select">
+            <select className="col form-select" id = "orientation-select">
                 <option value="" disabled selected hidden>Hướng in</option>
                 <option value="portrait">Dọc</option>
                 <option value="landscape">Ngang</option>
@@ -149,7 +149,7 @@ function ConfigArea({ support_function }){
             <div className='col'>
                 Số trang/1 giấy in
             </div>
-            <select class="col form-select" id = "pages_per_sheet-select" onChange={() => customSelection('pages_per_sheet-select')}>
+            <select className="col form-select" id = "pages_per_sheet-select" onChange={() => customSelection('pages_per_sheet-select')}>
                 <option value="" disabled selected hidden>Số trang/1 giấy in</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -172,7 +172,7 @@ function ConfigArea({ support_function }){
             <div className='col'>
                 Tỷ lệ
             </div>
-            <select class="col form-select" id = "scale-select" onChange={() => customSelection('scale-select')}>
+            <select className="col form-select" id = "scale-select" onChange={() => customSelection('scale-select')}>
                 <option value="" disabled selected hidden>Tỷ lệ</option>
                 <option value="100">Mặc định</option>
                 <option value="custom">Tùy chỉnh</option>
