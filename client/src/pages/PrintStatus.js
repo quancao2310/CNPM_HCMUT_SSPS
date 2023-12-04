@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import StatusTable from '../components/print_status/StatusTable';
+import PagingTable from '../components/print_status/PagingTable';
 
 function PrintStatus(){
 
@@ -42,7 +43,7 @@ function PrintStatus(){
                 >
                     Trạng thái in
                 </div>
-                <StatusTable data={data} />
+                <PagingTable data={data} items_per_page={5}/>
                 <div className = "d-flex justify-content-center p-2">
                     <Link className = "btn btn-primary" to='/print'>Thoát</Link>
                 </div>

@@ -1,9 +1,9 @@
 const db = require("../config/db");
 
-async function showInfoPrintOder(user_id) {
+async function showInfoPrintOrder(user_id) {
   try {
     const [result, _] = await db.execute(
-      "SELECT name, status FROM print_order PO INNER JOIN document D ON PO.document_id = D.document_id WHERE D.user_id = ? LIMIT 5;",
+      "SELECT name, status FROM print_order PO INNER JOIN document D ON PO.document_id = D.document_id WHERE D.user_id = ? ORDER BY PO.time_start DESC;",
       [user_id]
     );
     return result;
@@ -13,4 +13,4 @@ async function showInfoPrintOder(user_id) {
   }
 }
 
-module.exports = {showInfoPrintOder};
+module.exports = {showInfoPrintOrder};
