@@ -7,7 +7,7 @@ import DocumentDetail from '../components/print_history/DocumentDetail';
 import PrintConfig from '../components/print_history/PrintConfig';
 
 function PrintOrderHistory() {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { id } = useParams();
   
   return (

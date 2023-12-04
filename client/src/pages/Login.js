@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 function Login({ role }) {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   
   // User already logged in

@@ -7,9 +7,9 @@ import sampleAvt from '../../assets/img/standard_avt.jpg';
 import { useCookies } from 'react-cookie';
 
 export default function Header() {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [pageLinks, setPageLinks] = useState([]);
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [ , , removeCookie] = useCookies();
   
   useEffect(() => {
     if (user.isSPSO) {
@@ -18,10 +18,12 @@ export default function Header() {
     else {
       setPageLinks(customerLinks);
     }
-  }, []);
+  }, [user]);
   
   const handleLogout = (e) => {
-    console.log('Logout');
+    removeCookie('auth', { path: '/' });
+    localStorage.clear();
+    window.location.assign('/');
   }
   
   return (
