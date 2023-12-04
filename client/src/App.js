@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import SPSORoutes from './routes/SPSORoutes';
 import CustomerRoutes from './routes/CustomerRoutes';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 
 export default function App() {
   const [user, setUser] = useState({ token: null, isSPSO: false, listFiles: [] });
@@ -34,6 +35,7 @@ export default function App() {
               <Route path='customer' element={<Login role='customer' />}/>
               <Route path='spso' element={<Login role='spso' />}/>
             </Route>
+            <Route path='profile' element={<Profile />} />
             <Route path='*' element={ user.isSPSO ? <SPSORoutes /> : <CustomerRoutes /> } />
           </Route>
         </Routes>
