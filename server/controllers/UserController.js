@@ -110,7 +110,11 @@ async function getUserByID(req, res, next) {
       return res.status(400).send('Sao lại thế này????');
     }
     
+    // Modify data before sending
     delete result.password;
+    result.last_used = new Date(result.last_used);
+    
+    // Send data
     res.json(result);
   }
   catch (err) {
