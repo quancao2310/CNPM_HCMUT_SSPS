@@ -2,25 +2,53 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import StatusTable from '../components/print_status/StatusTable';
+import { useCookies } from 'react-cookie'
+import { useNavigate } from "react-router-dom";
 import PagingTable from '../components/print_status/PagingTable';
 
 function PrintStatus(){
-
-    const id = 2112444;
-
+    const [user_id, setUserId] = useState('');
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const token = cookies.auth;
 
     useEffect(() => {
         axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/print/status/${id}`)
+          .get(`${process.env.REACT_APP_SERVER_URL}/user`, {
+            headers:{
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` 
+            }
+          })
+          .then((response) => {
+            setUserId(response.data.customer_id);
+          })
+          .catch((err) => {
+            if (err.response.status === 401){
+                if (cookies.auth){
+                    removeCookie('auth', {path: '/'});
+                }
+                navigate('/login');
+            }
+            else{
+                console.err(err);
+            }
+          });
+
+        axios
+          .get(`${process.env.REACT_APP_SERVER_URL}/print/status/${user_id}`, {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+          })
           .then((response) => {
             setData(response.data);
           })
           .catch((err) => {
             console.error(err);
           });
-      }, [id]);
+      }, []);
 
     return (
         <div
