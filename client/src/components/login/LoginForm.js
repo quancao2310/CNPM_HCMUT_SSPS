@@ -1,7 +1,5 @@
 import logo_BK from '../../assets/img/logo_BK.png';
 import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function LoginForm({ role }) {
@@ -12,8 +10,6 @@ function LoginForm({ role }) {
   });
   const [errors, setErrors] = useState([]);
   const [showErrors, setShowErrors] = useState(false);
-  const [ , setCookie] = useCookies();
-  const navigate = useNavigate();
   
   useEffect(() => {
     let newErrors = [];
@@ -50,12 +46,10 @@ function LoginForm({ role }) {
       }, {
         withCredentials: true
       });
-      console.log(validation);
-      setCookie('isSPSO', role === 'spso', { path: '/', expires: new Date(Date.now() + 3600 * 1000) });
-      navigate('/');
+      localStorage.setItem('userCredentials', JSON.stringify({ token: validation.data.token, isSPSO: role === 'spso' }));
+      window.location.assign('/');
     }
     catch (error) {
-      // console.error(error);
       if (error.response.status >= 400 && error.response.status < 500) {
         setErrors(['Các thông tin mà bạn cung cấp không đúng.']);
       }

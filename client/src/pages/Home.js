@@ -1,23 +1,9 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from '../context/UserContext';
 import homeBG from "../assets/img/home_bg.png";
 
 function Home() {
-  const user = useContext(UserContext);
-  const [state, setState] = useState(null); // To be deleted
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_SERVER_URL}/test`)
-  //     .then((response) => {
-  //       setState(response.data);
-  //       if (state != null) console.log(state);
-  //     })
-  //     .catch((err) => {
-  //       setState("Error");
-  //       console.error(err);
-  //     });
-  // }, [state]);
+  const { user } = useContext(UserContext);
   
   return (
     <div

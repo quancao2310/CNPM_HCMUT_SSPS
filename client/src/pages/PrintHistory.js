@@ -5,7 +5,7 @@ import PrintHistoryTable from '../components/print_history/PrintHistoryTable';
 import FilterBar from '../components/print_history/FilterBar';
 
 function PrintHistory() {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [dataRows, setDataRows] = useState(dummyData);
   // const [dataRows, setDataRows] = useState('');
   

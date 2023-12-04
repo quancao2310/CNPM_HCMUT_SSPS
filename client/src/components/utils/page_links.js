@@ -4,7 +4,7 @@ export const spsoLinks = [
   { name: 'Cấu hình hệ thống', to: '/config'},
   { name: 'Lịch sử dịch vụ', to: '/printlog'},
   { name: 'Xem báo cáo', to: '/reports'},
-  { name: 'Hỗ trợ người dùng', to: '/support'}
+  // { name: 'Hỗ trợ người dùng', to: '/support'}
 ];
 
 export const customerLinks = [
@@ -12,7 +12,7 @@ export const customerLinks = [
   { name: 'In tài liệu', to: '/print'},
   { name: 'Lịch sử in', to: '/print/log'},
   { name: 'Mua trang in', to: '/purchase'},
-  { name: 'Hỗ trợ', to: '/support'}
+  // { name: 'Hỗ trợ', to: '/support'}
 ];
 
 export const profileLinks = [

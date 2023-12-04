@@ -8,7 +8,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdCall, MdEmail } from "react-icons/md";
 
 function Footer() {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [pageLinks, setPageLinks] = useState([]);
   
   useEffect(() => {
@@ -18,7 +18,7 @@ function Footer() {
     else {
       setPageLinks(customerLinks);
     }
-  }, []);
+  }, [user]);
   
   return (
     <footer className="bg-dark pt-2 text-white">

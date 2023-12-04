@@ -15,7 +15,6 @@ async function loginCustomer(req, res, next) {
     // check password
     bcrypt.compare(req.body.password, result.password, async (bErr, bResult) => {
       if (bErr) {
-        // return res.status(500).send('Something went wrong!');
         return next(bErr);
       }
       
@@ -37,13 +36,13 @@ async function loginCustomer(req, res, next) {
       // change time of last used (which is now)
       await setCustomerLastUsed(result.email);
       
+      delete result.password;
       res
         .cookie('auth', token, { maxAge: 3600 * 1000, path: '/' }) // Cookies valid for 1 hour
-        .send('Đăng nhập thành công!');
+        .json({ message: 'Đăng nhập thành công!', userInfo: result, token: token });
     });
   }
   catch (err) {
-    // return res.status(500).send(err);
     next(err);
   }
 }
@@ -81,9 +80,10 @@ async function loginSPSO(req, res, next) {
       // change time of last used (which is now)
       await setSPSOLastUsed(result.username);
       
+      delete result.password;
       res
         .cookie('auth', token, { maxAge: 3600 * 1000, path: '/' })
-        .send('Đăng nhập thành công!');
+        .json({ message: 'Đăng nhập thành công!', userInfo: result, token: token });
     });
   }
   catch (err) {
@@ -105,12 +105,13 @@ async function getUserByID(req, res, next) {
       result = await getCustomerByID(id);
     }
     
-    // user does not exists, which should never occur but just in case...
+    // user does not exists, which should never occur after authentication but just in case...
     if (!result) {
       return res.status(400).send('Sao lại thế này????');
     }
     
-    res.json(result); // Access by using response.data in client
+    delete result.password;
+    res.json(result);
   }
   catch (err) {
     next(err);
