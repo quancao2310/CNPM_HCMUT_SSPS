@@ -1,6 +1,6 @@
 import LoginRole from "../components/login/LoginRole";
 import LoginForm from "../components/login/LoginForm";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +9,11 @@ function Login({ role }) {
   const navigate = useNavigate();
   
   // User already logged in
-  if (user.token !== null) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (user.token !== null) {
+      navigate('/');
+    }
+  }, [user]);
   
   return (
     <div className='container-sm'>

@@ -81,7 +81,13 @@ function DropdownAvatar({ handleLogout }) {
         data-bs-toggle="dropdown" 
         aria-expanded="false"
       >
-        <img src={sampleAvt} alt="Avatar" width="32" height="32" className="rounded-circle" />
+        <img
+          src={sampleAvt} 
+          alt="Avatar" 
+          width="32" 
+          height="32" 
+          className="rounded-circle" 
+        />
       </button>
       <ul className="dropdown-menu dropdown-menu-end text-small my-dropdown">
         {links.map(({ name, to }, index) => 

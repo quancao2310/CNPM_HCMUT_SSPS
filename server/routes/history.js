@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const authenticate = require('../middlewares/authenticate');
 const historyController = require('../controllers/HistoryController');
-const authenticate=require('../middlewares/authenticate')
 
-router.get('/customer', authenticate, historyController.historyCustomer);
-router.get('/customer/detail', authenticate, historyController.historyCustomerByPrintOderID);
-router.get('/spso', authenticate, historyController.historySPSO);
-router.get('/spso/detail', authenticate, historyController.historyByUserId);
-
+router.get('/customer', authenticate, historyController.getAllPrintHistoryByUser);
+router.get('/spso', authenticate, historyController.getAllPrintHistoryBySPSO);
+router.get('/:printID', authenticate, historyController.getPrintOrderDetailByID);
 
 module.exports = router;

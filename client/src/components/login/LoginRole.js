@@ -2,7 +2,11 @@ import { Link } from 'react-router-dom';
 import logo_BK from '../../assets/img/logo_BK.png';
 
 function LoginRole() {
-  const style = { backgroundColor: 'var(--color-bk1)', lineHeight: '1.6' };
+  const style = {
+    backgroundColor: 'var(--color-bk1)',
+    lineHeight: '1.6'
+  };
+  
   return (
     <div className='row text-center px-4 px-lg-0'>
       <div className='col-12'>

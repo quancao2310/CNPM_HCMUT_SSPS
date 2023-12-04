@@ -50,11 +50,16 @@ function LoginForm({ role }) {
       window.location.assign('/');
     }
     catch (error) {
-      if (error.response.status >= 400 && error.response.status < 500) {
-        setErrors(['Các thông tin mà bạn cung cấp không đúng.']);
+      if (error.response) {
+        if (error.response.status >= 400 && error.response.status < 500) {
+          setErrors(['Các thông tin mà bạn cung cấp không đúng.']);
+        }
+        if (error.response.status === 500) {
+          setErrors([error.response.data]);
+        }
       }
-      if (error.response.status === 500) {
-        setErrors([error.response.data]);
+      else {
+        setErrors(['Không kết nối được đến server!']);
       }
       setShowErrors(true);
     }
