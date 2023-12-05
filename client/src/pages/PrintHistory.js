@@ -13,28 +13,25 @@ function PrintHistory() {
   
   useEffect(() => {
     const token = cookies.auth;
-    if (!token) {
-      navigate('/login');
-    }
-    else {
-      axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/history/customer`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          }
-        })
-        .then((response) => {
-          setDataRows(response.data);
-        })
-        .catch((error) => {
-          if (error.response?.status === 401) {
-            removeCookie('auth', { path: '/' });
-            localStorage.clear();
-            window.location.assign('/');
-          }
-        });
-    }
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/history/customer`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        setDataRows(response.data);
+      })
+      .catch((error) => {
+        if (error.response?.status === 401) {
+          removeCookie('auth', { path: '/' });
+          localStorage.clear();
+          setTimeout(() => {
+            navigate('/login');
+          }, 200);
+        }
+      });
   }, [cookies]);
   
   let historyElement;
