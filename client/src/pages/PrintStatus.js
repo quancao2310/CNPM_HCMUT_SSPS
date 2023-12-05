@@ -4,51 +4,56 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie'
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/utils/Loading.js";
 import PagingTable from '../components/print_status/PagingTable';
 
 function PrintStatus(){
-    const [user_id, setUserId] = useState('');
-    const [data, setData] = useState([]);
-    const navigate = useNavigate();
+    const [data, setData] = useState(null);
+    
     const [cookies, setCookie, removeCookie] = useCookies();
     const token = cookies.auth;
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/user`, {
-            headers:{
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}` 
+      setLoading(true);
+      
+      axios
+        .get(`${process.env.REACT_APP_SERVER_URL}/user`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          axios
+            .get(`${process.env.REACT_APP_SERVER_URL}/print/status/${response.data.customer_id}`)
+            .then((response) => {
+              setData(response.data);
+              setTimeout(() => {
+                setLoading(false);
+              }, 200);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 401) {
+            if (cookies.auth) {
+              removeCookie('auth', { path: '/' });
             }
-          })
-          .then((response) => {
-            setUserId(response.data.customer_id);
-          })
-          .catch((err) => {
-            if (err.response.status === 401){
-                if (cookies.auth){
-                    removeCookie('auth', {path: '/'});
-                }
-                navigate('/login');
-            }
-            else{
-                console.err(err);
-            }
-          });
-
-        axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/print/status/${user_id}`, {
-            headers:{
-                'Content-Type': 'application/json'
-            }
-          })
-          .then((response) => {
-            setData(response.data);
-          })
-          .catch((err) => {
+            setTimeout(() => {
+              navigate('/login');
+            }, 200);
+          } 
+          else {
             console.error(err);
-          });
-      }, []);
+          }
+        });
+    }, []);
+
+    if (loading) return <Loading loading={loading}/>;
 
     return (
         <div

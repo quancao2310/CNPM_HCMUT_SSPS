@@ -11,9 +11,16 @@ function PrintConfig(){
     const token = cookies.auth;
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         setLoading(true);
+
+        if (!state) {
+            setTimeout(() => {
+                navigate('/');
+            }, 200);
+        }
         
         axios
           .get(`${process.env.REACT_APP_SERVER_URL}/user`, {
@@ -23,7 +30,7 @@ function PrintConfig(){
             }
           })
           .then((response) => {
-            console.log(response);
+            setUser(response.data);
             setTimeout(() => {
               setLoading(false);
             }, 200);
@@ -119,7 +126,9 @@ function PrintConfig(){
                 </div>
             </div>
         </div>
-        <ConfigModal 
+        <ConfigModal
+            user_id = {user.customer_id}
+            user_balance = {user.balance}
             file_name= {state?state.name:''}
             file_num_pages = "100"
             file_config = {config} 

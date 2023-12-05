@@ -10,6 +10,7 @@ function PrintService() {
   const token = cookies.auth;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [ user_id, setUserId ] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -22,7 +23,7 @@ function PrintService() {
         }
       })
       .then((response) => {
-        console.log(response);
+        setUserId(response.data.id);
         setTimeout(() => {
           setLoading(false);
         }, 200);
@@ -45,7 +46,7 @@ function PrintService() {
   if (loading) return <Loading loading={loading}/>
 
   return (
-    <FileUpload />
+    <FileUpload id = {user_id} />
   );
 }
 

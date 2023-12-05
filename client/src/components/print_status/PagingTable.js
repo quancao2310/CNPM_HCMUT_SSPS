@@ -4,6 +4,8 @@ import StatusTable from './StatusTable';
 function PagingTable({ data, items_per_page }) {
     const [currentPage, setCurrentPage] = useState(1);
 
+    if (!data) return <></>;
+
     const indexOfLastItem = currentPage * items_per_page;
     const indexOfFirstItem = indexOfLastItem - items_per_page;
     const currentData = data.slice(indexOfFirstItem, indexOfLastItem);

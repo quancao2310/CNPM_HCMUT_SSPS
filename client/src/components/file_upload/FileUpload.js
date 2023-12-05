@@ -1,12 +1,11 @@
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import ProgressiveImage from "react-progressive-graceful-image";
 import '../../assets/styles/FileUpload.css';
 import fileupload_bg from '../../assets/img/fileupload_bg.jpg';
 import FileCards from './FileCard';
 import UploadArea from './UploadArea';
 
-function FileUpload() {
+function FileUpload({ id }) {
     const bg = {
         backgroundImage: `url(${fileupload_bg})`,
         height: 'auto',
@@ -72,7 +71,7 @@ function FileUpload() {
                     className="row d-flex justify-content-center" 
                     style={{ height: '70%' }}
                 >
-                    <UploadArea onUpload={handleUpload}/>
+                    <UploadArea id={id}/>
                     <div 
                         className={`col-5 ${files.length === 0 ? 'd-none': ''}`} 
                         id="list-files"

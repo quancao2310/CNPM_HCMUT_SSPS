@@ -1,31 +1,23 @@
-import { useState, useEffect } from 'react';
-import axios from 'react';
+import axios from 'axios';
 import ProgressiveImage from "react-progressive-graceful-image";
 import upload_button from '../../assets/img/upload_button.png';
 
-function UploadArea({ onUpload }){
+function UploadArea({ id }){
+    const url = `${process.env.REACT_APP_SERVER_URL}/print/uploadTemporaryFile}`;
 
-    const url = `${process.env.REACT_APP_SERVER_URL}/print/uploadTemporaryFile?id=0`;
-
-    const uploadFiles = async (file) => {
-        const formData = new FormData();
-    
-        formData.append('file', file);
-     
-        fetch(url, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('File upload response:', data);
-        })
-        .catch(error => {
-            console.error('Error uploading file:', error);
-        });
+    const uploadFiles = (file) => {
+        const dataForm = new FormData();
+        dataForm.append('id', id); 
+        dataForm.append('file', file);
+        
+        axios
+          .post(url, dataForm)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {     
+            console.error(err);
+          });
     };
     
 
@@ -77,6 +69,7 @@ function UploadArea({ onUpload }){
                     name="file" type = "file"
                     style={{ display: 'none' }} 
                     onChange={handleFileUpload}
+                    webkitdirectory
                 />
                 <button className="btn text-white fw-medium" id = "button" onClick={() => document.getElementById('fileInput').click()}>
                     Chọn tài liệu
