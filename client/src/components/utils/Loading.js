@@ -11,7 +11,7 @@ function Loading({ loading }) {
   const [color, setColor] = useState("#ffffff");
 
   return (
-    <div className="sweet-loading">
+    <div className="sweet-loading my-5">
       <ClipLoader
         color={color}
         loading={loading}

@@ -3,17 +3,23 @@ import LoginForm from "../components/login/LoginForm";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Login({ role }) {
   const { user } = useContext(UserContext);
+  const [cookies, , ] = useCookies();
   const navigate = useNavigate();
   
   // User already logged in
   useEffect(() => {
-    if (user.token !== null) {
+    const token = cookies.auth;
+    if (token) {
       navigate('/');
     }
-  }, [user]);
+    else {
+      localStorage.clear();
+    }
+  }, [cookies]);
   
   return (
     <div className='container-sm'>

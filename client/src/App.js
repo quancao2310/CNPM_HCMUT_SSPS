@@ -4,13 +4,15 @@ import { UserContext } from './context/UserContext';
 import Header from './components/utils/Header';
 import Footer from './components/utils/Footer';
 import Home from './pages/Home';
-import SPSORoutes from './routes/SPSORoutes';
-import CustomerRoutes from './routes/CustomerRoutes';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import SPSORoutes from './routes/SPSORoutes';
+import CustomerRoutes from './routes/CustomerRoutes';
+import { useCookies } from 'react-cookie';
 
 export default function App() {
   const [user, setUser] = useState({ token: null, isSPSO: false, listFiles: [] });
+  const [cookies] = useCookies();
   
   useEffect(() => {
     const userCredentials = JSON.parse(localStorage.getItem('userCredentials'));
@@ -21,7 +23,7 @@ export default function App() {
     else {
       setUser({ ...user, ...userCredentials });
     }
-  }, []);
+  }, [cookies]);
   
   return (
     <UserContext.Provider value={{ user, setUser }}>
