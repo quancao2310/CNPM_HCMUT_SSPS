@@ -1,4 +1,4 @@
-const {GetReportYearMonth, getNumPagePrinted} = require('../models/GetReportYearMonth');
+const {GetReportYearMonth, GetReportFirstOrder} = require('../models/GetReportYearMonth');
 
 async function GetReport(req, res, next){
     try{
@@ -11,6 +11,16 @@ async function GetReport(req, res, next){
     }
 }
 
+async function GetReportFirst(req, res,next){
+    try{
+        const result = await GetReportFirstOrder();
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = { 
-    GetReport
+    GetReport,
+    GetReportFirst
 };

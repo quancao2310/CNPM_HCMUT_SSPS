@@ -83,7 +83,24 @@ async function GetReportMonth(month, year)
     }
 }
 
+async function GetReportFirstOrder()
+{
+    try{
+        const [result, _] = await db.execute(
+            `-- Lấy tháng và năm của đơn đặt hàng đầu tiên
+            (SELECT MONTH(time_start) as month_of_first, YEAR(time_start) as year_of_first
+             FROM print_order
+             ORDER BY print_id ASC LIMIT 1)           
+            `
+        );
+        return result;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
 
 module.exports = {
-    GetReportYearMonth
+    GetReportYearMonth, 
+    GetReportFirstOrder
 };
