@@ -139,20 +139,28 @@ INSERT INTO document (document_id, name, file_type, no_of_pages, user_id, printe
 (7, 'Project Management Software User Guide', 'pdf', 37, 2112111, 3),
 (8, 'Advanced Calculus Course Final Grades', 'doc', 12, 2112222, 7),
 (9, 'Software Development Best Practices', 'xls', 18, 2112333, 9),
-(10, 'Cybersecurity Guidelines', 'ppt', 10, 2112444, 8);
+(10, 'Cybersecurity Guidelines', 'ppt', 10, 2112444, 8),
+(11, 'Sales Product Lists', 'pdf', 6, 2112444, 1),
+(12, 'Computer Networking', 'pdf', 40, 2112444, 5),
+(13, 'Introduction to AI', 'pdf', 30, 2112444, 6),
+(14, 'Introduction Machine Learning', 'ppt', 10, 2112444, 5);
 
 -- Insert data for the print_order table
 INSERT INTO print_order (print_id, side, page_size, orientation, pages_per_sheet, scale, time_start, time_end, status, pages_to_be_printed, document_id, user_id) VALUES
-(1, '1', 'A4', 'portrait', 1, 1.00, '2022-10-01 10:00:00', '2022-10-01 11:00:00', 'progress', '8-15', 3, 2112333),
+(1, '1', 'A4', 'portrait', 1, 1.00, '2022-10-01 10:00:00', '2022-10-01 10:00:00', 'progress', '8-15', 3, 2112333),
 (2, '1', 'A4', 'portrait', 1, 1.00, '2022-11-01 17:30:00', '2022-11-01 18:30:00', 'success', '5-15', 9, 2112333),
 (3, '1', 'A4', 'portrait', 1, 0.90, '2022-12-01 08:00:00', '2022-12-01 08:30:00', 'success', '5-10', 1, 2222222),
 (4, '1', 'A4', 'portrait', 1, 0.50, '2023-03-01 14:00:00', '2023-03-01 15:00:00', 'failed', '3-7', 6, 2222222),
 (5, '2', 'A3', 'landscape', 2, 1.50, '2023-05-01 18:00:00', '2023-05-01 19:30:00', 'failed', 'All', 10, 2112444),
-(6, '1', 'A4', 'portrait', 1, 1.00, '2023-05-01 15:30:00', '2023-05-01 16:30:00', 'progress', '10-20', 7, 2112111),
+(6, '1', 'A4', 'portrait', 1, 1.00, '2023-05-01 15:30:00', '2023-05-01 15:30:00', 'progress', '10-20', 7, 2112111),
 (7, '1', 'A4', 'portrait', 1, 0.60, '2023-07-01 11:30:00', '2023-07-01 12:30:00', 'pending', 'All', 4, 2112444),
 (8, '2', 'A3', 'landscape', 2, 0.78, '2023-12-01 16:00:00', '2023-12-01 17:30:00', 'pending', 'All', 8, 2112222),
 (9, '2', 'A3', 'landscape', 2, 0.85, '2023-12-01 13:00:00', '2023-12-01 14:30:00', 'success', '1-6', 5, 2112111),
-(10, '2', 'A3', 'landscape', 2, 0.90, '2023-12-01 09:00:00', '2023-12-01 10:30:00', 'failed', '1-3', 2, 2112222);
+(10, '2', 'A3', 'landscape', 2, 0.90, '2023-12-01 09:00:00', '2023-12-01 10:30:00', 'failed', '1-3', 2, 2112222),
+(11, '2', 'A4', 'portrait', 2, 0.90, '2023-01-01 09:00:00', '2023-01-01 10:30:00', 'success', 'All', 11, 2112444),
+(12, '2', 'A4', 'portrait', 2, 1.00, '2023-02-01 09:00:00', '2023-02-01 10:30:00', 'success', '1-20', 12, 2112444),
+(13, '2', 'A4', 'landscape', 2, 1.00, '2023-03-01 08:00:00', '2023-03-01 08:00:00', 'progress', 'All', 13, 2112444),
+(14, '2', 'A4', 'portrait', 2, 1.20, '2023-02-01 09:00:00', '2023-02-01 10:30:00', 'success', 'All', 14, 2112444);
 
 -- Insert data for the Purchase order table
 INSERT INTO purchase_order (purchase_id, time, amount, price, status, user_id) VALUES

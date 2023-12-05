@@ -3,7 +3,7 @@ const db = require("../config/db");
 async function getAllPrintOrders() {
   try {
     const [result, ] = await db.execute(
-      `SELECT PO.print_id, C.name AS customer_name, D.name AS document_name, PO.time_start, PO.time_end, PO.status
+      `SELECT PO.print_id, C.name AS customer_name, D.name AS document_name, P.name AS printer_name, PO.time_start, PO.time_end, PO.status
       FROM print_order PO
         INNER JOIN document D ON PO.document_id = D.document_id
         INNER JOIN printer P ON D.printer_id = P.printer_id
@@ -19,7 +19,7 @@ async function getAllPrintOrders() {
 async function getPrintOrdersByUserID(userID) {
   try {
     const [result, ] = await db.execute(
-      `SELECT PO.print_id, D.name AS document_name, PO.time_start, PO.time_end, PO.status
+      `SELECT PO.print_id, D.name AS document_name, P.name AS printer_name, PO.time_start, PO.time_end, PO.status
       FROM print_order PO
         INNER JOIN document D ON PO.document_id = D.document_id
         INNER JOIN printer P ON D.printer_id = P.printer_id

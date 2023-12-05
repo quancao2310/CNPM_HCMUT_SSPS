@@ -6,12 +6,12 @@ import Loading from "../components/utils/Loading.js";
 import FileUpload from "../components/file_upload/FileUpload";
 
 function PrintService() {
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, , removeCookie] = useCookies();
   const token = cookies.auth;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [ user_id, setUserId ] = useState('');
-
+  const [user_id, setUserId] = useState('');
+  
   useEffect(() => {
     setLoading(true);
     
@@ -42,9 +42,9 @@ function PrintService() {
         }
       });
   }, []);
-
-  if (loading) return <Loading loading={loading}/>
-
+  
+  if (loading) return <Loading />;
+  
   return (
     <FileUpload id = {user_id} />
   );

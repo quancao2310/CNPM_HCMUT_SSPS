@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
-import { UserContext } from '../context/UserContext';
-import homeBG from "../assets/img/home_bg.png";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../context/UserContext';
+import homeBG from "../assets/img/home_bg.png";
 
 function Home() {
   const { user } = useContext(UserContext);

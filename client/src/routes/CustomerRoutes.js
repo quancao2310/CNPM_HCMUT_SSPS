@@ -13,18 +13,12 @@ function CustomerRoutes() {
     <Routes>
       <Route path='print'>
         <Route index element={<PrintService />} /> {/*Route dich vu dat in */}
-        <Route path='config'>
-            <Route index element={<PrintConfig />} />
-        </Route>
-        <Route path='confirm'>
-          <Route index element={<PrintConfirm />} />
-        </Route>
-        <Route path='status'>
-          <Route index element={<PrintStatus />} />
-        </Route>
-        <Route path='log'> {/* Route lich su in*/}
-          <Route index element={<PrintHistory />} /> {/* Route trang tong hop lich su */}
-          <Route path=':id' element={<PrintHistoryDetail />} /> {/* Route xem tung lich su */}
+        <Route path='config' element={<PrintConfig />} />
+        <Route path='confirm' element={<PrintConfirm />} />
+        <Route path='status' element={<PrintStatus />} />
+        <Route path='log'>
+          <Route index element={<PrintHistory />} />
+          <Route path=':id' element={<PrintHistoryDetail />} />
         </Route>
       </Route>
       <Route path='purchase'>

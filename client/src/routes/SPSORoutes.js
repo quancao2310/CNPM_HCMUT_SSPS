@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import PrintHistory from "../pages/PrintHistory";
+import PrintHistoryDetail from "../pages/PrintHistoryDetail";
 import PrintReport from "../pages/PrintReport";
 import PrintReportDetail from "../pages/PrintReportDetail";
 import NotFound from "../pages/NotFound";
@@ -14,6 +15,7 @@ function SPSORoutes() {
       </Route>
       <Route path='printlog'> {/* Route xem lich su in cua nguoi dung */}
         <Route index element={<PrintHistory />} />
+        <Route path=':id' element={<PrintHistoryDetail />} />
       </Route>
       <Route path='report'>
         <Route index element={<PrintReport />} />

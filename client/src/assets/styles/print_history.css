@@ -10,27 +10,31 @@
 }
 
 #history-table th:nth-child(1) {
-  width: 8%;
+  width: 7%;
 }
 
 /* #history-table th:nth-child(2) {
   width: 30%;
 } */
 
-#history-table th:nth-child(3) {
-  width: 18%;
-}
-
-#history-table th:nth-child(4) {
-  width: 18%;
-}
-
-#history-table th:nth-child(5) {
-  width: 16%;
-}
-
-#history-table th:nth-child(6) {
+#history-table th:nth-last-child(5) {
   width: 10%;
+}
+
+#history-table th:nth-last-child(4) {
+  width: 14%;
+}
+
+#history-table th:nth-last-child(3) {
+  width: 14%;
+}
+
+/* #history-table th:nth-last-child(2) {
+  width: auto;
+} */
+
+#history-table th:last-child {
+  width: 9%;
 }
 
 /* ---------------- Detail Page ---------------- */

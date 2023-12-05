@@ -1,27 +1,38 @@
-import '../assets/styles/print_history.css';
-import { useState, useEffect } from 'react';
-import PrintHistoryTable from '../components/print_history/PrintHistoryTable';
-import FilterBar from '../components/print_history/FilterBar';
 import axios from 'axios';
+import '../assets/styles/print_history.css';
+import { useState, useEffect, useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+import Loading from '../components/utils/Loading';
+import History from '../components/print_history/genaral/History';
 
 function PrintHistory() {
+  const { user } = useContext(UserContext);
   const [dataRows, setDataRows] = useState(null);
   const [cookies, , removeCookie] = useCookies();
   const navigate = useNavigate();
+  const url = `${process.env.REACT_APP_SERVER_URL}/history/${user.isSPSO ? 'spso' : 'customer'}`;
   
   useEffect(() => {
     const token = cookies.auth;
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/history/customer`, {
+      .get(url, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         }
       })
       .then((response) => {
-        setDataRows(response.data);
+        let tmpData = [ ...response.data ];
+        tmpData = tmpData.map((value) => {
+          return {
+            ...value,
+            time_start: new Date(value.time_start),
+            time_end: new Date(value.time_end)
+          };
+        });
+        setDataRows(tmpData);
       })
       .catch((error) => {
         if (error.response?.status === 401) {
@@ -37,25 +48,14 @@ function PrintHistory() {
   let historyElement;
   if (dataRows === null) {
     historyElement = (
-      <div className='col-12 my-3 text-center d-flex flex-wrap justify-content-center gap-3'>
+      <div className='col-12 my-3 text-center'>
         <h3>Dữ liệu đang tải, vui lòng chờ</h3>
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+        <Loading />
       </div>
     );
   }
   else if (dataRows.length > 0) {
-    historyElement = (
-      <>
-      <div className='col-12 my-3'>
-        <FilterBar />
-      </div>
-      <div className='col-12 my-3 table-responsive'>
-        <PrintHistoryTable dataRows={dataRows} />
-      </div>
-      </>
-    );
+    historyElement = <History data={dataRows} />;
   }
   else {
     historyElement = <h3 className='col-12 my-3 text-center'>Không có dữ liệu về đơn in của bạn</h3>;

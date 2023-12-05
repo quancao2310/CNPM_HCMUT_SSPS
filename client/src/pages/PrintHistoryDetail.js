@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../assets/styles/print_history.css';
-import PrintOrder from '../components/print_history/PrintOrder';
-import DocumentDetail from '../components/print_history/DocumentDetail';
-import PrintConfig from '../components/print_history/PrintConfig';
+import PrintOrder from '../components/print_history/detail/PrintOrder';
+import DocumentDetail from '../components/print_history/detail/DocumentDetail';
+import PrintConfig from '../components/print_history/detail/PrintConfig';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 
