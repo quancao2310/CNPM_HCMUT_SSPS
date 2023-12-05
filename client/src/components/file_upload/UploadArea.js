@@ -1,4 +1,3 @@
-import axios from 'axios';
 import ProgressiveImage from "react-progressive-graceful-image";
 import upload_button from '../../assets/img/upload_button.png';
 
@@ -69,10 +68,9 @@ function UploadArea({ id, length, setLength }){
                 <input
                     id = "fileInput"
                     name="file" type = "file"
-                    multiple="true"
+                    multiple={true}
                     style={{ display: 'none' }} 
                     onChange={handleFileUpload}
-                    webkitdirectory
                 />
                 <button className="btn text-white fw-medium" id = "button" onClick={() => document.getElementById('fileInput').click()}>
                     Chọn tài liệu
