@@ -2,35 +2,37 @@ import axios from 'axios';
 import ProgressiveImage from "react-progressive-graceful-image";
 import upload_button from '../../assets/img/upload_button.png';
 
-function UploadArea({ id }){
-    const url = `${process.env.REACT_APP_SERVER_URL}/print/uploadTemporaryFile}`;
+function UploadArea({ id, length, setLength }){
+    const url = `${process.env.REACT_APP_SERVER_URL}/print/getFileContent`;
 
-    const uploadFiles = (file) => {
-        const dataForm = new FormData();
-        dataForm.append('id', id); 
-        dataForm.append('file', file);
-        
-        axios
-          .post(url, dataForm)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((err) => {     
-            console.error(err);
-          });
+    const uploadFiles = (files) => {
+        const storedFiles = sessionStorage.getItem('files');
+        let updated_files = [];
+    
+        if (storedFiles !== null) {
+            updated_files = JSON.parse(storedFiles);
+        }
+    
+        const newFiles = files.map(file => file.name);
+        updated_files = updated_files.concat(newFiles);
+
+        setLength(length + newFiles.length);
+    
+        sessionStorage.setItem('files', JSON.stringify(updated_files));
+        console.log(sessionStorage.getItem('files'));
     };
     
 
     const handleDrop = (event) => {
         event.preventDefault();
-        const droppedFiles = event.dataTransfer.files[0];
-        uploadFiles(droppedFiles);
+        const droppedFiles = event.dataTransfer?.files || [];
+        uploadFiles(Array.from(droppedFiles));
     };
     
     const handleFileUpload = (event) => {
         event.preventDefault();
-        const uploadedFiles = event.target.files[0];
-        uploadFiles(uploadedFiles);
+        const uploadedFiles = event.target?.files || [];
+        uploadFiles(Array.from(uploadedFiles));
     };
     
     
@@ -67,6 +69,7 @@ function UploadArea({ id }){
                 <input
                     id = "fileInput"
                     name="file" type = "file"
+                    multiple="true"
                     style={{ display: 'none' }} 
                     onChange={handleFileUpload}
                     webkitdirectory

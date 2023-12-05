@@ -128,6 +128,12 @@ function PrintConfirm() {
                         console.log(updateData);
                         const updateResponse = await axios.put(update_balance_api_url, updateData);
                         if (updateResponse.data.status === "Success") {
+                            const storedFiles = sessionStorage.getItem("files");
+                            if (storedFiles) {
+                                const currentFiles = JSON.parse(storedFiles);
+                                const updatedFiles = currentFiles.filter(file => file !== name);
+                                sessionStorage.setItem('files', JSON.stringify(updatedFiles));
+                            }
                             setModalState(true);
                         } 
                         else {

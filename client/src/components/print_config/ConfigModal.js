@@ -2,8 +2,6 @@ import { Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function ConfigModal({ user_id, user_balance, file_name, file_num_pages, file_config, state, submit_state, support_function }){
-    console.log(user_id);
-    console.log(user_balance);
     return (
         <Modal show={state} onHide={support_function}>
             <Modal.Header closeButton>

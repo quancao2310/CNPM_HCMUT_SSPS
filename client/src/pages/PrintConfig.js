@@ -5,6 +5,13 @@ import { useCookies } from 'react-cookie';
 import Loading from "../components/utils/Loading.js";
 import ConfigArea from '../components/print_config/ConfigArea';
 import ConfigModal from '../components/print_config/ConfigModal';
+import FilePreview from '../components/print_config/FilePreview.js';
+
+const docs = [
+    {uri: require("../assets/test_docs/GAIN.pdf")},
+    {uri: require("../assets/test_docs/ascii-art.txt")},
+    {uri: require("../assets/test_docs/Phú Lâm.csv")}
+];
 
 function PrintConfig(){
     const [cookies, setCookie, removeCookie] = useCookies();
@@ -119,6 +126,7 @@ function PrintConfig(){
                         <div className="col-8">{state?state.name:''}</div>
                     </div>
                     <div id = "document-preview">
+                        <FilePreview docs={docs} />
                     </div>
                 </div>
                 <div className="col-12 col-md-6 border-right border-dark">

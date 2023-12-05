@@ -13,19 +13,16 @@ function FileUpload({ id }) {
         backgroundSize: 'contain',
     };
 
+    const [length, setLength ] = useState(0);
     const [files, setFiles] = useState(["text.txt"]);
 
-    // useEffect(() => {
-    //     const storedFiles = sessionStorage.getItem("files");
-    //     if (!storedFiles) {
-    //         setFiles(JSON.parse(storedFiles));
-    //     }
-    // }, []);
-
-    const handleUpload = (uploadedFiles) => {
-        setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
-        sessionStorage.setItem("files", JSON.stringify([...files, ...uploadedFiles]));
-    };
+    useEffect(() => {
+        const storedFiles = sessionStorage.getItem("files");
+        if (storedFiles) {
+            setFiles(JSON.parse(storedFiles));
+            setLength(JSON.parse(storedFiles).length);
+        }
+    }, [length]);
 
     return (
         <div 
@@ -71,7 +68,7 @@ function FileUpload({ id }) {
                     className="row d-flex justify-content-center" 
                     style={{ height: '70%' }}
                 >
-                    <UploadArea id={id}/>
+                    <UploadArea id={id} length={length} setLength = {setLength} />
                     <div 
                         className={`col-5 ${files.length === 0 ? 'd-none': ''}`} 
                         id="list-files"
