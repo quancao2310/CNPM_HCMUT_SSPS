@@ -47,7 +47,7 @@ function LoginForm({ role }) {
         withCredentials: true
       });
       localStorage.setItem('userCredentials', JSON.stringify({ token: validation.data.token, isSPSO: role === 'spso' }));
-      sessionStorage.setItem('files', JSON.stringify([]));
+      localStorage.setItem('files', JSON.stringify([]));
       window.location.assign('/');
     }
     catch (error) {

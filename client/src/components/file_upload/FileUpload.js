@@ -17,7 +17,7 @@ function FileUpload({ id }) {
     const [files, setFiles] = useState(["text.txt"]);
 
     useEffect(() => {
-        const storedFiles = sessionStorage.getItem("files");
+        const storedFiles = localStorage.getItem("files");
         if (storedFiles) {
             setFiles(JSON.parse(storedFiles));
             setLength(JSON.parse(storedFiles).length);

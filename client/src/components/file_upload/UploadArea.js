@@ -6,7 +6,7 @@ function UploadArea({ id, length, setLength }){
     const url = `${process.env.REACT_APP_SERVER_URL}/print/getFileContent`;
 
     const uploadFiles = (files) => {
-        const storedFiles = sessionStorage.getItem('files');
+        const storedFiles = localStorage.getItem('files');
         let updated_files = [];
     
         if (storedFiles !== null) {
@@ -18,8 +18,8 @@ function UploadArea({ id, length, setLength }){
 
         setLength(length + newFiles.length);
     
-        sessionStorage.setItem('files', JSON.stringify(updated_files));
-        console.log(sessionStorage.getItem('files'));
+        localStorage.setItem('files', JSON.stringify(updated_files));
+        console.log(localStorage.getItem('files'));
     };
     
 
