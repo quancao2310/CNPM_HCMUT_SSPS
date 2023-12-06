@@ -1,20 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const printController = require('../controllers/PrinterController');
-const authenticate = require('../middlewares/authenticate');
-
-// router.post('/confirm',authenticate, printController.addFileOrder);
-// router.get('/status',authenticate, printController.showStatus);
-// router.put('/minusPages',authenticate,printController.MinusPages);
-// router.get('/getInfoPrinter',authenticate,printController.showInfoPrinter);
+const printerController = require('../controllers/PrinterController');
 
 router.post('/add', printerController.addPrinter);
-router.get('/det', printerController.deletePrinter);
-router.put('/minusPages',printerController.searchPrinter);
+router.put('/det', printerController.deletePrinter);
+router.get('/search',printerController.searchPrinter);
 router.get('/getInfoPrinter',printerController.infoPrinter);
-router.get('/status', printerController.editPrinter);
-router.get('/status', printerController.enablePrinter);
-router.get('/status', printerController.disablePrinter);
+router.put('/edit', printerController.editPrinter);
+router.put('/enable', printerController.enablePrinter);
+router.put('/disable', printerController.disablePrinter);
 
 
 module.exports = router;
