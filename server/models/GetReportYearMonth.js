@@ -15,16 +15,10 @@ async function GetReportYear(year)
             `SELECT
                 p.printer_id,
                 COUNT(DISTINCT po.print_id) AS total_orders,
-                SUM(CASE WHEN po.page_size = 'A3' THEN 
-                        CASE WHEN po.pages_to_be_printed = 'ALL' THEN CEIL (d.no_of_pages / po.pages_per_sheet / po.side)
-                             ELSE CEIL((SUBSTRING_INDEX(po.pages_to_be_printed, '-', -1) - SUBSTRING_INDEX(po.pages_to_be_printed, '-', 1) + 1) / po.pages_per_sheet / po.side)
-                        END
+                SUM(CASE WHEN po.page_size = 'A3' THEN CAST(po.num_pages_printed AS SIGNED)
                         ELSE 0 
                     END) AS total_A3_pages,
-                SUM(CASE WHEN po.page_size = 'A4' THEN 
-                        CASE WHEN po.pages_to_be_printed = 'ALL' THEN CEIL (d.no_of_pages / po.pages_per_sheet / po.side)
-                             ELSE CEIL((SUBSTRING_INDEX(po.pages_to_be_printed, '-', -1) - SUBSTRING_INDEX(po.pages_to_be_printed, '-', 1) + 1) / po.pages_per_sheet / po.side)
-                        END
+                SUM(CASE WHEN po.page_size = 'A4' THEN CAST(po.num_pages_printed AS SIGNED)
                         ELSE 0 
                     END) AS total_A4_pages
             FROM
@@ -53,16 +47,10 @@ async function GetReportMonth(month, year)
             `SELECT
                 p.printer_id,
                 COUNT(DISTINCT po.print_id) AS total_orders,
-                SUM(CASE WHEN po.page_size = 'A3' THEN 
-                        CASE WHEN po.pages_to_be_printed = 'ALL' THEN CEIL (d.no_of_pages / po.pages_per_sheet / po.side)
-                             ELSE CEIL((SUBSTRING_INDEX(po.pages_to_be_printed, '-', -1) - SUBSTRING_INDEX(po.pages_to_be_printed, '-', 1) + 1) / po.pages_per_sheet / po.side)
-                        END
+                SUM(CASE WHEN po.page_size = 'A3' THEN CAST(po.num_pages_printed AS SIGNED)
                         ELSE 0 
                     END) AS total_A3_pages,
-                SUM(CASE WHEN po.page_size = 'A4' THEN 
-                        CASE WHEN po.pages_to_be_printed = 'ALL' THEN CEIL (d.no_of_pages / po.pages_per_sheet / po.side)
-                             ELSE CEIL((SUBSTRING_INDEX(po.pages_to_be_printed, '-', -1) - SUBSTRING_INDEX(po.pages_to_be_printed, '-', 1) + 1) / po.pages_per_sheet / po.side)
-                        END
+                SUM(CASE WHEN po.page_size = 'A4' THEN CAST(po.num_pages_printed AS SIGNED)
                         ELSE 0 
                     END) AS total_A4_pages
             FROM
