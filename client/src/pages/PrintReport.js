@@ -14,7 +14,6 @@ function PrintReport(){
 
     const [minMonth, setMinMonth] = useState(9999);
     const [minYear, setMinYear] = useState(9999);
-    const [firstOrder, setFirstOrder] = useState({});
     const [loading, setLoading] = useState(true);
 
     const [selectedType, setSelectedType ] = useState('monthly');

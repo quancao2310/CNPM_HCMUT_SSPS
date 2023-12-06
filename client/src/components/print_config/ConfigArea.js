@@ -1,10 +1,13 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { GoAlertFill } from "react-icons/go";
 
-function ConfigArea({ support_function }){
+function ConfigArea({ support_function, num_pages }){
 
     const [data, setData] = useState([]);
+    const [validation, setValidation] = useState(true);
+    const [alertContent, setContent] = useState('');
 
     useEffect(() => {
         axios
@@ -23,6 +26,8 @@ function ConfigArea({ support_function }){
         'scale': 'd-none'
     });
 
+    const pagePattern = /^([1-9]\d*|[1-9]\d*-[1-9]\d*)(,([1-9]\d*|[1-9]\d*-[1-9]\d*))*$/;
+
     const validateInput = (input) => {
         let sanitizedValue = input.value.replace(/[^0-9]/g, '');
         sanitizedValue = sanitizedValue.replace(/^0+/, '');
@@ -30,16 +35,33 @@ function ConfigArea({ support_function }){
         input.setSelectionRange(sanitizedValue.length, sanitizedValue.length);
     };
 
-    const validatePagesEntry = (input) => {
-        // Update later
-        let sanitizedValue = input.value.replace(/[^0-9,-]/g, '');
-        sanitizedValue = sanitizedValue.replace(/^[0,-]+/, '');
-        sanitizedValue = sanitizedValue.replace(/-+/g, '-');
-        sanitizedValue = sanitizedValue.replace(/,+/g, ',');
-        sanitizedValue = sanitizedValue.replace(/^0+(-)/, '$1');
-        sanitizedValue = sanitizedValue.replace(/^0+(,)/, '$1');
-        input.value = sanitizedValue;
-        input.setSelectionRange(sanitizedValue.length, sanitizedValue.length);
+    const isValidPageFormat = (value) => {
+        if (pagePattern.test(value)){
+            setValidation(true);
+            const pageSpecs = value.split(',');
+        
+            for (let pageSpec of pageSpecs){
+                if (pageSpec.includes('-')) {
+                    const [start, end] = pageSpec.split('-').map(Number);
+                    if (start > num_pages || end > num_pages){
+                        setContent('Bạn đã nhập trang vượt quá số trang của tài liệu!');
+                        setValidation(false);
+                        break;
+                    }
+                } 
+                else {
+                    if (pageSpec > num_pages){
+                        setContent('Bạn đã nhập trang vượt quá số trang của tài liệu!');
+                        setValidation(false);
+                        break;
+                    }
+                }
+            };
+        }
+        else{
+            setContent('Vui lòng nhập đúng định dạng!');
+            setValidation(false);
+        }
     };
 
     const customSelection = (id) => {
@@ -109,8 +131,15 @@ function ConfigArea({ support_function }){
                 className={`col form-control ${customEntries['pages']}`}
                 id='pages-entry'
                 placeholder = 'VD. 1-3,7,9-15'
-                onInput={(event) => validatePagesEntry(event.target)}
+                onBlur={(event) => isValidPageFormat(event.target.value)}
             />
+        </div>
+        <div className = {`row p-2 ${validation?'d-none':''}`}>
+            <div className = "col"></div>
+            <div class="col alert alert-danger">
+                <span><GoAlertFill style={{ width: '0.9em', height: '0.9em' }}/></span>
+                <span>{' ' + alertContent}</span>
+            </div>
         </div>
         <div className = "row p-2">
             <div className = "col">

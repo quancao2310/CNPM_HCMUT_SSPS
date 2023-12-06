@@ -14,6 +14,8 @@ const docs = [
 ];
 
 function PrintConfig(){
+    const no_pages_of_files = 100; // Use for simulation
+
     const [cookies, setCookie, removeCookie] = useCookies();
     const token = cookies.auth;
     const navigate = useNavigate();
@@ -93,9 +95,6 @@ function PrintConfig(){
             keys.forEach(key => {
                 configData[key] = Number(configData[key]);
             });
-            /**** 
-             * Check configuration data condition
-             * ****/
             setConfig(configData);
             setConfigSubmitState(true);
         }
@@ -130,7 +129,7 @@ function PrintConfig(){
                     </div>
                 </div>
                 <div className="col-12 col-md-6 border-right border-dark">
-                    <ConfigArea support_function={handleSubmission}/>
+                    <ConfigArea support_function={handleSubmission} num_pages={no_pages_of_files} />
                 </div>
             </div>
         </div>
@@ -138,7 +137,7 @@ function PrintConfig(){
             user_id = {user.customer_id}
             user_balance = {user.balance}
             file_name= {state?state.name:''}
-            file_num_pages = "100"
+            file_num_pages = {no_pages_of_files}
             file_config = {config} 
             state={modalState}
             submit_state={configSubmitState}
