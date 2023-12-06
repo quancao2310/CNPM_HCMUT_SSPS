@@ -59,7 +59,8 @@ async function getPrintOrderDetailByID(req, res, next) {
         else totalPrintedPages++;
       }
     }
-    let count = Math.ceil(totalPrintedPages / data.pages_per_sheet / data.side);
+    let count=(data.side==1)?Math.ceil(totalPrintedPages / data.pages_per_sheet)*2:Math.ceil(totalPrintedPages / data.pages_per_sheet /2);
+    // let count = Math.ceil(totalPrintedPages / data.pages_per_sheet / data.side);
     if (count % 2 == 1) {
       ++count;
     }
