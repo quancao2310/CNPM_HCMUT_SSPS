@@ -3,7 +3,7 @@ const {GetReportYearMonth, GetReportFirstOrder} = require('../models/GetReportYe
 async function GetReport(req, res, next){
     try{
         // const result = await getNumPagePrinted(req.body.print_id)
-        const result = await GetReportYearMonth(req.query.month,
+        const result = await GetReportYearMonth((req.query.month==='undefined')?null:req.query.month,
             req.query.year);
         res.json(result);
     } catch (err) {

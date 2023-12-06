@@ -12,11 +12,16 @@ function ReportChart({ data }){
     const no_A3 = data.map(item => item.total_A3_pages);
     const no_A4 = data.map(item => item.total_A4_pages);
 
+    const getRandomColor = () => {
+        const randomColor = () => Math.floor(Math.random() * 256);
+        return `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+    };
+
     const chart_1 = {
         labels: printer,
         datasets: [{
             label: "Tổng số đơn đặt hàng",
-            backgroundColor: "rgb(75, 192, 192, 1)",
+            backgroundColor: Array.from({ length: order.length }, () => getRandomColor()),
             borderColor: "rgb(0, 0, 0, 1)",
             borderWidth: 1,
             data: order
@@ -27,14 +32,14 @@ function ReportChart({ data }){
         labels: printer,
         datasets: [{
             label: "Tổng số lượng giấy A3",
-            backgroundColor: "rgb(75, 192, 192, 1)",
+            backgroundColor: getRandomColor(),
             borderColor: "rgb(0, 0, 0, 1)",
             borderWidth: 1,
             data: no_A3
         },
         {
             label: "Tổng số lượng giấy A4",
-            backgroundColor: "rgb(255, 99, 132, 1)",
+            backgroundColor: getRandomColor(),
             borderColor: "rgb(0, 0, 0, 1)",
             borderWidth: 1,
             data: no_A4

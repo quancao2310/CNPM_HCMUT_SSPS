@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 async function GetReportYearMonth(month=null, year){
-    if (month == null)
+    if (month === null)
     {
         return GetReportYear(year);
     }
