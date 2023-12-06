@@ -1,12 +1,12 @@
-const {addPrinter, deletePrinter, searchPrinter, editPrinter, showInfoPrinter, enablePrinter, disablePrinter} = require("../models/Printer");
+const {add_Printer, delete_Printer, search_Printer, edit_Printer, showInfo_Printer, enable_Printer, disable_Printer} = require("../models/Printer");
 
 
 
 
 async function addPrinter(req, res, next) {
   try {
-    const result = await addPrinter(req.body);
-    req.body.document_id=result.insertId;
+    const result = await add_Printer(req.body);
+    res.json(result);
   } catch (err) {
     next(err);
   }
@@ -14,8 +14,9 @@ async function addPrinter(req, res, next) {
 
 async function deletePrinter(req, res, next) {
   try {
-    const result = await showInfoPrintOder(
-      req.body.userInfo.id
+    const id = req.params.printer_id
+    const result = await delete_Printer(
+      id
     );
     res.json(result);
   } catch (err) {
@@ -25,9 +26,9 @@ async function deletePrinter(req, res, next) {
 
 async function searchPrinter(req, res, next) {
   try {
-    const result = await ModifyBalance(
-      req.body.updatedBalance,
-      req.body.userInfo.id
+    const id = req.params.printer_id
+    const result = await search_Printer(
+      id
     );
     res.json(result);
   } catch (err) {
@@ -37,7 +38,10 @@ async function searchPrinter(req, res, next) {
 
 async function infoPrinter(req, res, next) {
   try {
-    const result = await showAllPrinter();
+    const id = req.params.printer_id
+    const result = await showInfo_Printer(
+      id
+    );
     res.json(result);
   } catch (err) {
     next(err);
@@ -46,7 +50,10 @@ async function infoPrinter(req, res, next) {
 
 async function editPrinter(req, res, next) {
   try {
-    const result = await showAllPrinter();
+    const id = req.body.printer_id
+    const result = await edit_Printer(
+      req.body, id
+    );
     res.json(result);
   } catch (err) {
     next(err);
@@ -55,7 +62,10 @@ async function editPrinter(req, res, next) {
 
 async function enablePrinter(req, res, next) {
   try {
-    const result = await showAllPrinter();
+    const id = req.params.printer_id
+    const result = await enable_Printer(
+      id
+    );
     res.json(result);
   } catch (err) {
     next(err);
@@ -64,7 +74,10 @@ async function enablePrinter(req, res, next) {
 
 async function disablePrinter(req, res, next) {
   try {
-    const result = await showAllPrinter();
+    const id = req.params.printer_id
+    const result = await disable_Printer(
+      id
+    );
     res.json(result);
   } catch (err) {
     next(err);
