@@ -14,7 +14,8 @@ async function add_Printer(data){
       data.status
     ];
 
-    const [result, _] = await db.execute("INSERT INTO document SET name = ?, brand = ?, model = ?, description = ?, loc_campus = ?, loc_building = ?, loc_room", dataToInsert);
+    const [result, _] = await db.execute(
+      "INSERT INTO document SET name = ?, brand = ?, model = ?, description = ?, loc_campus = ?, loc_building = ?, loc_room = ?, status = ?", dataToInsert);
     return result;
   } catch (err) {
     console.error(err);
@@ -75,7 +76,7 @@ async function edit_Printer(data, printer_id){
     ];
 
     const [result, _] = await db.execute(
-      "UPDATE printer SET name = ?, brand = ?, model = ?, description = ?, loc_campus = ?, loc_building = ?, loc_room WHERE printer_id = ?", 
+      "UPDATE printer SET name = ?, brand = ?, model = ?, description = ?, loc_campus = ?, loc_building = ?, loc_room = ?, status = ? WHERE printer_id = ?", 
       [dataToInsert, printer_id]
       );
     return {
