@@ -1,12 +1,10 @@
 import LoginRole from "../components/login/LoginRole";
 import LoginForm from "../components/login/LoginForm";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../context/UserContext";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 function Login({ role }) {
-  const { user } = useContext(UserContext);
   const [cookies, , ] = useCookies();
   const navigate = useNavigate();
   
