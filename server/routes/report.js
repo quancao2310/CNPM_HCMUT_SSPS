@@ -5,6 +5,6 @@ const reportController = require('../controllers/ReportController');
 
 // router.get('/getReport', authenticate,reportController.GetReport);
 router.get('/getReport', reportController.GetReport);
-router.get('/getFirstOrder', reportController.GetReportFirst)
+router.get('/getFirstOrder', reportController.GetReportFirst);
 
 module.exports = router;

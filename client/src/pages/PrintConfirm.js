@@ -18,6 +18,8 @@ function PrintConfirm() {
 
     const [name, setName] = useState('');
     const [numPagesToBePrinted, setNumPagesToBePrinted] = useState(0);
+    const [processedNumPages, setProcessedNumPages] = useState(0);
+    const [pageSize, setPageSize] = useState('');
     const [balance, setBalance] = useState(0);
 
     const [confirmData, setConfirmData] = useState({});
@@ -79,13 +81,15 @@ function PrintConfirm() {
             const pageSizeFactor = Math.pow(2, 4 - fetchedConfig.page_size);
           
             temp = Math.ceil(temp / pagesPerSheet);
-            temp = Math.ceil(temp / side);
-            temp = Math.ceil(temp * pageSizeFactor);
-          
+            if (side === 1) temp *= 2;
+            else temp = ((temp % 2) == 0)?temp:temp+1;
+    
             setNumPagesToBePrinted(temp);
+            setPageSize('A' + fetchedConfig.page_size);
+            setProcessedNumPages(pageSizeFactor * temp);
             setBalance(userBalance);
           
-            if (userBalance < temp) {
+            if (userBalance < pageSizeFactor*temp) {
                 setConfirmState(false);
             } 
             else {
@@ -102,7 +106,8 @@ function PrintConfirm() {
                     orientation: fetchedConfig.orientation,
                     pages_per_sheet: fetchedConfig.pages_per_sheet,
                     scale: fetchedConfig.scale / 100.0,
-                    pages_to_be_printed: fetchedConfig.pages
+                    pages_to_be_printed: fetchedConfig.pages,
+                    num_pages_printed: temp
                 });
             
                 setUpdateData({
@@ -117,7 +122,7 @@ function PrintConfirm() {
         };
           
         fetchData(); 
-    }, []);
+    }, [cookies]);
 
     const handleSubmission = async () => {
         if (confirmState){
@@ -184,6 +189,8 @@ function PrintConfirm() {
                 <InfoTable
                     name={name}
                     num_pages={numPagesToBePrinted}
+                    page_size={pageSize}
+                    processed_num_pages={processedNumPages}
                     num_remain_pages={balance}
                 />
                 <div className="d-flex justify-content-center">

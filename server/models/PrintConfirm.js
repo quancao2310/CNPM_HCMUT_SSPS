@@ -29,10 +29,11 @@ async function addPrintOrder(data) {
       new Date(),
       new Date(),
       data.pages_to_be_printed,
+      data.num_pages_printed,
       data.document_id,
       data.user_id,
     ];
-    const [result, _] = await db.execute("INSERT INTO print_order SET side = ?, page_size = ?, orientation = ?, pages_per_sheet = ?, scale = ?, time_start = ?, time_end = ?, pages_to_be_printed = ?, document_id = ?, user_id = ?", 
+    const [result, _] = await db.execute("INSERT INTO print_order SET side = ?, page_size = ?, orientation = ?, pages_per_sheet = ?, scale = ?, time_start = ?, time_end = ?, pages_to_be_printed = ?, num_pages_printed = ?, document_id = ?, user_id = ?", 
     dataToInsert
     );
     return {

@@ -130,9 +130,6 @@ function ConfigArea({ support_function }){
                 <option value="" disabled selected hidden>Khổ giấy</option>
                 <option value="4">A4</option>
                 <option value="3">A3</option>
-                <option value="2">A2</option>
-                <option value="1">A1</option>
-                <option value="0">A0</option>
             </select>
         </div>
         <div className="row p-2">

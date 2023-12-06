@@ -1,4 +1,4 @@
-function InfoTable({ name, num_pages, num_remain_pages }){
+function InfoTable({ name, num_pages, page_size, processed_num_pages, num_remain_pages }){
     return(
         <div className="table-responsive mx-5 my-4">
             <table className="table">
@@ -10,6 +10,14 @@ function InfoTable({ name, num_pages, num_remain_pages }){
                     <tr>
                         <th scope="row">Số trang in</th>
                         <td className="text-center">{num_pages}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Loại trang in</th>
+                        <td className="text-center">{page_size}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Số trang in sau khi quy đổi</th>
+                        <td className="text-center">{processed_num_pages}</td>
                     </tr>
                     <tr>
                         <th scope="row">Số trang còn lại</th>

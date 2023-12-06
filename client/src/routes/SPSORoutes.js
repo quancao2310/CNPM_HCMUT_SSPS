@@ -19,7 +19,7 @@ function SPSORoutes() {
       </Route>
       <Route path='report'>
         <Route index element={<PrintReport />} />
-        <Route path=':year&:month' element={<PrintReportDetail />} />
+        <Route path=':year/:month?' element={<PrintReportDetail />} />
       </Route>
       <Route path='*' element={<NotFound />}/>
     </Routes>

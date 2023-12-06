@@ -51,9 +51,16 @@ function PrintStatus(){
             console.error(err);
           }
         });
-    }, []);
+    }, [cookies]);
 
-    if (loading) return <Loading loading={loading}/>;
+    if (loading){
+      return (
+        <div className='col-12 my-3 text-center'>
+            <h3>Dữ liệu đang tải, vui lòng chờ</h3>
+            <Loading />
+        </div>
+      );
+    };
 
     return (
         <div

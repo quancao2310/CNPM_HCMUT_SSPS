@@ -41,7 +41,7 @@ function PrintService() {
           console.error(err);
         }
       });
-  }, []);
+  }, [cookies]);
   
   if (loading) return <Loading />;
   

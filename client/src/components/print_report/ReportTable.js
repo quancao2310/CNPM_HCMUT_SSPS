@@ -19,7 +19,7 @@ function ReportTable({ input_data, isMonthlyType}) {
               {isMonthlyType && (<td className="text-center">{item.month ? item.month : ''}</td>)}
               <td className="text-center">{item.year}</td>
               <td className="text-center">
-                <Link to={`report?year=${item.year}&month=${item.month}`}>
+                <Link to={`/report/${item.year}${item.month?'/' + item.month:''}`}>
                   Báo cáo hệ thống SSPS {isMonthlyType ? `tháng ${item.month} - Năm` : 'năm'} {item.year}
                 </Link>
               </td>

@@ -1,23 +1,81 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 import FilterBar from "../components/print_report/FilterBar";
 import ReportTable from "../components/print_report/ReportTable"
+import Loading from '../components/utils/Loading';
+
 
 function PrintReport(){
-     /*
-    * Use for testing. Get exact values by using API.
-    */
-    const minMonth = 5;
-    const minYear = 2017;
-    /* */
-    const today = new Date();
-    const currentMonth = today.getMonth() + 1;
-    const currentYear = today.getFullYear();
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const token = cookies.auth;
+    const navigate = useNavigate();
+
+    const [minMonth, setMinMonth] = useState(9999);
+    const [minYear, setMinYear] = useState(9999);
+    const [firstOrder, setFirstOrder] = useState({});
+    const [loading, setLoading] = useState(true);
 
     const [selectedType, setSelectedType ] = useState('monthly');
     const [selectedMonth, setSelectedMonth ] = useState(0);
     const [selectedYear, setSelectedYear ] = useState(0);
 
+    const [currentMonth, setCurrentMonth] = useState(0);
+    const [currentYear, setCurrentYear] = useState(0);
+
     const [ data, setData] = useState([]);
+
+    useEffect(() => {
+        const authentication = () => {
+            axios
+            .get(`${process.env.REACT_APP_SERVER_URL}/user`, {
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+                }
+            })
+            .then(() => {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 200);
+            })
+            .catch((err) => {
+                if (err.response && err.response.status === 401) {
+                if (cookies.auth) {
+                    removeCookie('auth', { path: '/' });
+                }
+                setTimeout(() => {
+                    navigate('/login');
+                }, 200);
+                } 
+                else {
+                    console.error(err);
+                }
+            });
+        }
+
+        const fetchData = () =>
+        {
+            axios
+            .get(`${process.env.REACT_APP_SERVER_URL}/report/getFirstOrder`, {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              })
+            .then((response) => {
+                setMinMonth(response.data['0'].month_of_first);
+                setMinYear(response.data['0'].year_of_first);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        }
+
+        authentication();
+        fetchData();        
+    }, [cookies]);
 
     const generateMonthYearArray = (minMonth, minYear, currentMonth, currentYear) => {
         const monthYearArray = [];
@@ -44,26 +102,41 @@ function PrintReport(){
         return yearArray;
     }
 
-    const original_monthly_data = generateMonthYearArray(minMonth, minYear, currentMonth, currentYear);
-    const original_annually_data = generateYearArray(minYear, currentYear);
-      
+   
     useEffect(() => {
-        setData((selectedType === 'monthly')
-        ? original_monthly_data
-        : original_annually_data);
-        if (selectedType) {
-            if (selectedMonth && selectedYear) {
-                setData(original_monthly_data.filter(item => item.month === selectedMonth && item.year === selectedYear));
-            }
-        } 
-        else {
-            if (selectedYear) {
-                setData(original_annually_data.filter(item => item.year === selectedYear));
-            }
-        }
-    }, [selectedType, selectedMonth, selectedYear]);
+        if (minMonth !== undefined && minYear !== undefined) {
+            const today = new Date();
+            setCurrentMonth(today.getMonth() + 1);
+            setCurrentYear(today.getFullYear());
     
-      
+            const original_monthly_data = generateMonthYearArray(minMonth, minYear, currentMonth, currentYear);
+            const original_annually_data = generateYearArray(minYear, currentYear);
+    
+            let updatedData;
+    
+            if (selectedType === 'monthly') {
+                updatedData = selectedMonth && selectedYear
+                    ? original_monthly_data.filter(item => item.month === selectedMonth && item.year === selectedYear)
+                    : original_monthly_data;
+            } else {
+                updatedData = selectedYear
+                    ? original_annually_data.filter(item => item.year === selectedYear)
+                    : original_annually_data;
+            }
+    
+            setData(updatedData);
+        }
+    }, [selectedType, selectedMonth, selectedYear, minMonth, minYear]);
+    
+    
+    if (loading){
+        return (
+            <div className='col-12 my-3 text-center'>
+                <h3>Dữ liệu đang tải, vui lòng chờ</h3>
+                <Loading />
+            </div>
+        );
+    }
 
 
     return (

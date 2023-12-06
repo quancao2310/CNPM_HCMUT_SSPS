@@ -55,7 +55,7 @@ function PrintConfig(){
               console.error(err);
             }
           });
-    }, []);
+    }, [cookies]);
 
     const { state } = useLocation();
 
