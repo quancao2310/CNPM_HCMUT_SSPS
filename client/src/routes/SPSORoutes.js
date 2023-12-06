@@ -4,13 +4,14 @@ import PrintHistoryDetail from "../pages/PrintHistoryDetail";
 import PrintReport from "../pages/PrintReport";
 import PrintReportDetail from "../pages/PrintReportDetail";
 import NotFound from "../pages/NotFound";
+import PrinterManagement from "../pages/PrinterManagement";
 
 // This is just a sample, can be changed later
 function SPSORoutes() {
   return (
     <Routes>
       <Route path='printer'> {/* Route quan ly may in */}
-        <Route index element={<h1>abc</h1>} /> {/* Route trang tong hop */}
+        <Route index element={<PrinterManagement />} /> {/* Route trang tong hop */}
         <Route path='add' element={<h1>ghi</h1>} />
       </Route>
       <Route path='printlog'> {/* Route xem lich su in cua nguoi dung */}
