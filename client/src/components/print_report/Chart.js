@@ -70,9 +70,6 @@ function ReportChart({ data }){
             <div className="col-5 m-2">
                 <Bar data={chart_2} options={option('Biểu đồ cột')} />
             </div>
-            <div className="col-5 m-2">
-                <Pie data={chart_2} options={option('Biểu đồ tròn')} />
-            </div>
         </div>
     );
 }
