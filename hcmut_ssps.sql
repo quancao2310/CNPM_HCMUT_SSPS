@@ -74,6 +74,7 @@ CREATE TABLE print_order (
   time_end DATETIME DEFAULT CURRENT_TIMESTAMP(),
   status ENUM('success','progress','failed','pending') NOT NULL DEFAULT 'pending',
   pages_to_be_printed VARCHAR(64) DEFAULT NULL,
+  num_pages_printed INT DEFAULT NULL,
   document_id INT,
   user_id INT,
   PRIMARY KEY (print_id),
