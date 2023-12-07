@@ -1,9 +1,9 @@
 function DetailTable({ data }) {
   return (
     <div className="container-fluid pb-2">
-      <table className="table mt-4">
+      <table className="table table-hover mt-4">
         <thead>
-          <tr>
+          <tr className="align-middle">
             <th className="text-center" scope="col">STT</th>
             <th className="text-center" scope="col">Máy in</th>
             <th className="text-center" scope="col">Số đơn đặt hàng</th>

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 function ReportTable({ input_data, isMonthlyType}) {
   return (
     <div className="container-fluid">
-      <table className="table mt-4">
+      <table className="table table-hover mt-4">
         <thead>
-          <tr>
+          <tr className="align-middle">
             <th className="text-center" scope="col">STT</th>
             {isMonthlyType && (<th className="text-center" scope="col">Tháng</th>)}
             <th className="text-center" scope="col">Năm</th>

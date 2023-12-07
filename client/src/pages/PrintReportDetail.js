@@ -18,19 +18,10 @@ function PrintReportDetail(){
     const { year, month } = useParams();
     const [ data, setData ] = useState({});
 
-    const [ print, setPrint ] = useState(false);
-
     const componentRef = useRef();
 
     const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-        onBeforeGetContent: () => {
-            setPrint(true);
-            setTimeout(()=>{}, 200);
-        },
-        onAfterPrint: () => {
-            setPrint(false);
-        },
+        content: () => componentRef.current
     });
 
     useEffect(() => {
@@ -38,15 +29,10 @@ function PrintReportDetail(){
       
         axios
             .get(`${process.env.REACT_APP_SERVER_URL}/user`, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            }
-            })
-            .then((response) => {
-                setTimeout(() => {
-                    setLoading(false);
-                }, 200);
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
             })
             .catch((err) => {
                 if (err.response && err.response.status === 401) {
@@ -66,13 +52,21 @@ function PrintReportDetail(){
             .get(`${process.env.REACT_APP_SERVER_URL}/report/getReport?year=${year}&month=${month}`)
             .then((response) => {
                 setData(response.data);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 200);
             })
             .catch((err) => {
                 console.error(err);
             });
     }, [cookies]);
 
-    if (loading) return <Loading />;
+    if (loading) return (
+        <div className='my-3 text-center'>
+            <h3>Dữ liệu đang tải, vui lòng chờ</h3>
+            <Loading />
+        </div>
+    );
 
     return (
         <div className="container-fluid">
@@ -84,23 +78,24 @@ function PrintReportDetail(){
                 
             >
                 <div className="col-12" ref={componentRef}>
-                    <h1 className='text-center py-4'>
-                        Báo cáo hệ thống{month?` tháng ${month}`:''} năm {year}
-                    </h1>
-                   
-                    <h3 className='text-center mt-3'>Bảng thống kê chi tiết</h3>
-                    {data.length > 0
-                    ?(
-                        <>
-                        <DetailTable data={data} />
-                        <ReportChart data={data}/>
-                        </>
-                    )
-                    :(
-                        <div className="text-center text-secondary py-5">
-                            <h2>Không tìm thấy dữ liệu</h2>
-                        </div>
-                    )}
+                    <div class="row">
+                        <h1 className="col-12 text-center py-4">
+                            Báo cáo hệ thống{month?` tháng ${month}`:''} năm {year}
+                        </h1>
+                        {data.length > 0
+                        ?(
+                            <div className="col-12 px-2">
+                                <h3 className='text-center mt-3'>Bảng thống kê chi tiết</h3>
+                                <DetailTable data={data} />
+                                <ReportChart data={data}/>
+                            </div>
+                        )
+                        :(
+                            <div className="col-12 text-center text-secondary py-5">
+                                <h2>Không tìm thấy dữ liệu</h2>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div className="col-12 mb-2">
                     <div className="row justify-content-center">
@@ -109,7 +104,7 @@ function PrintReportDetail(){
                                 <IoPrintOutline style = {{ width: '25px', height: '25px' }}/>
                             </button>
                         )}
-                        <Link className="col-2 btn btn-danger m-2" to='/report'>Quay lại trang chính</Link>
+                        <Link className="col-2 btn btn-danger m-2" to='/report'>Quay lại</Link>
                     </div> 
                 </div>
             </div>

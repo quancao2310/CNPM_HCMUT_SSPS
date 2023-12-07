@@ -26,37 +26,28 @@ function PrintReport(){
     const [ data, setData] = useState([]);
 
     useEffect(() => {
-        const authentication = () => {
-            axios
+        axios
             .get(`${process.env.REACT_APP_SERVER_URL}/user`, {
                 headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
-            })
-            .then(() => {
-                setTimeout(() => {
-                    setLoading(false);
-                }, 200);
             })
             .catch((err) => {
                 if (err.response && err.response.status === 401) {
-                if (cookies.auth) {
-                    removeCookie('auth', { path: '/' });
-                }
-                setTimeout(() => {
-                    navigate('/login');
-                }, 200);
+                    if (cookies.auth) {
+                        removeCookie('auth', { path: '/' });
+                    }
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 200);
                 } 
-                else {
+                else{
                     console.error(err);
                 }
             });
-        }
-
-        const fetchData = () =>
-        {
-            axios
+      
+        axios
             .get(`${process.env.REACT_APP_SERVER_URL}/report/getFirstOrder`, {
                 headers: {
                   'Content-Type': 'application/json'
@@ -70,10 +61,7 @@ function PrintReport(){
             .catch((err) => {
                 console.error(err);
             });
-        }
-
-        authentication();
-        fetchData();        
+        
     }, [cookies]);
 
     const generateMonthYearArray = (minMonth, minYear, currentMonth, currentYear) => {
@@ -130,7 +118,7 @@ function PrintReport(){
     
     if (loading){
         return (
-            <div className='col-12 my-3 text-center'>
+            <div className='my-3 text-center'>
                 <h3>Dữ liệu đang tải, vui lòng chờ</h3>
                 <Loading />
             </div>
@@ -140,11 +128,11 @@ function PrintReport(){
 
     return (
         <div className="container-fluid">
-            <div className="row justify-content-center p-1s">
-                <h1 className="col-12 text-center p-3">
+            <div className="row justify-content-center p-4">
+                <h1 className="col-12 text-center pb-3">
                     Báo cáo hệ thống
                 </h1>
-                <div className="col-12 text-bold">
+                <div className="col-12 text-bold mx-1">
                     <FilterBar 
                         minMonth={minMonth} 
                         minYear={minYear}
