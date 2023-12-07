@@ -1,6 +1,14 @@
-const {add_Printer, delete_Printer, search_Printer, edit_Printer, showInfo_Printer, enable_Printer, disable_Printer} = require("../models/Printer");
+const {show_All_Printer, add_Printer, delete_Printer, search_Printer, edit_Printer, showInfo_Printer, enable_Printer, disable_Printer} = require("../models/Printer");
 
 
+async function showAllPrinter(req, res, next) {
+  try {
+    const result = await show_All_Printer();
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
 
 
 async function addPrinter(req, res, next) {
@@ -84,6 +92,7 @@ async function disablePrinter(req, res, next) {
   }
 }
 module.exports = {
+  showAllPrinter,
   addPrinter,
   deletePrinter,
   searchPrinter,

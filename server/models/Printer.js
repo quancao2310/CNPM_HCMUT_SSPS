@@ -115,7 +115,7 @@ async function disable_Printer(printer_id){
 }
 
 
-async function showAllPrinter() {
+async function show_All_Printer() {
   try {
     const [result, _] = await db.execute(
       `SELECT printer_id, name
@@ -130,7 +130,7 @@ async function showAllPrinter() {
 }
 
 module.exports={
-    showAllPrinter,
+    show_All_Printer,
     add_Printer,
     delete_Printer,
     search_Printer,
