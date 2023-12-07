@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GoAlertFill } from "react-icons/go";
 
-function ConfigArea({ support_function, num_pages }){
+function ConfigArea({ num_pages, set_pages_state, support_function  }){
 
     const [data, setData] = useState([]);
     const [validation, setValidation] = useState(true);
@@ -38,14 +38,22 @@ function ConfigArea({ support_function, num_pages }){
     const isValidPageFormat = (value) => {
         if (pagePattern.test(value)){
             setValidation(true);
+            set_pages_state(true);
             const pageSpecs = value.split(',');
         
             for (let pageSpec of pageSpecs){
                 if (pageSpec.includes('-')) {
                     const [start, end] = pageSpec.split('-').map(Number);
+                    if (start > end){
+                        setContent('Trang bắt đầu phải không vượt quá trang kết thúc: ' + pageSpec);
+                        setValidation(false);
+                        set_pages_state(false);
+                        break;
+                    }
                     if (start > num_pages || end > num_pages){
                         setContent('Bạn đã nhập trang vượt quá số trang của tài liệu!');
                         setValidation(false);
+                        set_pages_state(false);
                         break;
                     }
                 } 
@@ -53,6 +61,7 @@ function ConfigArea({ support_function, num_pages }){
                     if (pageSpec > num_pages){
                         setContent('Bạn đã nhập trang vượt quá số trang của tài liệu!');
                         setValidation(false);
+                        set_pages_state(false);
                         break;
                     }
                 }
@@ -61,6 +70,7 @@ function ConfigArea({ support_function, num_pages }){
         else{
             setContent('Vui lòng nhập đúng định dạng!');
             setValidation(false);
+            set_pages_state(false);
         }
     };
 

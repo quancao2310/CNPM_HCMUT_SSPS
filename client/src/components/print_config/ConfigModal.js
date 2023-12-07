@@ -10,7 +10,7 @@ function ConfigModal({ user_id, user_balance, file_name, file_num_pages, file_co
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!submit_state ? 'Vui lòng điền đầy đủ thông tin!' : 'Cấu hình in thành công!'}
+                {!submit_state ? 'Vui lòng điền đầy đủ và chính xác thông tin!' : 'Cấu hình in thành công!'}
             </Modal.Body>
             <Modal.Footer>
                 {!submit_state ? (

@@ -63,6 +63,7 @@ function PrintConfig(){
 
     const [modalState, setModalState] = useState(false);
     const [configSubmitState, setConfigSubmitState] = useState(false);
+    const [pagesState, setPagesState] = useState(true);
 
     const [config, setConfig] = useState([]);
 
@@ -95,8 +96,10 @@ function PrintConfig(){
             keys.forEach(key => {
                 configData[key] = Number(configData[key]);
             });
-            setConfig(configData);
-            setConfigSubmitState(true);
+            if (pagesState){
+                setConfig(configData);
+                setConfigSubmitState(true);
+            }
         }
         setModalState(true);
     }
@@ -129,7 +132,7 @@ function PrintConfig(){
                     </div>
                 </div>
                 <div className="col-12 col-md-6 border-right border-dark">
-                    <ConfigArea support_function={handleSubmission} num_pages={no_pages_of_files} />
+                    <ConfigArea num_pages={no_pages_of_files} set_pages_state={setPagesState} support_function={handleSubmission}  />
                 </div>
             </div>
         </div>
