@@ -1,5 +1,4 @@
 const db = require("../config/db");
-const { search } = require("../routes/printer");
 
 async function add_Printer(data){
   try {
