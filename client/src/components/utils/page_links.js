@@ -11,7 +11,7 @@ export const customerLinks = [
   { name: 'Trang chủ', to: '/'},
   { name: 'In tài liệu', to: '/print'},
   { name: 'Lịch sử in', to: '/print/log'},
-  { name: 'Mua trang in', to: '/purchase'},
+  { name: 'Mua trang in', to: '/buy'},
   // { name: 'Hỗ trợ', to: '/support'}
 ];
 

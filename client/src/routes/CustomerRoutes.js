@@ -2,10 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import PrintService from "../pages/PrintService";
 import PrintHistory from "../pages/PrintHistory";
 import PrintHistoryDetail from "../pages/PrintHistoryDetail";
+import BuyPages from "../pages/BuyPages";
 import NotFound from "../pages/NotFound";
 import PrintConfig from "../pages/PrintConfig";
 import PrintConfirm from "../pages/PrintConfirm";
 import PrintStatus from "../pages/PrintStatus";
+import BuyConfirm from "../pages/BuyConfirm";
 
 // This is just a sample, can be changed later
 function CustomerRoutes() {
@@ -21,8 +23,9 @@ function CustomerRoutes() {
           <Route path=':id' element={<PrintHistoryDetail />} />
         </Route>
       </Route>
-      <Route path='purchase'>
-        <Route index element={<h1>jkl</h1>} />
+      <Route path='buy'>
+        <Route index element={<BuyPages />} />
+        <Route path='confirm' element={<BuyConfirm />} />
         <Route path='log'>
           <Route index element={<h1>def</h1>} /> {/* Route trang tong hop lich su */}
           <Route path=':id' element={<h1>ghi</h1>} /> {/* Route xem tung lich su */}

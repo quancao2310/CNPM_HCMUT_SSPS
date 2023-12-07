@@ -9,7 +9,7 @@
   text-align: center;
 }
 
-#history-table th:nth-child(1) {
+#history-table th:first-child {
   width: 7%;
 }
 

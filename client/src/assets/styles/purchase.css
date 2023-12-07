@@ -1,0 +1,47 @@
+/* ---------------- Dashboard Page ---------------- */
+#purchase-table {
+  line-height: 1.8rem;
+}
+
+#purchase-table th {
+  background-color: var(--color-bk2);
+  color: white;
+  text-align: center;
+}
+
+#purchase-table th:first-child {
+  width: 10%;
+}
+
+#buy-confirm tr {
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
+
+button#buy-modal-trigger {
+  background-color: var(--color-bk1);
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  button#buy-modal-trigger {
+    width: auto;
+    margin-right: 0.75rem;
+    position: absolute;
+    right: 0;
+    transform: translateY(-110%);
+  }
+}
+
+/* ---------------- Hide Arrows From Input Number ---------------- */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
