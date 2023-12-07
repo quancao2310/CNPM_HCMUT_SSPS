@@ -15,6 +15,9 @@ function UploadArea({ id, length, setLength }){
         const newFiles = files.map(file => file.name);
         updated_files = updated_files.concat(newFiles);
 
+        const files_set = new Set(updated_files);
+        updated_files = [...files_set];
+
         setLength(length + newFiles.length);
     
         localStorage.setItem('files', JSON.stringify(updated_files));
