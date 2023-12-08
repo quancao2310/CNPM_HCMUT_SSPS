@@ -133,15 +133,17 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                 id="device-select"
                 onChange={(event) => {
                     const input = Number(event.target.value);
-                    document.getElementById('room-input').value = data[input].loc_building+ '-' + data[input].loc_room
+                    const filteredData = data.filter(item => item.printer_id == input)[0];
+                    console.log(filteredData);
+                    document.getElementById('room-input').value = filteredData.loc_building + '-' + filteredData.loc_room;
                 }}
             >
                 <option value="" disabled selected hidden>
                     Chọn máy in
                 </option>
-                {data.map(({ printer_id, name }) => (
+                {data.map(({ printer_id, name, loc_building, loc_room  }) => (
                     <option key={printer_id} value={printer_id}>
-                        {name}
+                        {name} - Phòng {loc_building}-{loc_room}
                     </option>
                 ))}
             </select>
