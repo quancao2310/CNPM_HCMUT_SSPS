@@ -13,7 +13,7 @@ function BuyForm() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (numPages <= 0) {
+    if (numPages <= 0 || !Number.isInteger(Number(numPages))) {
       setShowError(true);
       return;
     }
@@ -72,7 +72,7 @@ function BuyForm() {
                 className="alert alert-danger py-3 " 
                 role="alert"
               >
-                <p className='m-0'>Vui lòng nhập một số dương.</p>
+                <p className='m-0'>Vui lòng nhập một số hợp lệ.</p>
               </div>}
             </div>
             <div className="modal-footer">

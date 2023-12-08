@@ -26,10 +26,6 @@ function CustomerRoutes() {
       <Route path='buy'>
         <Route index element={<BuyPages />} />
         <Route path='confirm' element={<BuyConfirm />} />
-        <Route path='log'>
-          <Route index element={<h1>def</h1>} /> {/* Route trang tong hop lich su */}
-          <Route path=':id' element={<h1>ghi</h1>} /> {/* Route xem tung lich su */}
-        </Route>
       </Route>
       <Route path='support'>
         <Route index element={<h1>mnp</h1>} />
