@@ -185,6 +185,15 @@ export default function Printer(props) {
         document.getElementById("updateCancel").style.display = "none"
 
         handleSetDisabled()
+
+        document.getElementById(`name${props.id}`).value = printer.name
+        document.getElementById(`brand${props.id}`).value = printer.brand
+        document.getElementById(`model${props.id}`).value = printer.model
+        document.getElementById(`description${props.id}`).value = printer.description
+        document.getElementById(`campus${props.id}`).value = printer.loc_campus
+        document.getElementById(`building${props.id}`).value = printer.loc_building
+        document.getElementById(`room${props.id}`).value = printer.loc_room
+        document.getElementById(`status${props.id}`).value = printer.status
     }
 
     const handleSetDisabled = () => {
@@ -205,6 +214,12 @@ export default function Printer(props) {
             document.getElementById("off").disabled = true
         }
     }
+
+    const handleAfterUpdate = () => {
+        handleCloseUpdateSuccessModal()
+        handleViewInfoPrinter()
+    }
+    //console.log(document.getElementById("updateCancel").onClick)
     return (
         <div>
             <div className="text-center">
@@ -552,7 +567,7 @@ export default function Printer(props) {
                     <div className="m-2 text-center">
                         <button 
                             className="btn btn-primary" 
-                            onClick={handleCloseUpdateSuccessModal}
+                            onClick={handleAfterUpdate}
                             style={{
                                 width: 100
                             }}
