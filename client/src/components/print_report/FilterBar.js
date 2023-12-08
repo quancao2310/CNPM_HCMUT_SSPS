@@ -2,7 +2,12 @@ import { useState } from 'react'
 
 function FilterBar({ minMonth, minYear, typeState, monthState, yearState }) {
   const [isMonth, setIsMonth] = useState(true);
-  const [month, setMonth] = useState([]);
+
+  const range = (start, end) => {
+    return Array.from({ length: end - start }, (_, index) => end - 1 - index);
+  }
+
+  const [month, setMonth] = useState(range(1, 12 + 1));
   const [selectedType, setSelectedType ] = typeState;
   const [selectedMonth, setSelectedMonth ] = monthState;
   const [selectedYear, setSelectedYear ] = yearState;
@@ -11,9 +16,7 @@ function FilterBar({ minMonth, minYear, typeState, monthState, yearState }) {
   const currentMonth = today.getMonth() + 1;
   const currentYear = today.getFullYear();
 
-  const range = (start, end) => {
-    return Array.from({ length: end - start }, (_, index) => end - 1 - index);
-  }
+  
 
   const yearOptionForMonthlyReport = range(minYear, currentYear+1);
   const yearOptionForAnnuallyReport = range(minYear, currentYear);
@@ -56,6 +59,9 @@ function FilterBar({ minMonth, minYear, typeState, monthState, yearState }) {
               if (year === currentYear) setMonth(range(1, currentMonth));
               else if (year === minYear) setMonth(range(minMonth, 12+1));
               else setMonth(range(1, 12+1)); 
+            }
+            else{
+              setMonth(range(1, 12+1)); 
             }
             setSelectedYear(year);
             if (document.getElementById('month') === "all") setSelectedMonth("all");
