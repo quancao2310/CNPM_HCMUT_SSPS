@@ -90,23 +90,8 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
 
     return (
         <>
-        <div className = "d-flex justify-content-around p-2">
-            <button
-                className = "btn fw-medium" 
-                onClick = {support_function}
-                style = {{ 
-                    backgroundColor: 'rgba(100, 168, 231, 1)',
-                    color: 'white'
-                }}
-            >
-                Xác nhận thông số in
-            </button>
-            <Link
-                className = "btn btn-danger fw-medium"
-                to='/print'
-            >
-                Quay lại
-            </Link>
+        <div className="row p-2">
+            <div className="col-8 fw-bold fs-5">Thiết lập cấu hình in</div>
         </div>
         <div className = "row p-2">
             <div className = "col">
@@ -255,6 +240,24 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                 placeholder = 'VD. 75'
                 onInput={(event) => validateInput(event.target)}
             />
+        </div>
+        <div className = "d-flex justify-content-around px-2 py-4">
+            <button
+                className = "btn fw-medium" 
+                onClick = {support_function}
+                style = {{ 
+                    backgroundColor: 'rgba(100, 168, 231, 1)',
+                    color: 'white'
+                }}
+            >
+                Xác nhận thông số in
+            </button>
+            <Link
+                className = "btn btn-danger fw-medium"
+                to='/print'
+            >
+                Quay lại
+            </Link>
         </div>
         </>
     );

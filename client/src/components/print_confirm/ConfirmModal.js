@@ -15,7 +15,7 @@ function ConfirmModal({ state, confirm_state, campus, room }){
             <Modal.Footer>
                 <Link 
                     className = "btn btn-primary"
-                    to = {confirm_state?'/print/status':'/purchase'}
+                    to = {confirm_state?'/print/status':'/buy'}
                 >
                     OK
                 </Link>

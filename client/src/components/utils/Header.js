@@ -87,6 +87,7 @@ function DropdownAvatar({ handleLogout }) {
           width="32" 
           height="32" 
           className="rounded-circle" 
+          draggable="false"
         />
       </button>
       <ul className="dropdown-menu dropdown-menu-end text-small my-dropdown">

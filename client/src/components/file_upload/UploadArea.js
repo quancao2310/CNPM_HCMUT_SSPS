@@ -13,7 +13,7 @@ function UploadArea({ id, length, setLength }){
         }
     
         const newFiles = files.map(file => file.name);
-        updated_files = updated_files.concat(newFiles);
+        updated_files = newFiles.concat(updated_files);
 
         const files_set = new Set(updated_files);
         updated_files = [...files_set];

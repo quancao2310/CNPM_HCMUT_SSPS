@@ -133,7 +133,7 @@ function PrintConfig(){
                         <FilePreview docs={docs} />
                     </div>
                 </div>
-                <div className="col-12 col-md-6 border-right border-dark">
+                <div className="col-12 col-md-6 border-start border-secondary-subtle">
                     <ConfigArea num_pages={no_pages_of_files} set_pages_state={setPagesState} support_function={handleSubmission}  />
                 </div>
             </div>

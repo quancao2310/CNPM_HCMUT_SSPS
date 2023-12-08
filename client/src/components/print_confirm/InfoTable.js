@@ -24,7 +24,7 @@ function InfoTable({ name, num_pages, page_size, processed_num_pages, num_remain
                         <td className="text-center">{num_remain_pages}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Địa điểm nhận hàng</th>
+                        <th scope="row">Địa điểm nhận tài liệu</th>
                         <td className="text-center">{
                             campus==1?'Cơ sở Lý Thường Kiệt':'Cơ sở Dĩ An' + ' - Phòng ' + room
                         }</td>
