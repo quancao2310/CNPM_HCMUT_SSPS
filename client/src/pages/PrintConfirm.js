@@ -21,6 +21,8 @@ function PrintConfirm() {
     const [processedNumPages, setProcessedNumPages] = useState(0);
     const [pageSize, setPageSize] = useState('');
     const [balance, setBalance] = useState(0);
+    const [campus, setCampus] = useState('');
+    const [room, setRoom] = useState('');
 
     const [confirmData, setConfirmData] = useState({});
     const [updateData, setUpdateData] = useState({});
@@ -88,6 +90,8 @@ function PrintConfirm() {
             setPageSize('A' + fetchedConfig.page_size);
             setProcessedNumPages(pageSizeFactor * temp);
             setBalance(userBalance);
+            setCampus(fetchedConfig.campus===1?'Cơ sở Lý Thường Kiệt':'Cơ sở Dĩ An');
+            setRoom(fetchedConfig.room);
           
             if (userBalance < pageSizeFactor*temp) {
                 setConfirmState(false);
@@ -127,6 +131,7 @@ function PrintConfirm() {
     const handleSubmission = async () => {
         if (confirmState){
             try {
+                console.log(confirmData);
                 const response = await axios.post(confirm_api_url, confirmData);
                 if (response.data.status === "Success") {
                     try {
@@ -174,8 +179,8 @@ function PrintConfirm() {
             }}
         >
             <div
-                className="container rounded-4 w-50 p-3"
-                style={{ background: 'rgba(255, 255, 255, 0.76)' }}
+                className="container rounded-4 p-3"
+                style={{ background: 'rgba(255, 255, 255, 0.76)', width: '60%' }}
             >
                 <div
                     className="text-center fs-1 fw-bold w-50 mx-auto"
@@ -192,6 +197,7 @@ function PrintConfirm() {
                     page_size={pageSize}
                     processed_num_pages={processedNumPages}
                     num_remain_pages={balance}
+                    campus={campus} room={room}                    
                 />
                 <div className="d-flex justify-content-center">
                 <button
@@ -202,14 +208,13 @@ function PrintConfirm() {
                 </button>
                 <Link
                     className="col-3 btn btn-danger fw-medium mx-2"
-                    to="/print/config"
-                    state={{ name: name }}
+                    to="/print"
                 >
                     Hủy
                 </Link>
                 </div>
             </div>
-            <ConfirmModal state={modalState} confirm_state={confirmState}/>
+            <ConfirmModal state={modalState} confirm_state={confirmState} campus={campus} room={room}/>
         </div>
     );
 }

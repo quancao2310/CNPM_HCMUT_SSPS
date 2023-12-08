@@ -26,7 +26,12 @@ function Footer() {
         <div className="row mt-3">
           <div className="col-md-3 col-lg-2 mx-auto mb-3">
             <h6 className="text-uppercase fw-bold mb-3">HCMUT - SSPS</h6>
-            <img src={logo_BK_border} alt="Bách Khoa TPHCM" width={80} height={80} />
+            <img 
+              src={logo_BK_border} 
+              alt="Bách Khoa TPHCM" 
+              width={80} height={80} 
+              draggable="false"
+            />
           </div>
           <div className="col-md-3 col-lg-2 mx-auto mb-3">
             <h6 className="text-uppercase fw-bold mb-3">Danh mục</h6>

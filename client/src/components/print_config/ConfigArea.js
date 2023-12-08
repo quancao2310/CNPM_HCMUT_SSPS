@@ -8,17 +8,21 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
     const [data, setData] = useState([]);
     const [validation, setValidation] = useState(true);
     const [alertContent, setContent] = useState('');
+    const [campusChange, setCampusChange] = useState(0);
+    const [roomValue, setRoomValue] = useState('');
 
     useEffect(() => {
         axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/print/getInfoPrinter`)
+          .get(`${process.env.REACT_APP_SERVER_URL}/print/getInfoPrinter/${campusChange}`)
           .then((response) => {
             setData(response.data);
+            const firstData = response.data[0];
+            setRoomValue(roomValue ===''?'':firstData.loc_building + '-' + firstData.loc_room);
           })
           .catch((err) => {
             console.error(err);
           });
-      }, []);
+      }, [campusChange]);
 
     const [customEntries, setCustomEntries] = useState({
         'pages': 'd-none',
@@ -89,38 +93,53 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
 
     return (
         <>
-        <div className = "d-flex justify-content-around p-2">
-            <button
-                className = "btn fw-medium" 
-                onClick = {support_function}
-                style = {{ 
-                    backgroundColor: 'rgba(100, 168, 231, 1)',
-                    color: 'white'
-                }}
+        <div className="row p-2">
+            <div className="col-8 fw-bold fs-5">Thiết lập cấu hình in</div>
+        </div>
+        <div className = "row p-2">
+            <div className = "col">
+                Cơ sở
+            </div>
+            <select 
+                className="col form-select" 
+                id="campus-select"
+                onChange={(event) => setCampusChange(Number(event.target.value))}
             >
-                Xác nhận thông số in
-            </button>
-            <Link
-                className = "btn btn-danger fw-medium"
-                to='/print'
-            >
-                Quay lại
-            </Link>
+                <option value="" disabled selected hidden>
+                    Chọn cơ sở
+                </option>
+                <option value="1">Lý Thường Kiệt</option>
+                <option value="2">Dĩ An</option>
+            </select>
         </div>
         <div className = "row p-2">
             <div className = "col">
                 Máy in
             </div>
-            <select className="col form-select" id="device-select">
+            <select 
+                className="col form-select" 
+                id="device-select"
+                onChange={(event) => {
+                    const input = Number(event.target.value);
+                    const filteredData = data.filter(item => item.printer_id == input)[0];
+                    setRoomValue(filteredData.loc_building + '-' + filteredData.loc_room);
+                }}
+            >
                 <option value="" disabled selected hidden>
                     Chọn máy in
                 </option>
-                {data.map(({ printer_id, name }) => (
+                {data.map(({ printer_id, name, loc_building, loc_room  }) => (
                     <option key={printer_id} value={printer_id}>
-                        {name}
+                        {name} - Phòng {loc_building}-{loc_room}
                     </option>
                 ))}
             </select>
+        </div>
+        <div className = "row p-2">
+            <div className = "col">
+                Phòng
+            </div>
+            <input className="col form-control" id="room-input" value={roomValue} disabled />
         </div>
         <div className = "row p-2">
             <div className = "col">
@@ -223,6 +242,24 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                 placeholder = 'VD. 75'
                 onInput={(event) => validateInput(event.target)}
             />
+        </div>
+        <div className = "d-flex justify-content-around px-2 py-4">
+            <button
+                className = "btn fw-medium" 
+                onClick = {support_function}
+                style = {{ 
+                    backgroundColor: 'rgba(100, 168, 231, 1)',
+                    color: 'white'
+                }}
+            >
+                Xác nhận
+            </button>
+            <Link
+                className = "btn btn-danger fw-medium"
+                to='/print'
+            >
+                Quay lại
+            </Link>
         </div>
         </>
     );
