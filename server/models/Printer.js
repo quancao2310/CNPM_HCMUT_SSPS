@@ -76,7 +76,7 @@ async function edit_Printer(data, printer_id){
 
     const [result, _] = await db.execute(
       "UPDATE printer SET name = ?, brand = ?, model = ?, description = ?, loc_campus = ?, loc_building = ?, loc_room = ?, status = ? WHERE printer_id = ?", 
-      [dataToInsert, printer_id]
+      [...dataToInsert, printer_id]
       );
     return {
       status: "Success"
