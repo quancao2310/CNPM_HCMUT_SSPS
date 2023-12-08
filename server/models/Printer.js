@@ -12,9 +12,9 @@ async function add_Printer(data){
       data.loc_room,
       data.status
     ];
-
+    console.log(dataToInsert)
     const [result, _] = await db.execute(
-      "INSERT INTO document SET name = ?, brand = ?, model = ?, description = ?, loc_campus = ?, loc_building = ?, loc_room = ?, status = ?", dataToInsert);
+      "INSERT INTO printer SET name = ?, brand = ?, model = ?, description = ?, loc_campus = ?, loc_building = ?, loc_room = ?, status = ?", dataToInsert);
     return result;
   } catch (err) {
     console.error(err);
@@ -25,7 +25,7 @@ async function add_Printer(data){
 async function delete_Printer(printer_id){
   try {
     const [result, _] = await db.execute(
-      "UPDATE customer SET status = deleted WHERE printer_id = ?",
+      "UPDATE printer SET status = 'deleted' WHERE printer_id = ?",
       [printer_id]
     );
   } 
@@ -85,13 +85,12 @@ async function edit_Printer(data, printer_id){
     console.error(err);
     throw err;
   }
-
 } 
 
 async function enable_Printer(printer_id){
   try {
     const [result, _] = await db.execute(
-      "UPDATE printer SET status = running WHERE printer_id = ?",
+      "UPDATE printer SET status = 'running' WHERE printer_id = ?",
       [printer_id]
     );
   } 
@@ -104,7 +103,7 @@ async function enable_Printer(printer_id){
 async function disable_Printer(printer_id){
   try {
     const [result, _] = await db.execute(
-      "UPDATE customer SET status = disabled WHERE printer_id = ?",
+      "UPDATE printer SET status = 'disabled' WHERE printer_id = ?",
       [printer_id]
     );
   } 
@@ -118,7 +117,7 @@ async function disable_Printer(printer_id){
 async function show_All_Printer() {
   try {
     const [result, _] = await db.execute(
-      `SELECT printer_id, name
+      `SELECT printer_id, name, status
         FROM printer
         ORDER BY printer_id`
     );

@@ -1,4 +1,59 @@
+import { useState } from "react";
+import axios from "axios";
+import Modal from 'react-bootstrap/Modal';
+
 export default function Searchbar() {
+    const [alertState, setAlertState] = useState(false)
+    const handleAlert = () => {
+        setAlertState(true);
+    }
+    const handleHideAlert = () => {
+        setAlertState(false);
+    }
+    const [openFormModal, setOpenFormModal] = useState(false)
+    const handleOpenFormModal = () => {
+        setOpenFormModal(true);
+    }
+    const handleCloseFormModal = () => {
+        setOpenFormModal(false);
+        handleHideAlert()
+    }
+    const [openAlertModal, setOpenAlertModal] = useState(false)
+    const handleOpenAlertModal = () => {
+        setOpenAlertModal(true);
+    }
+    const handleCloseAlertModal = () => {
+        setOpenAlertModal(false);
+    }
+    const handleInput = () => {
+        const newPrinterData = {
+            name: document.getElementById("new_printer_name").value,
+            brand: document.getElementById("new_printer_brand").value,
+            model: document.getElementById("new_printer_model").value,
+            description: document.getElementById("new_printer_description").value,
+            loc_campus: document.getElementById("campus").value,
+            loc_building: document.getElementById("new_printer_building").value,
+            loc_room: document.getElementById("new_printer_room").value,
+            status: document.getElementById("status").value
+        };
+        const hasEmptyValue = Object.values(newPrinterData).some(value => (value === ""));
+        if (hasEmptyValue) {
+            handleAlert()
+        } else {
+            handleHideAlert()
+            handleCloseFormModal()
+            handleOpenAlertModal()
+            axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/printer/add`, newPrinterData)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });        
+        }
+    } 
+
     return (
         <div className="container">
             <div className="row">
@@ -11,116 +66,129 @@ export default function Searchbar() {
                             <button 
                                 type="button" 
                                 className="btn btn-primary float-end"
-                                data-bs-toggle="modal" 
-                                data-bs-target="#addPrinterForm"
+                                onClick={handleOpenFormModal}
                             >
                                 Thêm máy in
                             </button>
-                            <div className="modal fade" id="addPrinterForm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div className="modal-dialog modal-dialog-centered">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Thông tin máy in</h1>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className="container-fluid">
-                                                <div className="row mt-1 mb-1">
-                                                    <div className="col-4 mt-2">
-                                                        Tên máy in:
-                                                    </div>
-                                                    <div className="col">
-                                                        <input className="form-control" id="new_printer_name"/>
-                                                    </div>
-                                                </div>
-                                                <div className="row mt-1 mb-1">
-                                                    <div className="col-4 mt-2">
-                                                        Hãng sản xuất:
-                                                    </div>
-                                                    <div className="col">
-                                                        <input className="form-control" id="new_printer_brand"/>
-                                                    </div>
-                                                </div>
-                                                <div className="row mt-1 mb-1">
-                                                    <div className="col-4 mt-2">
-                                                        Loại máy in:
-                                                    </div>
-                                                    <div className="col">
-                                                        <input className="form-control" id="new_printer_model"/>
-                                                    </div>
-                                                </div>
-                                                <div className="row mt-1 mb-1">
-                                                    <div className="col-4 mt-2">
-                                                        Mô tả:
-                                                    </div>
-                                                    <div className="col">
-                                                        <textarea className="form-control" id="new_printer_description"/>
-                                                    </div>
-                                                </div>
-                                                <div className="row mt-1 mb-1">
-                                                    <div className="col-2 mt-2">
-                                                        Vị trí:
-                                                    </div>
-                                                    <div className="col mt-2">
-                                                        Cơ sở: 
-                                                        <select name="campus" id="campus" className="form-control">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col mt-2">
-                                                        Tòa: 
-                                                        <input className="form-control" id="new_printer_building"/>
-                                                    </div>
-                                                    <div className="col mt-2">
-                                                        Phòng: 
-                                                        <input className="form-control" id="new_printer_room"/>
-                                                    </div>
-                                                </div>
-                                                <div className="row mt-1 mb-1">
-                                                    <div className="col-4 mt-2">
-                                                        Trạng thái:
-                                                    </div>
-                                                    <div className="col">
-                                                        <select name="status" id="status" className="form-control">
-                                                            <option value="on">Đang hoạt động</option>
-                                                            <option value="off">Đang tắt</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                            <Modal
+                                aria-labelledby="contained-modal-title-vcenter"
+                                centered
+                                show={openFormModal}
+                                onHide={handleCloseFormModal}
+                            >
+                                <Modal.Header closeButton>
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">Thông tin máy in</h1>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div className="container-fluid">
+                                        <div className="row mt-1 mb-1">
+                                            <div className="col-4 mt-2">
+                                                Tên máy in:
+                                            </div>
+                                            <div className="col">
+                                                <input className="form-control" id="new_printer_name"/>
                                             </div>
                                         </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                                Hủy
-                                            </button>
-                                            <button type="button" className="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#successAlertModal">Thêm máy in</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="modal fade" id="successAlertModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
-                                <div className="modal-dialog modal-dialog-centered">
-                                    <div className="modal-content">
-                                        <div className="modal-body text-center">
-                                            <div className="mt-3 mb-5">
-                                                <h2>Thêm máy in thành công!</h2>
+                                        <div className="row mt-1 mb-1">
+                                            <div className="col-4 mt-2">
+                                                Hãng sản xuất:
                                             </div>
-                                            <div className="m-2">
-                                                <button 
-                                                    className="btn btn-primary" 
-                                                    data-bs-dismiss="modal"
-                                                    style={{
-                                                        width: 100
-                                                    }}
-                                                >
-                                                    OK
-                                                </button>
+                                            <div className="col">
+                                                <input className="form-control" id="new_printer_brand"/>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-1 mb-1">
+                                            <div className="col-4 mt-2">
+                                                Loại máy in:
+                                            </div>
+                                            <div className="col">
+                                                <input className="form-control" id="new_printer_model"/>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-1 mb-1">
+                                            <div className="col-4 mt-2">
+                                                Mô tả:
+                                            </div>
+                                            <div className="col">
+                                                <textarea className="form-control" id="new_printer_description"/>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-1 mb-1">
+                                            <div className="col-2 mt-2">
+                                                Vị trí:
+                                            </div>
+                                            <div className="col mt-2">
+                                                Cơ sở: 
+                                                <select name="campus" id="campus" className="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+                                            </div>
+                                            <div className="col mt-2">
+                                                Tòa: 
+                                                <input className="form-control" id="new_printer_building"/>
+                                            </div>
+                                            <div className="col mt-2">
+                                                Phòng: 
+                                                <input className="form-control" id="new_printer_room"/>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-1 mb-1">
+                                            <div className="col-4 mt-2">
+                                                Trạng thái:
+                                            </div>
+                                            <div className="col">
+                                                <select name="status" id="status" className="form-control">
+                                                    <option value="running">Đang hoạt động</option>
+                                                    <option value="disabled">Đang tắt</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                    <div className={`alert alert-danger ${alertState?'':'d-none'}`} role="alert">
+                                        Vui lòng điền đầy đủ thông tin máy in!
+                                    </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-secondary"
+                                        onClick={handleCloseFormModal}
+                                    >
+                                        Hủy
+                                    </button>
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-primary"
+                                        onClick={handleInput}
+                                    >
+                                        Thêm máy in
+                                    </button>
+                                </Modal.Footer>
+                            </Modal>
+                            <Modal
+                                aria-labelledby="contained-modal-title-vcenter"
+                                centered
+                                show={openAlertModal}
+                                onHide={handleCloseAlertModal}
+                            >
+                                <Modal.Body>
+                                    <div className="mt-3 mb-5 text-center">
+                                        <h2>Thêm máy in thành công!</h2>
+                                    </div>
+                                    <div className="m-2 text-center">
+                                        <button 
+                                            className="btn btn-primary" 
+                                            onClick={handleCloseAlertModal}
+                                            style={{
+                                                width: 100
+                                            }}
+                                        >
+                                            OK
+                                        </button>
+                                    </div>
+                                </Modal.Body>
+                            </Modal>
                         </div>
                         <div className="col">
                             <div className="input-group mb-3">
