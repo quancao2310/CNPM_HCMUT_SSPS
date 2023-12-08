@@ -252,7 +252,7 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                     color: 'white'
                 }}
             >
-                Xác nhận thông số in
+                Xác nhận
             </button>
             <Link
                 className = "btn btn-danger fw-medium"

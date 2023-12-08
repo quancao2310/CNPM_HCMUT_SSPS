@@ -179,8 +179,8 @@ function PrintConfirm() {
             }}
         >
             <div
-                className="container rounded-4 w-50 p-3"
-                style={{ background: 'rgba(255, 255, 255, 0.76)' }}
+                className="container rounded-4 p-3"
+                style={{ background: 'rgba(255, 255, 255, 0.76)', width: '60%' }}
             >
                 <div
                     className="text-center fs-1 fw-bold w-50 mx-auto"
@@ -208,8 +208,7 @@ function PrintConfirm() {
                 </button>
                 <Link
                     className="col-3 btn btn-danger fw-medium mx-2"
-                    to="/print/config"
-                    state={{ name: name }}
+                    to="/print"
                 >
                     Hủy
                 </Link>
