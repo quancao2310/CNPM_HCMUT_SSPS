@@ -50,14 +50,18 @@ function FilterBar({ minMonth, minYear, typeState, monthState, yearState }) {
           className="form-select" 
           id="year" name="year"
           onChange={(event) => {
-            const year = parseInt(event.target.value, 10); 
-            if (year === currentYear) setMonth(range(1, currentMonth));
-            else if (year === minYear) setMonth(range(minMonth, 12+1));
-            else setMonth(range(1, 12+1));
+            let year = event.target.value;
+            if (event.target.value !== "all"){
+              year = parseInt(year, 10); 
+              if (year === currentYear) setMonth(range(1, currentMonth));
+              else if (year === minYear) setMonth(range(minMonth, 12+1));
+              else setMonth(range(1, 12+1)); 
+            }
             setSelectedYear(year);
+            if (document.getElementById('month') === "all") setSelectedMonth("all");
           }}
         >
-          <option value="" disabled selected hidden></option> 
+          <option value="all" selected>Tất cả</option>  
           {isMonth
           ? yearOptionForMonthlyReport.map((year) => (
               <option key={year} value={year}>
@@ -82,10 +86,13 @@ function FilterBar({ minMonth, minYear, typeState, monthState, yearState }) {
         <div className="col-8 col-md-9 col-lg mb-2">
           <select 
             className="form-select" 
-            id="year" name="year"
-            onChange={(event) => setSelectedMonth(Number(event.target.value))}
+            id="month" name="month"
+            onChange={(event) => {
+              const month = event.target.value;
+              setSelectedMonth(month ==="all"?month:Number(month));
+            }}
           >
-            <option value="" disabled selected hidden></option> 
+            <option value="all" selected>Tất cả</option>
             {month.map((month) => (
               <option key={month} value={month}>
                 {month}

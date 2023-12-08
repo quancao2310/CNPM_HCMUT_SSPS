@@ -17,8 +17,8 @@ function PrintReport(){
     const [loading, setLoading] = useState(true);
 
     const [selectedType, setSelectedType ] = useState('monthly');
-    const [selectedMonth, setSelectedMonth ] = useState(0);
-    const [selectedYear, setSelectedYear ] = useState(0);
+    const [selectedMonth, setSelectedMonth ] = useState("all");
+    const [selectedYear, setSelectedYear ] = useState("all");
 
     const [currentMonth, setCurrentMonth] = useState(0);
     const [currentYear, setCurrentYear] = useState(0);
@@ -91,29 +91,38 @@ function PrintReport(){
 
    
     useEffect(() => {
-        if (minMonth !== undefined && minYear !== undefined) {
-            const today = new Date();
-            setCurrentMonth(today.getMonth() + 1);
-            setCurrentYear(today.getFullYear());
+        const today = new Date();
+        setCurrentMonth(today.getMonth() + 1);
+        setCurrentYear(today.getFullYear());
     
-            const original_monthly_data = generateMonthYearArray(minMonth, minYear, currentMonth, currentYear);
-            const original_annually_data = generateYearArray(minYear, currentYear);
+        let original_monthly_data = generateMonthYearArray(minMonth, minYear, currentMonth, currentYear);
+        let original_annually_data = generateYearArray(minYear, currentYear);
     
-            let updatedData;
-    
-            if (selectedType === 'monthly') {
-                updatedData = selectedMonth && selectedYear
-                    ? original_monthly_data.filter(item => item.month === selectedMonth && item.year === selectedYear)
-                    : original_monthly_data;
-            } else {
-                updatedData = selectedYear
-                    ? original_annually_data.filter(item => item.year === selectedYear)
-                    : original_annually_data;
-            }
-    
-            setData(updatedData);
+        if (selectedYear === currentYear && selectedMonth !== "all" && selectedMonth >= currentMonth){
+            setSelectedMonth("all");
         }
+        if (selectedYear === minYear && selectedMonth !== "all" && selectedMonth < minMonth){
+            setSelectedMonth("all");
+        }
+
+        if (selectedMonth !== "all" && selectedYear !== "all") {
+            original_monthly_data = original_monthly_data.filter(item => item.month === selectedMonth && item.year === selectedYear);
+        } 
+        else if (selectedMonth === "all" && selectedYear !== "all") {
+            original_monthly_data = original_monthly_data.filter(item => item.year === selectedYear);
+        } 
+        else if (selectedYear === "all" && selectedMonth !== "all") {
+            original_monthly_data = original_monthly_data.filter(item => item.month === selectedMonth);
+        }
+        const updatedData = (selectedType === 'monthly')
+            ? original_monthly_data
+            : (selectedYear !== "all")
+            ? original_annually_data.filter(item => item.year === selectedYear)
+            : original_annually_data;
+    
+        setData(updatedData);
     }, [selectedType, selectedMonth, selectedYear, minMonth, minYear]);
+      
     
     
     if (loading){
