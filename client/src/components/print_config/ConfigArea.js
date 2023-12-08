@@ -9,12 +9,15 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
     const [validation, setValidation] = useState(true);
     const [alertContent, setContent] = useState('');
     const [campusChange, setCampusChange] = useState(0);
+    const [roomValue, setRoomValue] = useState('');
 
     useEffect(() => {
         axios
           .get(`${process.env.REACT_APP_SERVER_URL}/print/getInfoPrinter/${campusChange}`)
           .then((response) => {
             setData(response.data);
+            const firstData = response.data[0];
+            setRoomValue(roomValue ===''?'':firstData.loc_building + '-' + firstData.loc_room);
           })
           .catch((err) => {
             console.error(err);
@@ -95,7 +98,7 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
         </div>
         <div className = "row p-2">
             <div className = "col">
-                Chọn cơ sở
+                Cơ sở
             </div>
             <select 
                 className="col form-select" 
@@ -105,8 +108,8 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                 <option value="" disabled selected hidden>
                     Chọn cơ sở
                 </option>
-                <option value="1">Cơ sở Lý Thường Kiệt</option>
-                <option value="2">Cơ sở Dĩ An</option>
+                <option value="1">Lý Thường Kiệt</option>
+                <option value="2">Dĩ An</option>
             </select>
         </div>
         <div className = "row p-2">
@@ -119,8 +122,7 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                 onChange={(event) => {
                     const input = Number(event.target.value);
                     const filteredData = data.filter(item => item.printer_id == input)[0];
-                    console.log(filteredData);
-                    document.getElementById('room-input').value = filteredData.loc_building + '-' + filteredData.loc_room;
+                    setRoomValue(filteredData.loc_building + '-' + filteredData.loc_room);
                 }}
             >
                 <option value="" disabled selected hidden>
@@ -137,7 +139,7 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
             <div className = "col">
                 Phòng
             </div>
-            <input className="col form-control" id="room-input" disabled />
+            <input className="col form-control" id="room-input" value={roomValue} disabled />
         </div>
         <div className = "row p-2">
             <div className = "col">
