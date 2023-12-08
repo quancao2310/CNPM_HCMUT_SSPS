@@ -71,8 +71,8 @@ function PrintStatus(){
             }}
         >
             <div 
-                className = "container rounded-4 w-50 px-5 py-2"
-                style={{ background: 'rgba(255, 255, 255, 0.76)' }}
+                className = "container rounded-4 px-5 py-2"
+                style={{ background: 'rgba(255, 255, 255, 0.76)', width: '70%' }}
             >
                 <div 
                     className = "text-center text-primary fs-1 fw-bold p-2"

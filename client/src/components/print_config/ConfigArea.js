@@ -8,17 +8,18 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
     const [data, setData] = useState([]);
     const [validation, setValidation] = useState(true);
     const [alertContent, setContent] = useState('');
+    const [campusChange, setCampusChange] = useState(0);
 
     useEffect(() => {
         axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/print/getInfoPrinter`)
+          .get(`${process.env.REACT_APP_SERVER_URL}/print/getInfoPrinter/${campusChange}`)
           .then((response) => {
             setData(response.data);
           })
           .catch((err) => {
             console.error(err);
           });
-      }, []);
+      }, [campusChange]);
 
     const [customEntries, setCustomEntries] = useState({
         'pages': 'd-none',
@@ -109,9 +110,32 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
         </div>
         <div className = "row p-2">
             <div className = "col">
+                Chọn cơ sở
+            </div>
+            <select 
+                className="col form-select" 
+                id="campus-select"
+                onChange={(event) => setCampusChange(Number(event.target.value))}
+            >
+                <option value="" disabled selected hidden>
+                    Chọn cơ sở
+                </option>
+                <option value="1">Cơ sở Lý Thường Kiệt</option>
+                <option value="2">Cơ sở Dĩ An</option>
+            </select>
+        </div>
+        <div className = "row p-2">
+            <div className = "col">
                 Máy in
             </div>
-            <select className="col form-select" id="device-select">
+            <select 
+                className="col form-select" 
+                id="device-select"
+                onChange={(event) => {
+                    const input = Number(event.target.value);
+                    document.getElementById('room-input').value = data[input].loc_building+ '-' + data[input].loc_room
+                }}
+            >
                 <option value="" disabled selected hidden>
                     Chọn máy in
                 </option>
@@ -121,6 +145,12 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                     </option>
                 ))}
             </select>
+        </div>
+        <div className = "row p-2">
+            <div className = "col">
+                Phòng
+            </div>
+            <input className="col form-control" id="room-input" disabled />
         </div>
         <div className = "row p-2">
             <div className = "col">

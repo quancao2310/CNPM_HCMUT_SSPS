@@ -1,4 +1,4 @@
-function InfoTable({ name, num_pages, page_size, processed_num_pages, num_remain_pages }){
+function InfoTable({ name, num_pages, page_size, processed_num_pages, num_remain_pages, campus, room }){
     return(
         <div className="table-responsive mx-5 my-4">
             <table className="table">
@@ -22,6 +22,12 @@ function InfoTable({ name, num_pages, page_size, processed_num_pages, num_remain
                     <tr>
                         <th scope="row">Số trang còn lại</th>
                         <td className="text-center">{num_remain_pages}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Địa điểm nhận hàng</th>
+                        <td className="text-center">{
+                            campus==1?'Cơ sở Lý Thường Kiệt':'Cơ sở Dĩ An' + ' - Phòng ' + room
+                        }</td>
                     </tr>
                 </tbody>
             </table>

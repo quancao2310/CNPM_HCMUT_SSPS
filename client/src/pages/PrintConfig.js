@@ -71,6 +71,8 @@ function PrintConfig(){
 
     const handleSubmission = () => {
         const configData = {
+            campus: document.getElementById('campus-select').value,
+            room: document.getElementById('room-input').value,
             device: document.getElementById('device-select').value,
             pages: document.getElementById('pages-select').value,
             side: document.getElementById('side-select').value,

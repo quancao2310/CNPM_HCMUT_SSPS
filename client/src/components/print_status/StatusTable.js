@@ -5,18 +5,22 @@ function StatusTable({ data }){
         <table className="table mt-4">
             <thead>
                 <tr className="row">
-                    <th className="text-center col-8" scope="col">Tên file</th>
-                    <th className="text-center col-4" scope="col">Trạng thái</th>
+                    <th className="text-center col-5" scope="col">Tên file</th>
+                    <th className="text-center col-5" scope="col">Địa điểm lấy</th>
+                    <th className="text-center col-2" scope="col">Trạng thái</th>
                 </tr>
             </thead>
             <tbody id="file-status">
                 {
                     data.map((item, index) => (
                         <tr className="row" key={index}>
-                            <td className="text-center col-8">
+                            <td className="text-center col-5">
                                 {item.name}
                             </td>
-                            <td className="text-center col-4">
+                            <td className="text-center col-5">
+                                {item.loc_campus==="1"?'Cơ sở Lý Thường Kiệt':'Cơ sở Dĩ An'}, Phòng {item.loc_building}-{item.loc_room}
+                            </td>
+                            <td className="text-center col-2">
                                 <StatusTag status={item.status} />
                             </td>
                         </tr>

@@ -21,6 +21,8 @@ function PrintConfirm() {
     const [processedNumPages, setProcessedNumPages] = useState(0);
     const [pageSize, setPageSize] = useState('');
     const [balance, setBalance] = useState(0);
+    const [campus, setCampus] = useState('');
+    const [room, setRoom] = useState('');
 
     const [confirmData, setConfirmData] = useState({});
     const [updateData, setUpdateData] = useState({});
@@ -88,6 +90,8 @@ function PrintConfirm() {
             setPageSize('A' + fetchedConfig.page_size);
             setProcessedNumPages(pageSizeFactor * temp);
             setBalance(userBalance);
+            setCampus(fetchedConfig.campus===1?'Cơ sở Lý Thường Kiệt':'Cơ sở Dĩ An');
+            setRoom(fetchedConfig.room);
           
             if (userBalance < pageSizeFactor*temp) {
                 setConfirmState(false);
@@ -127,6 +131,7 @@ function PrintConfirm() {
     const handleSubmission = async () => {
         if (confirmState){
             try {
+                console.log(confirmData);
                 const response = await axios.post(confirm_api_url, confirmData);
                 if (response.data.status === "Success") {
                     try {
@@ -192,6 +197,7 @@ function PrintConfirm() {
                     page_size={pageSize}
                     processed_num_pages={processedNumPages}
                     num_remain_pages={balance}
+                    campus={campus} room={room}                    
                 />
                 <div className="d-flex justify-content-center">
                 <button
@@ -209,7 +215,7 @@ function PrintConfirm() {
                 </Link>
                 </div>
             </div>
-            <ConfirmModal state={modalState} confirm_state={confirmState}/>
+            <ConfirmModal state={modalState} confirm_state={confirmState} campus={campus} room={room}/>
         </div>
     );
 }

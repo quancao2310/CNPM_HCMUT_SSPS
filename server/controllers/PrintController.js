@@ -1,11 +1,12 @@
 const {uploadDocument, addPrintOrder, ModifyBalance} = require("../models/PrintConfirm");
 const {showInfoPrintOrder} = require("../models/PrintStatus");
-const {show_All_Printer} = require("../models/Printer");
+const {show_All_Campus_Printer} = require("../models/Printer");
 
 
 
 async function addFileOrder(req, res, next) {
   try {
+    console.log(req.body);
     const result1 = await uploadDocument(req.body);
     req.body.document_id=result1.insertId;
     const result2 = await addPrintOrder(req.body);
@@ -41,7 +42,8 @@ async function MinusPages(req, res, next) {
 
 async function showInfoPrinter(req, res, next) {
   try {
-    const result = await show_All_Printer();
+    const loc_camp = req.params.campus;
+    const result = await show_All_Campus_Printer(loc_camp);
     res.json(result);
   } catch (err) {
     next(err);
