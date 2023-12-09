@@ -3,8 +3,14 @@ const router = express.Router();
 const buyController = require('../controllers/BuyController');
 const authenticate = require('../middlewares/authenticate');
 
-router.get('/', authenticate, buyController.getPurchasesByUserID);
-router.get('/:id', authenticate, buyController.getPurchaseByPurchaseID);
+router
+  .route('/')
+  .get(authenticate, buyController.getPurchasesByUserID)
+  .put(authenticate, buyController.createNewPurchaseOrder);
+router
+  .route('/:id')
+  .get(authenticate, buyController.getPurchaseByPurchaseID)
+  .post(authenticate, buyController.createNewPurchaseOrder);
 // router.post('/send-code', authenticate, buyController.sendVerificationCode);
 // router.post('/verify-code', authenticate, buyController.verifyCode);
 // router.put('/buyPages',authenticate,buyController.AddPages);

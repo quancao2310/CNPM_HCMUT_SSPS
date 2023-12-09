@@ -1,16 +1,16 @@
-const { SetBalanceAfterBuying } = require("../models/BuyPages");
-const { getAllPurchaseOrders, getPurchaseOrderByID } = require("../models/PurchaseOrder");
+const { getAllPurchaseOrders, getPurchaseOrderByID, createPurchaseOrder, updateStatus } = require("../models/PurchaseOrder");
+const { updateBalance } = require("../models/Customer");
 
 // textflow.useKey(process.env.TEXTFLOW_API_KEY); // DELETED KEY
 
 async function getPurchasesByUserID(req, res, next) {
   try {
-    const id = req.userInfo.id;
-    if (!id) {
+    const userID = req.userInfo.id;
+    if (!userID) {
       return res.status(404).send("Không có dữ liệu người dùng!");
     }
     
-    const result = await getAllPurchaseOrders(id);
+    const result = await getAllPurchaseOrders(userID);
     res.json(result);
   } catch (err) {
     next(err);
@@ -31,35 +31,23 @@ async function getPurchaseByPurchaseID(req, res, next) {
   }
 }
 
-// async function sendVerificationCode(req, res, next) {
-//   const phoneNumber = req.body.phoneNumber;
-//   const verificationOptions = {
-//     service_name: 'HCMUT SSPS',
-//     seconds: 600
-//   }
-//   try {
-//     const result = await textflow.sendVerificationSMS(phoneNumber, verificationOptions);
-//     console.log(result);
-//     res.status(result.status).json(result.message);
-//   }
-//   catch (err) {
-//     next(err);
-//   }
-// }
-
-// async function verifyCode(req, res, next) {
-//   const { phoneNumber, code } = req.body;
-//   try {
-//     const result = await textflow.verifyCode(phoneNumber, code);
-//     if (result.valid) {
-//       return res.json(result.message);
-//     }
-//     res.status(result.status).json(result.message);
-//   }
-//   catch (err) {
-//     next(err);
-//   }
-// }
+async function createNewPurchaseOrder(req, res, next) {
+  try {
+    const { amount, price, status } = req.body;
+    const userID = req.userInfo.id;
+    
+    await createPurchaseOrder(userID, amount, price, status);
+    
+    if (status === 'paid') {
+      await updateBalance(userID, amount);
+      await updateStatus(userID, status);
+    }
+    res.send("Thêm đơn in chưa thanh toán thành công");
+  }
+  catch (err) {
+    next(err);
+  }
+}
 
 async function AddPages(req, res, next) {
   try {
@@ -79,6 +67,7 @@ async function AddPages(req, res, next) {
 module.exports = {
   getPurchasesByUserID,
   getPurchaseByPurchaseID,
+  createNewPurchaseOrder,
   // sendVerificationCode,
   // verifyCode,
   AddPages,

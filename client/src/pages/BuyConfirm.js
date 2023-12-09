@@ -18,7 +18,6 @@ function BuyConfirm() {
       navigate('/not-found');
     }
     if (state?.purchase_id) {
-      console.log(state.purchase_id);
       axios
         .get(`${process.env.REACT_APP_SERVER_URL}/buy/${state.purchase_id}`, {
           headers: {
@@ -27,7 +26,8 @@ function BuyConfirm() {
           }
         })
         .then((response) => {
-          setData({ amount: response?.amount, price: response?.price });
+          console.log(response);
+          setData({ amount: response.data.amount, price: response.data.price });
         })
         .catch((error) => {
           if (error.response?.status === 401) {
@@ -39,16 +39,82 @@ function BuyConfirm() {
     }
   }, []);
   
-  // if (!state) {
-  //   return <></>;
-  // }
-  
   const handleUnpaid = (e) => {
-    console.log(e);
+    if (state.purchase_id) {
+      navigate('/buy');
+    } else {
+      axios
+        .put(`${process.env.REACT_APP_SERVER_URL}/buy`, {
+          amount: data.amount,
+          price: data.price,
+          status: 'unpaid'
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          console.log(response.data);
+          setTimeout(() => {
+            navigate('/buy');
+          }, 200);
+        })
+        .catch((error) => {
+          console.log('Mua trang không thành công: ', error);
+          setTimeout(() => {
+            navigate('/buy');
+          }, 200);
+        });
+    }
   }
   
   const handlePaid = (e) => {
-    console.log(e);
+    if (state.purchase_id) {
+      axios
+        .post(`${process.env.REACT_APP_SERVER_URL}/buy/${state.purchase_id}`, {
+          amount: data.amount,
+          status: 'paid'
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          console.log(response.data);
+          setTimeout(() => {
+            navigate('/buy');
+          }, 200);
+        })
+        .catch((error) => {
+          console.error(error);
+          setTimeout(() => {
+            navigate('/buy');
+          }, 200);
+        })
+    } else {
+      axios
+        .put(`${process.env.REACT_APP_SERVER_URL}/buy`, {
+          amount: data.amount,
+          price: data.price,
+          status: 'paid'
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          console.log(response.data);
+          setTimeout(() => {
+            navigate('/buy');
+          }, 200);
+        })
+        .catch((error) => {
+          console.error(error);
+          setTimeout(() => {
+            navigate('/buy');
+          }, 200);
+        });
+    }
   }
   
   return (

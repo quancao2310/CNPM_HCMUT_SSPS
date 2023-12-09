@@ -12,7 +12,7 @@ export default function PrinterList() {
         })
         .catch((err) => {
             console.error(err);
-        });        
+        });
     }, []);
     return (
         <div className="container">

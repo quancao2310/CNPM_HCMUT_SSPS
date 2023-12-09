@@ -27,9 +27,6 @@ function CustomerRoutes() {
         <Route index element={<BuyPages />} />
         <Route path='confirm' element={<BuyConfirm />} />
       </Route>
-      <Route path='support'>
-        <Route index element={<h1>mnp</h1>} />
-      </Route>
       <Route path='*' element={<NotFound />}/>
     </Routes>
   );
