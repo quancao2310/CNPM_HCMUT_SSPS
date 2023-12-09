@@ -1,5 +1,5 @@
 const { SetBalanceAfterBuying } = require("../models/BuyPages");
-const { getAllPurchaseOrders } = require("../models/PurchaseOrder");
+const { getAllPurchaseOrders, getPurchaseOrderByID } = require("../models/PurchaseOrder");
 
 // textflow.useKey(process.env.TEXTFLOW_API_KEY); // DELETED KEY
 
@@ -11,6 +11,20 @@ async function getPurchasesByUserID(req, res, next) {
     }
     
     const result = await getAllPurchaseOrders(id);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getPurchaseByPurchaseID(req, res, next) {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(404).send("Không có dữ liệu!");
+    }
+    
+    const result = await getPurchaseOrderByID(id);
     res.json(result);
   } catch (err) {
     next(err);
@@ -64,6 +78,7 @@ async function AddPages(req, res, next) {
 
 module.exports = {
   getPurchasesByUserID,
+  getPurchaseByPurchaseID,
   // sendVerificationCode,
   // verifyCode,
   AddPages,

@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../components/utils/Loading';
-import PurchaseHistoryTable from '../components/purchase_order/PurchaseHistoryTable';
 import BuyForm from '../components/purchase_order/BuyForm';
+import PurchaseHistoryTable from '../components/purchase_order/PurchaseHistoryTable';
 
 function PrintHistory() {
   const [dataRows, setDataRows] = useState(null);

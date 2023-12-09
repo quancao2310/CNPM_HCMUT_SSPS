@@ -1,11 +1,47 @@
-import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function BuyConfirm() {
   const { state } = useLocation();
+  const [data, setData] = useState({
+    amount: Number(state?.numPages ?? 0),
+    price: Number(state?.numPages ?? 0) * 500
+  });
+  const navigate = useNavigate();
+  const [cookies, , removeCookie] = useCookies();
+  const token = cookies.auth;
   
-  const handleCancel = (e) => {
-    console.log(e);
-  }
+  useEffect(() => {
+    if (!state) {
+      navigate('/not-found');
+    }
+    if (state?.purchase_id) {
+      console.log(state.purchase_id);
+      axios
+        .get(`${process.env.REACT_APP_SERVER_URL}/buy/${state.purchase_id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          setData({ amount: response?.amount, price: response?.price });
+        })
+        .catch((error) => {
+          if (error.response?.status === 401) {
+            removeCookie('auth', { path: '/' });
+            localStorage.clear();
+            window.location.assign('/');
+          }
+        });
+    }
+  }, []);
+  
+  // if (!state) {
+  //   return <></>;
+  // }
   
   const handleUnpaid = (e) => {
     console.log(e);
@@ -24,7 +60,7 @@ function BuyConfirm() {
             <tbody>
               <tr>
                 <td>Số trang:</td>
-                <td className="text-end">{state.numPages}</td>
+                <td className="text-end">{data.amount}</td>
               </tr>
               <tr>
                 <td>Đơn giá:</td>
@@ -32,19 +68,19 @@ function BuyConfirm() {
               </tr>
               <tr className="fw-bold border-top">
                 <td>Tổng cộng:</td>
-                <td className="text-end">{state.numPages * 500} &#8363;</td>
+                <td className="text-end">{data.price} &#8363;</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div className="col-12 text-center mb-3">
-          <button
-            type="button"
+          <Link
+            to='/buy'
+            role="button"
             className="btn btn-secondary mx-3"
-            onClick={handleCancel}
           >
             Hủy
-          </button>
+          </Link>
           <button
             type="button"
             className="btn btn-primary mx-3"
