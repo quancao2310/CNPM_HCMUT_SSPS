@@ -113,15 +113,13 @@ async function disable_Printer(printer_id){
   }
 }
 
-
-async function show_All_Campus_Printer(loc_camp) {
+async function show_All_Info_Printer() {
   try {
     const [result, _] = await db.execute(
-      `SELECT printer_id, name, loc_building, loc_room
+      `SELECT printer_id, name, status, loc_building, loc_room, loc_campus
         FROM printer
-        WHERE loc_campus = ?
         ORDER BY printer_id`
-    , [loc_camp]);
+    );
     return result;
   } catch (err) {
     console.error(err);
@@ -144,7 +142,7 @@ async function show_All_Printer() {
 }
 
 module.exports={
-    show_All_Campus_Printer,
+    show_All_Info_Printer,
     show_All_Printer,
     add_Printer,
     delete_Printer,

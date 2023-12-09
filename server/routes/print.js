@@ -14,6 +14,6 @@ let path = require("path");
 router.post('/confirm', printController.addFileOrder);
 router.get('/status/:id', printController.showStatus);
 router.put('/minusPages',printController.MinusPages);
-router.get('/getInfoPrinter/:campus',printController.showInfoPrinter);
+router.get('/getInfoPrinter',printController.showInfoPrinter);
 
 module.exports = router;

@@ -5,6 +5,7 @@ import { GoAlertFill } from "react-icons/go";
 
 function ConfigArea({ num_pages, set_pages_state, support_function  }){
 
+    const [originalData, setOriginalData] = useState([]);
     const [data, setData] = useState([]);
     const [validation, setValidation] = useState(true);
     const [alertContent, setContent] = useState('');
@@ -13,15 +14,20 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
 
     useEffect(() => {
         axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/print/getInfoPrinter/${campusChange}`)
+          .get(`${process.env.REACT_APP_SERVER_URL}/print/getInfoPrinter`)
           .then((response) => {
-            setData(response.data);
-            const firstData = response.data[0];
-            setRoomValue(roomValue ===''?'':firstData.loc_building + '-' + firstData.loc_room);
+            setOriginalData(response.data);
           })
           .catch((err) => {
             console.error(err);
           });
+      }, []);
+
+    useEffect(() => {
+        const newData = originalData.filter(item => Number(item.loc_campus) === campusChange);
+        setData(newData);
+        const firstData = newData[0];
+        setRoomValue(roomValue ===''?'':firstData.loc_building + '-' + firstData.loc_room);
       }, [campusChange]);
 
     const [customEntries, setCustomEntries] = useState({
@@ -121,7 +127,7 @@ function ConfigArea({ num_pages, set_pages_state, support_function  }){
                 id="device-select"
                 onChange={(event) => {
                     const input = Number(event.target.value);
-                    const filteredData = data.filter(item => item.printer_id == input)[0];
+                    const filteredData = data.filter(item => item.printer_id === input)[0];
                     setRoomValue(filteredData.loc_building + '-' + filteredData.loc_room);
                 }}
             >

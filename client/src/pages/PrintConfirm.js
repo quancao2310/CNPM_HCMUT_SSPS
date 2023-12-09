@@ -131,11 +131,9 @@ function PrintConfirm() {
     const handleSubmission = async () => {
         if (confirmState){
             try {
-                console.log(confirmData);
                 const response = await axios.post(confirm_api_url, confirmData);
                 if (response.data.status === "Success") {
                     try {
-                        console.log(updateData);
                         const updateResponse = await axios.put(update_balance_api_url, updateData);
                         if (updateResponse.data.status === "Success") {
                             const storedFiles = localStorage.getItem("files");

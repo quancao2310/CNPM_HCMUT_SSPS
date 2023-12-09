@@ -1,8 +1,7 @@
 import ProgressiveImage from "react-progressive-graceful-image";
 import upload_button from '../../assets/img/upload_button.png';
 
-function UploadArea({ id, length, setLength }){
-    const url = `${process.env.REACT_APP_SERVER_URL}/print/getFileContent`;
+function UploadArea({ setLength }){
 
     const uploadFiles = (files) => {
         const storedFiles = localStorage.getItem('files');
@@ -15,13 +14,14 @@ function UploadArea({ id, length, setLength }){
         const newFiles = files.map(file => file.name);
         updated_files = newFiles.concat(updated_files);
 
+        const newLength = updated_files.length;
+
         const files_set = new Set(updated_files);
         updated_files = [...files_set];
 
-        setLength(length + newFiles.length);
-    
         localStorage.setItem('files', JSON.stringify(updated_files));
-        console.log(localStorage.getItem('files'));
+
+        setLength(newLength);
     };
     
 

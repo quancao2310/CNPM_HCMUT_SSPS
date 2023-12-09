@@ -68,7 +68,7 @@ function FileUpload({ id }) {
                     className="row d-flex justify-content-center" 
                     style={{ height: '70%' }}
                 >
-                    <UploadArea id={id} length={length} setLength = {setLength} />
+                    <UploadArea setLength = {setLength} />
                     <div 
                         className={`col-5 ${files.length === 0 ? 'd-none': ''}`} 
                         id="list-files"
