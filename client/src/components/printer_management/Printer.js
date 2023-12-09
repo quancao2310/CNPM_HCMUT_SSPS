@@ -119,7 +119,6 @@ export default function Printer(props) {
         };
         
         const hasEmptyValue = Object.values(editPrinterData).some(value => (value === ""));
-        console.log(hasEmptyValue)
         if (hasEmptyValue) {
             handleAlert()
         } else {
@@ -160,6 +159,12 @@ export default function Printer(props) {
             .catch((err) => {
                 console.error(err);
             });
+
+        document.getElementById("delete").disabled = true
+        document.getElementById("on").disabled = true
+        document.getElementById("off").disabled = false
+
+        document.getElementById(`status${props.id}`).value = "running"
     }
 
     const handleDisable = () => {
@@ -173,6 +178,12 @@ export default function Printer(props) {
             .catch((err) => {
                 console.error(err);
             });
+
+        document.getElementById("delete").disabled = false
+        document.getElementById("on").disabled = false
+        document.getElementById("off").disabled = true
+
+        document.getElementById(`status${props.id}`).value = "disabled"
     }
 
     const handleViewInfoPrinter = () => {
@@ -217,9 +228,26 @@ export default function Printer(props) {
 
     const handleAfterUpdate = () => {
         handleCloseUpdateSuccessModal()
-        handleViewInfoPrinter()
+        document.getElementById("update").style.display = ""
+        document.getElementById("delete").style.display = ""
+        document.getElementById("on").style.display = ""
+        document.getElementById("off").style.display = ""
+
+        document.getElementById("updateConfirm").style.display = "none"
+        document.getElementById("updateCancel").style.display = "none"
+
+        handleSetDisabled()
+        
+        document.getElementById(`name${props.id}`).defaultValue = document.getElementById(`name${props.id}`).value
+        document.getElementById(`brand${props.id}`).defaultValue = document.getElementById(`brand${props.id}`).value
+        document.getElementById(`model${props.id}`).defaultValue = document.getElementById(`model${props.id}`).value
+        document.getElementById(`description${props.id}`).defaultValue = document.getElementById(`description${props.id}`).value
+        document.getElementById(`campus${props.id}`).defaultValue = document.getElementById(`campus${props.id}`).value
+        document.getElementById(`building${props.id}`).defaultValue = document.getElementById(`building${props.id}`).value
+        document.getElementById(`room${props.id}`).defaultValue = document.getElementById(`room${props.id}`).value
+        document.getElementById(`status${props.id}`).defaultValue = document.getElementById(`status${props.id}`).value
     }
-    //console.log(document.getElementById("updateCancel").onClick)
+
     return (
         <div>
             <div className="text-center">
@@ -432,6 +460,7 @@ export default function Printer(props) {
                             onClick={() => {
                                 handleCloseDeleteSuccessModal()
                                 handleCloseInfoModal()
+                                window.location.reload()
                             }}
                             style={{
                                 width: 100
@@ -488,7 +517,10 @@ export default function Printer(props) {
                     <div className="m-2 text-center">
                         <button 
                             className="btn btn-primary" 
-                            onClick={handleCloseOnSuccessModal}
+                            onClick={() => {
+                                handleCloseOnSuccessModal()
+                                window.location.reload()
+                            }}
                             style={{
                                 width: 100
                             }}
@@ -544,7 +576,10 @@ export default function Printer(props) {
                     <div className="m-2 text-center">
                         <button 
                             className="btn btn-primary" 
-                            onClick={handleCloseOffSuccessModal}
+                            onClick={() => {
+                                handleCloseOffSuccessModal()
+                                window.location.reload()
+                            }}
                             style={{
                                 width: 100
                             }}
@@ -567,7 +602,10 @@ export default function Printer(props) {
                     <div className="m-2 text-center">
                         <button 
                             className="btn btn-primary" 
-                            onClick={handleAfterUpdate}
+                            onClick={() => {
+                                handleAfterUpdate()
+                                window.location.reload()
+                            }}
                             style={{
                                 width: 100
                             }}
