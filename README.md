@@ -1,7 +1,7 @@
 # CNPM_HCMUT_SSPS
 Welcome to our HCMUT_SSPS.
 
-![demo](https://github.com/quancao2310/CNPM_HCMUT_SSPS/assets/99309814/3e7115d1-a622-486e-b56e-7e177d7556c5)
+![demo](https://github.com/quancao2310/CNPM_HCMUT_SSPS/assets/99309814/eda686d9-6441-439f-93e0-e8ed80923248)
 
 ## Overview
 HCMUT_SSPS is a smart printing service for HCMUT students to use the printing facilities in HCMUT more efficiently. The students can use this system to pre-order their printing needs without having to wait in a line in traditional method. The system also provides a feature of storing your printing information, such as the metadata of the document, amount, date, time, location... of each of your order. Students can then view all the details of their system usage in the history.
