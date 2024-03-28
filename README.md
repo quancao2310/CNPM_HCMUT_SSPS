@@ -1,6 +1,7 @@
 # CNPM_HCMUT_SSPS
 Welcome to our HCMUT_SSPS.
-<!-- Insert intro pic here -->
+
+![demo](https://github.com/quancao2310/CNPM_HCMUT_SSPS/assets/99309814/3e7115d1-a622-486e-b56e-7e177d7556c5)
 
 ## Overview
 HCMUT_SSPS is a smart printing service for HCMUT students to use the printing facilities in HCMUT more efficiently. The students can use this system to pre-order their printing needs without having to wait in a line in traditional method. The system also provides a feature of storing your printing information, such as the metadata of the document, amount, date, time, location... of each of your order. Students can then view all the details of their system usage in the history.
@@ -12,19 +13,23 @@ The system is managed by the Student Printing Service Officer (SPSO). They are r
 - Back-end: NodeJS (v20), ExpressJS.
 - Database: MySQL.
 
+## Drawbacks
+- No authorization between students and SPSOs
+- Payment methods not integrated
+
 ## Installation
 To use the application, you can follow the following steps:
 
 ### Clone the repository
-Open a terminal at a directory of your choice and enter these commands:
+Open a terminal at a directory of your choice and enter these commands (change the folder name if you want to):
 ```
   git clone https://github.com/quancao2310/CNPM_HCMUT_SSPS.git
   cd CNPM_HCMUT_SSPS
 ```
-You will see a folder called "CNPM_HCMUT_SSPS", with several subfolders: "client" and "server".
+Inside **CNPM_HCMUT_SSPS** folder, you will see several subfolders: *client*, *server*, etc.
 
 ### Install dependencies
-First, if you haven't installed [NodeJS](https://nodejs.org/), visit https://nodejs.org/ and download it.
+First, if you haven't installed [NodeJS](https://nodejs.org/), please visit https://nodejs.org/ and download it.
 
 Next, you will have to install all the dependencies of our project. Let's go to the "server" directory first and enter these commands:
 ```
@@ -46,7 +51,10 @@ The application will also need a MySQL server for the backend to connect to the 
 You are ready now. Let's start the application.
 
 ### Run the application
-Start two terminal instances in the "CNPM_HCMUT_SSPS" directory. For the first instance, run these commands:
+There are two ways to start the application.
+
+#### Start each folder separately
+Start two terminal instances in the **CNPM_HCMUT_SSPS** directory. For the first instance, run these commands:
 ```
   cd server
   npm start
@@ -58,7 +66,25 @@ For the second one, run these commands:
   npm start
 ```
 
-Now the application should be starting. The ReactJS application will run on http://localhost:3000 and the Express application will run on http://localhost:8080. Good luck and have fun!
+The application should be starting. The ReactJS application will run on http://localhost:3000 and the Express application will run on http://localhost:8080.
+
+To log in as a student:
+- Email: `john.doe@hcmut.edu.vn`
+- Password: `123456`
+
+To log in as an admin:
+- Username: `adminqc`
+- Password: `23571113`
+
+You are now ready to explore our application!
+
+#### Start both folders concurrently in dev mode
+Run `npm install` in the root folder (do this for the first time only), this will install the [concurrently](https://www.npmjs.com/package/concurrently) package. Besides, [nodemon](https://www.npmjs.com/package/nodemon) has also been added to the *server* before.
+
+Now, to start the project in dev mode, run this command in root folder:
+```
+  npm run dev
+```
 
 ## Contributor
 This project is developed by a group of Computer Science students from Ho Chi Minh University of Technology (HCMUT). Our members of the team:
@@ -68,25 +94,3 @@ This project is developed by a group of Computer Science students from Ho Chi Mi
 - Nguyễn Quốc Thắng - 2114837
 - Trần Bảo Phúc - 2114452
 - Nguyễn Tiến Phát - 2114381
-
-## Developer Notes
-The above approach for starting the application is complete and correct, but it is not a very good way to start developing your application. There are two issues for this approach:
-1. When running the command `npm start` in the server directory, it actually runs the command `node server.js`. This will run the file "server.js" in the Node environment and start the web server. The drawback is that **every time** you add or fix some code and then save it, the server will not restart. You will have to **manually** stop the server (by pressing `Ctrl + C` or killing the process...) and then restart it. This is not really a graceful way to shut down the server smoothly.
-
-2. You will have to start the server and client process separately to develop your full-stack application. Again, you will have to do this **every time** and at a point of time you will feel frustrated.
-
-If only there were a way that could solve both of these issues with just one single command...
-
-Fortunately, there IS a way. And here is how. Start a terminal in the "CNPM_HCMUT_SSPS" directory and run the command:
-```
-  npm install
-```
-This will install the [concurrently](https://www.npmjs.com/package/concurrently) package which is used to solve the second problem. Inside the **package.json** file in the main folder, there are several running scripts for the npm. One of which is a script of ```dev```, using the concurrently module just installed.
-
-This script also uses another package called [nodemon](https://www.npmjs.com/package/nodemon) which is used to solve the first problem. Basically, the package will automatically restart your server application whenever you save a JS file (and any other file if it is configured).
-
-So, every time you start developing the project, just run this in the "CNPM_HCMUT_SSPS" directory:
-```
-  npm run dev
-```
-And voilà, everything is ready to go. Happy coding!!
