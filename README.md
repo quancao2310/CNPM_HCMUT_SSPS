@@ -69,12 +69,12 @@ For the second one, run these commands:
 The application should be starting. The ReactJS application will run on http://localhost:3000 and the Express application will run on http://localhost:8080.
 
 To log in as a student:
-- Email: `john.doe@hcmut.edu.vn`
-- Password: `123456`
+* Email: `john.doe@hcmut.edu.vn`
+* Password: `123456`
 
 To log in as an admin:
-- Username: `adminqc`
-- Password: `23571113`
+* Username: `adminqc`
+* Password: `23571113`
 
 You are now ready to explore our application!
 
