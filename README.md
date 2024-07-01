@@ -88,9 +88,9 @@ Now, to start the project in dev mode, run this command in root folder:
 
 ## Contributor
 This project is developed by a group of Computer Science students from Ho Chi Minh University of Technology (HCMUT). Our members of the team:
-- Cao Minh Quân - 2112109
-- Huỳnh Nguyên Phúc - 2110451
-- Dương Phúc Thắng - 2112327
-- Nguyễn Quốc Thắng - 2114837
-- Trần Bảo Phúc - 2114452
-- Nguyễn Tiến Phát - 2114381
+* Cao Minh Quân - 2112109
+* Huỳnh Nguyên Phúc - 2110451
+* Dương Phúc Thắng - 2112327
+* Nguyễn Quốc Thắng - 2114837
+* Trần Bảo Phúc - 2114452
+* Nguyễn Tiến Phát - 2114381
